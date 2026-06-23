@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Page not found · Elena Meshnina</title>
+  <meta name="description" content="The page you were looking for doesn't exist." />
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#0a0a0c" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    /* ── 404 · "Off the artboard" ─────────────────────────────
+       The missing page rendered as a selected, empty artboard. */
+    .nf {
+      --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+      --line: rgba(255,255,255,0.16);
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(90px, 13vh, 160px) clamp(18px, 5vw, 48px);
+    }
+
+    /* The artboard */
+    .frame {
+      position: relative;
+      width: min(740px, 100%);
+      min-width: 0;
+      padding: clamp(48px, 8vw, 92px) clamp(26px, 6vw, 76px) clamp(52px, 8vw, 92px);
+      text-align: center;
+      border: 1px solid var(--line);
+      border-radius: 5px;            /* crisp corners — design-tool frame, not the site's soft 18px */
+      background: rgba(246,245,241,0.022);
+      box-shadow: 0 40px 120px -60px rgba(0,0,0,0.8);
+      -webkit-backdrop-filter: blur(2px);
+      backdrop-filter: blur(2px);
+    }
+
+    /* Frame name tab — sits above the top-left corner, in the selection color */
+    .frame__tab {
+      position: absolute;
+      left: -1px;
+      top: -26px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.02em;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+    .frame__tab i {
+      width: 10px; height: 10px;
+      border: 1.5px solid var(--accent);
+      border-radius: 2px;
+      display: inline-block;
+    }
+
+    /* Corner selection handles */
+    .frame__handle {
+      position: absolute;
+      width: 10px; height: 10px;
+      background: var(--bg);
+      border: 1.5px solid var(--accent);
+      border-radius: 2px;
+    }
+    .frame__handle--tl { top: 0;    left: 0;    transform: translate(-50%, -50%); }
+    .frame__handle--tr { top: 0;    right: 0;   transform: translate(50%, -50%); }
+    .frame__handle--bl { bottom: 0; left: 0;    transform: translate(-50%, 50%); }
+    .frame__handle--br { bottom: 0; right: 0;   transform: translate(50%, 50%); }
+
+    /* Dimension readout, pinned on the bottom edge */
+    .frame__dims {
+      position: absolute;
+      left: 50%; bottom: 0;
+      transform: translate(-50%, 50%);
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: #0a0a0c;
+      background: var(--accent);
+      padding: 3px 11px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    /* The hero glyph */
+    .frame__code {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(120px, 27vw, 300px);
+      line-height: 0.78;
+      letter-spacing: -0.015em;
+      color: var(--fg);
+    }
+    .frame__title {
+      font-size: clamp(26px, 4.4vw, 44px);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      margin: 22px 0 0;
+    }
+    .frame__text {
+      color: var(--fg-dim);
+      max-width: 44ch;
+      margin: 14px auto 0;
+    }
+    .frame__actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    /* Multiplayer-style cursor — the only thing left on the canvas */
+    .frame__cursor {
+      position: absolute;
+      top: clamp(54px, 15%, 104px);
+      right: clamp(20px, 7%, 64px);
+      pointer-events: none;
+    }
+    .frame__cursor svg { display: block; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.45)); }
+    .frame__cursor svg path { fill: var(--fg); }
+    .frame__cursor-tag {
+      position: absolute;
+      top: 15px; left: 13px;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: #0a0a0c;
+      background: var(--accent-2);
+      padding: 2px 8px;
+      border-radius: 0 5px 5px 5px;
+      white-space: nowrap;
+    }
+
+    .nf :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 540px) {
+      .frame { padding: 46px 22px 50px; }
+      .frame__cursor { display: none; }       /* avoid colliding with centred copy */
+      .frame__tab { font-size: 11px; }
+      .frame__code { font-size: clamp(96px, 30vw, 150px); }
+      .frame__actions { flex-direction: column; align-items: stretch; margin-top: 26px; }
+      .frame__actions .btn { justify-content: center; }
+    }
+
+    /* Orchestrated select-in — only when motion is welcome */
+    @media (prefers-reduced-motion: no-preference) {
+      .frame      { animation: nf-frame .55s cubic-bezier(.2,.7,.2,1) both; }
+      .frame__handle,
+      .frame__dims,
+      .frame__tab { animation: nf-pop .45s ease both; animation-delay: .35s; }
+      .frame__code   { animation: nf-rise .6s ease both; animation-delay: .12s; }
+      .frame__title  { animation: nf-rise .6s ease both; animation-delay: .2s; }
+      .frame__text   { animation: nf-rise .6s ease both; animation-delay: .28s; }
+      .frame__actions{ animation: nf-rise .6s ease both; animation-delay: .36s; }
+      .frame__cursor { animation: nf-cursor .5s cubic-bezier(.2,1.2,.4,1) both; animation-delay: .55s; }
+
+      @keyframes nf-frame  { from { opacity: 0; transform: scale(.984); } to { opacity: 1; transform: none; } }
+      @keyframes nf-pop    { from { opacity: 0; } }
+      @keyframes nf-rise   { from { opacity: 0; transform: translateY(14px); } }
+      @keyframes nf-cursor { from { opacity: 0; transform: translate(10px, -10px) scale(.7); } }
+    }
+  </style>
+  <!-- i18n: pick language before paint (saved choice -> browser -> English) -->
+  <script>
+    window.__i18n = {
+      en: { title: "Page not found · Elena Meshnina", desc: "The page you were looking for doesn't exist." },
+      ru: { title: "Страница не найдена · Елена Мешнина", desc: "Страница, которую вы искали, не существует." }
+    };
+    (function () {
+      var saved = null;
+      try { saved = localStorage.getItem("site-lang"); } catch (e) {}
+      var nav = (navigator.language || navigator.userLanguage || "en").toLowerCase();
+      var lang = saved || (nav.indexOf("ru") === 0 ? "ru" : "en");
+      if (lang !== "en" && lang !== "ru") lang = "en";
+      document.documentElement.setAttribute("lang", lang);
+      var m = window.__i18n[lang];
+      if (m) {
+        document.title = m.title;
+        var md = document.querySelector('meta[name="description"]');
+        if (md) md.setAttribute("content", m.desc);
+      }
+    })();
+  </script>
+</head>
+<body>
+  <div class="nav__lang" style="position:fixed; top:20px; right:clamp(18px,5vw,48px); z-index:100;" role="group" aria-label="Language / Язык">
+    <button type="button" class="nav__lang-btn" data-lang-btn="en" aria-label="English">EN</button>
+    <span class="nav__lang-sep" aria-hidden="true">·</span>
+    <button type="button" class="nav__lang-btn" data-lang-btn="ru" aria-label="Русский">RU</button>
+  </div>
+
+  <div class="bg-mesh" aria-hidden="true" data-bg-mesh>
+    <div class="bg-mesh__inner">
+      <div class="bg-mesh__layer bg-mesh__layer--1"></div>
+      <div class="bg-mesh__layer bg-mesh__layer--2"></div>
+      <div class="bg-mesh__layer bg-mesh__layer--3"></div>
+    </div>
+    <div class="bg-mesh__veil"></div>
+    <div class="bg-mesh__grain"></div>
+  </div>
+
+  <main class="nf">
+    <div class="frame">
+      <span class="frame__tab"><i></i><span data-lang="en">Page&nbsp;not&nbsp;found</span><span data-lang="ru">Страница&nbsp;не&nbsp;найдена</span></span>
+
+      <span class="frame__handle frame__handle--tl"></span>
+      <span class="frame__handle frame__handle--tr"></span>
+      <span class="frame__handle frame__handle--bl"></span>
+      <span class="frame__handle frame__handle--br"></span>
+
+      <div class="frame__code" aria-hidden="true">404</div>
+      <h1 class="frame__title"><span data-lang="en">Off the artboard</span><span data-lang="ru">За пределами артборда</span></h1>
+      <p class="frame__text"><span data-lang="en">This page was moved, renamed, or never shipped. Here's the way back to the work.</span><span data-lang="ru">Эта страница переехала, была переименована или так и не вышла. Вот путь обратно к работам.</span></p>
+
+      <div class="frame__actions">
+        <a class="btn btn--solid" href="/index.html"><span data-lang="en">Back home</span><span data-lang="ru">На главную</span></a>
+        <a class="btn btn--ghost" href="/portfolio.html"><span data-lang="en">View portfolio →</span><span data-lang="ru">Смотреть портфолио →</span></a>
+      </div>
+
+      <span class="frame__dims">0&nbsp;×&nbsp;0</span>
+
+      <span class="frame__cursor" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <path d="M3 2.2 3 17.4 7 13.7 9.8 19.6 12.4 18.4 9.6 12.6 15.2 12.6 Z"
+                fill="var(--fg)" stroke="#0a0a0c" stroke-width="1.1" stroke-linejoin="round"/>
+        </svg>
+        <span class="frame__cursor-tag"><span data-lang="en">you</span><span data-lang="ru">вы</span></span>
+      </span>
+    </div>
+  </main>
+
+  <script src="/script.js"></script>
+</body>
+</html>

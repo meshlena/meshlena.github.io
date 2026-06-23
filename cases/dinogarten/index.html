@@ -1,0 +1,2107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dinogarten — Elena Meshnina, Product Designer</title>
+<meta name="description" content="Dinogarten — a kindergarten daily-report web app. Product design case study by Elena Meshnina." />
+<meta name="author" content="Elena Meshnina" />
+<meta name="theme-color" content="#FBF1D5" />
+<link rel="canonical" href="https://meshlena.github.io/cases/dinogarten/index.html" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+<!-- Open Graph / social -->
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="Elena Meshnina" />
+<meta property="og:title" content="Dinogarten — Elena Meshnina, Product Designer" />
+<meta property="og:description" content="A kindergarten daily-report web app. Product design case study." />
+<meta property="og:url" content="https://meshlena.github.io/cases/dinogarten/index.html" />
+<meta property="og:image" content="https://meshlena.github.io/cases/dinogarten/assets/screens/new/messages-main.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Dinogarten — Elena Meshnina, Product Designer" />
+<meta name="twitter:description" content="A kindergarten daily-report web app. Product design case study." />
+<meta name="twitter:image" content="https://meshlena.github.io/cases/dinogarten/assets/screens/new/messages-main.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" />
+<link rel="stylesheet" href="../../styles.css" />
+<style>
+  /* Keep the site nav/footer using site fonts even though body uses Archivo */
+  .nav, .nav__logo, .nav__links a, .nav__social, .footer { font-family: 'Inter', system-ui, sans-serif; }
+  /* Make space below the fixed nav so the case content isn't hidden behind it */
+  main#top { padding-top: 120px !important; }
+  /* Neutralize global em rule (which forces Instrument Serif italic + weight 400) inside the case content */
+  main#top em {
+    font-family: inherit !important;
+    font-style: normal !important;
+    font-weight: inherit !important;
+  }
+  /* Global styles.css sets `p { color: var(--fg); }` (cream) — force dinogarten text back to dark ink */
+  main#top, main#top p, main#top li, main#top h1, main#top h2, main#top h3, main#top h4, main#top h5, main#top summary { color: #1D1D1F; }
+  main#top .lede { color: #5E5E62; }
+  /* Tighter vertical rhythm between top-level blocks */
+  main#top section { padding: 32px 0; }
+  main#top section:first-of-type { padding-top: 8px; }
+  /* Footer + case-nav blend with the cream theme */
+  .footer { background: rgba(29,29,31,0.04); color: #5E5E62; border-top: 1px solid rgba(29,29,31,0.08); }
+  .footer a { color: inherit; }
+  .case-nav { max-width: var(--maxw); margin: 0 auto; padding: 56px 0 96px; border-top: 1px solid rgba(29,29,31,0.12); }
+  /* ---------- Design tokens (echoing the product) ---------- */
+  :root {
+    --bg: #FBF1D5;
+    --bg-elev: #FFF8E1;
+    --ink: #1D1D1F;
+    --ink-2: #5E5E62;
+    --ink-3: #8E8E92;
+    --line: rgba(29, 29, 31, 0.08);
+    --line-2: rgba(29, 29, 31, 0.14);
+    --accent: #2A5BFF;
+    --accent-soft: #E3EBFF;
+    --blue: #2e6dff;
+    --blue-deep: #1e3fc7;
+    --blue-soft: #bcd1ff;
+    --font-display: "Archivo", "Inter", "SF Pro Display", system-ui, sans-serif;
+    --warn: #B8852B;
+    --warn-soft: #FFF1CF;
+    --good: #2E8F4A;
+    --bad: #D14848;
+    --mid: #C8A23A;
+    --purple: #6A4FBF;
+
+    --g-blue: #C5E1E0;
+    --g-blue-ink: #1D4E4B;
+    --g-pink: #F8C6C0;
+    --g-pink-ink: #6B2A24;
+    --g-orange: #F5C798;
+    --g-orange-ink: #623A1A;
+    --g-yellow: #F2D266;
+    --g-yellow-ink: #5A4416;
+    --g-purple: #D8C0E0;
+    --g-purple-ink: #3F285C;
+    --g-green: #6E9C68;
+    --g-green-ink: #1F3A1D;
+
+    --r-sm: 12px;
+    --r-md: 18px;
+    --r-lg: 24px;
+    --r-xl: 32px;
+    --r-pill: 999px;
+
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.04);
+    --shadow-md: 0 6px 24px rgba(29, 29, 31, 0.08);
+    --shadow-lg: 0 20px 60px rgba(29, 29, 31, 0.12);
+
+    --maxw: 1180px;
+    --gap: 24px;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body.is-light { background: var(--bg); color: var(--ink); }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  img { max-width: 100%; display: block; }
+
+  /* ---------- Layout ---------- */
+  main { max-width: var(--maxw); margin: 0 auto; padding: 56px 32px 120px; }
+  section { padding: 56px 0; border-top: 1px solid var(--line); }
+  section:first-of-type { border-top: none; padding-top: 24px; }
+  .section-num {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--purple); font-weight: 600;
+  }
+  .check {
+    width: 18px; height: 18px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 50%; background: var(--purple); color: white; font-size: 10px;
+  }
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(40px, 5.4vw, 64px);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    margin: 12px 0 24px;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+  h1 em {
+    font-style: normal;
+    color: var(--blue);
+  }
+  h2 {
+    font-family: var(--font-display);
+    font-size: clamp(26px, 3.4vw, 34px);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    margin: 8px 0 18px;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+  h2 em {
+    font-style: normal;
+    color: var(--blue);
+  }
+  h3 {
+    font-size: 20px;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    margin: 24px 0 8px;
+    font-weight: 700;
+  }
+  p { margin: 0 0 14px; max-width: 720px; }
+  ul, ol { margin: 0 0 14px; padding-left: 22px; max-width: 720px; }
+  li { margin-bottom: 6px; }
+  .lede { font-size: 19px; color: var(--ink-2); }
+
+  /* ---------- Meta header ---------- */
+  .meta {
+    display: flex; flex-wrap: wrap; gap: 16px;
+    font-size: 14px; color: var(--ink-2);
+    margin-bottom: 8px;
+  }
+  .meta b { color: var(--ink); font-weight: 600; }
+  .meta .pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--bg-elev);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-pill);
+    padding: 6px 12px;
+  }
+
+  /* ---------- Cards / blocks ---------- */
+  .card {
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+  }
+  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gap); }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap); }
+  @media (max-width: 860px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  }
+
+  .callout {
+    border-radius: var(--r-md);
+    padding: 16px 18px;
+    background: var(--warn-soft);
+    border: 1px solid rgba(184, 133, 43, 0.25);
+    color: var(--ink);
+    margin: 16px 0;
+    font-size: 15px;
+  }
+  .callout.invented {
+    background: #F4ECFF;
+    border-color: rgba(106, 79, 191, 0.25);
+  }
+  .callout.insight {
+    background: #FFF1CF;
+    border-color: rgba(184, 133, 43, 0.3);
+  }
+  .callout .label {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--warn);
+  }
+  .callout.invented .label { color: var(--purple); }
+  .callout.insight .label { color: var(--warn); }
+
+  /* ---------- Scenario blocks ---------- */
+  .scenario {
+    background: var(--bg-elev);
+    border-radius: var(--r-lg);
+    border: 1px solid var(--line);
+    padding: 28px;
+    margin: 24px 0;
+  }
+  .scenario-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 18px; }
+  .scenario-num {
+    flex: 0 0 auto;
+    width: 36px; height: 36px;
+    background: var(--ink);
+    color: var(--bg);
+    border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 16px;
+  }
+  .jtbd {
+    font-style: italic;
+    border-left: 3px solid var(--purple);
+    padding: 4px 0 4px 14px;
+    color: var(--ink-2);
+    margin: 0;
+  }
+  .arrow { color: var(--purple); font-weight: 700; }
+
+  /* ---------- Flow arrow between screen frames ---------- */
+  .screens-row { align-items: flex-start; }
+  .screens-row.one-row {
+    flex-wrap: nowrap;
+    gap: 16px;
+  }
+  .screens-row.one-row .screen-frame {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+  }
+  @media (max-width: 720px) {
+    .screens-row.one-row { flex-wrap: wrap; }
+    .screens-row.one-row .screen-frame { flex: 1 1 45%; }
+  }
+  .flow-arrow {
+    flex: 0 0 auto;
+    align-self: center;
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: #fff;
+    font-size: 22px; font-weight: 700; line-height: 1;
+    box-shadow: 0 6px 16px rgba(46, 109, 255, 0.35);
+  }
+  @media (max-width: 720px) {
+    .flow-arrow { transform: rotate(90deg); }
+  }
+
+  /* ---------- Mood-tap demo (inline interaction, no extra screen) ---------- */
+  .mood-demo {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 28px;
+    align-items: center;
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: 22px 24px;
+    margin: 18px 0 4px;
+    max-width: 720px;
+  }
+  .mood-demo .col { text-align: center; }
+  .mood-demo .col-label {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ink-3);
+    margin-bottom: 12px;
+  }
+  .mood-demo .moods {
+    display: inline-flex; gap: 10px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--r-pill);
+    padding: 6px;
+  }
+  .mood-demo .mood {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: #ECECEE;
+    color: #9A9AA0;
+    transition: transform 120ms ease;
+  }
+  .mood-demo .mood svg { width: 24px; height: 24px; display: block; }
+  .mood-demo .mood.picked {
+    transform: scale(1.08);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+  }
+  .mood-demo .mood.picked.good { background: #C9EBD3; color: #1F9D4A; }
+  .mood-demo .mood.picked.mid  { background: #FBE4A4; color: #C58A1F; }
+  .mood-demo .mood.picked.bad  { background: #F5C7C3; color: #D14848; }
+  .mood-demo .tap {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--blue); font-weight: 700; font-size: 14px;
+  }
+  .mood-demo .tap .finger { font-size: 22px; }
+  @media (max-width: 720px) {
+    .mood-demo { grid-template-columns: 1fr; }
+    .mood-demo .tap { transform: rotate(90deg); }
+  }
+
+  /* ---------- New design PNG screens ---------- */
+  .screen-frame img.new-screen,
+  .screen-frame .new-screen {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 22px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--line-2);
+    background: var(--bg);
+  }
+  .screen-frame.pair {
+    width: auto;
+    max-width: 100%;
+  }
+  .screen-frame.pair .pair-imgs {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .screen-frame.pair .pair-imgs > div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 0 0 auto;
+    width: 280px;
+    max-width: 100%;
+  }
+  .screen-frame.pair .pair-imgs img {
+    width: 100%;
+    height: auto;
+    border-radius: 22px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--line-2);
+    background: var(--bg);
+    display: block;
+  }
+  .screen-frame.pair .pair-imgs .lbl {
+    font-size: 11px;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-align: center;
+  }
+  .hero-art .hero-pair {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    width: 100%;
+    justify-content: center;
+  }
+  .hero-art .hero-pair img {
+    width: 180px;
+    height: auto;
+    border-radius: 22px;
+    filter: drop-shadow(0 16px 32px rgba(0,0,0,0.18));
+    background: var(--bg);
+  }
+  @media (max-width: 720px) {
+    .hero-art .hero-pair img { width: 46%; }
+    .screen-frame.pair .pair-imgs > div { width: 100%; }
+  }
+
+  /* ---------- Phone mockup component (used for invented + real) ---------- */
+  .screens-row {
+    display: flex; flex-wrap: wrap; gap: 24px;
+    margin-top: 20px; justify-content: flex-start;
+  }
+  .screen-frame {
+    flex: 0 0 auto;
+    width: 280px;
+  }
+  .screen-frame img {
+    width: 100%;
+    border-radius: 30px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--line-2);
+    background: var(--bg);
+  }
+  .screen-caption {
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--ink-2);
+    text-align: center;
+  }
+  .screen-caption b { color: var(--ink); font-weight: 600; }
+
+  .phone {
+    width: 280px;
+    aspect-ratio: 9/19.5;
+    background: var(--bg);
+    border-radius: 38px;
+    border: 1px solid var(--line-2);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    position: relative;
+    display: flex; flex-direction: column;
+    font-size: 11px;
+    color: var(--ink);
+  }
+  .phone .status {
+    flex: 0 0 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 6px 18px 0;
+    font-size: 10px; font-weight: 600;
+  }
+  .phone .status .right { display: inline-flex; gap: 4px; align-items: center; }
+  .phone .body {
+    flex: 1; overflow: hidden; padding: 6px 14px;
+    display: flex; flex-direction: column;
+  }
+  .phone .tabbar {
+    flex: 0 0 44px;
+    border-top: 1px solid var(--line);
+    background: var(--bg-elev);
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+    padding: 0 6px;
+    font-size: 9px;
+    color: var(--ink-3);
+  }
+  .phone .tabbar > div {
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+  }
+  .phone .tabbar svg { width: 16px; height: 16px; }
+  .phone .tabbar .active { color: var(--ink); }
+  .phone .tabbar .active svg { stroke: var(--ink); }
+
+  /* mini iOS keyboard */
+  .phone .kbd {
+    flex: 0 0 130px;
+    background: #CCCFD4;
+    padding: 6px 4px;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .phone .kbd-row {
+    display: flex; gap: 3px; justify-content: center;
+  }
+  .phone .kbd-key {
+    background: white; border-radius: 4px; padding: 4px 6px;
+    font-size: 9px; flex: 1; text-align: center;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.2);
+  }
+  .phone .kbd-key.space { flex: 3; }
+  .phone .kbd-key.dark { background: #ACB1BA; color: var(--ink); }
+
+  /* group colored header (used in mocks) */
+  .phone .grouphdr {
+    margin: -6px -14px 8px;
+    padding: 12px 14px 14px;
+    border-radius: 0 0 16px 16px;
+    position: relative;
+  }
+  .phone .grouphdr.yellow { background: var(--g-yellow); color: var(--g-yellow-ink); }
+  .phone .grouphdr.blue   { background: var(--g-blue);   color: var(--g-blue-ink); }
+  .phone .grouphdr.pink   { background: var(--g-pink);   color: var(--g-pink-ink); }
+
+  .phone .row { display: flex; align-items: center; gap: 8px; }
+  .phone .uppercase { text-transform: uppercase; letter-spacing: 0.04em; font-weight: 700; font-size: 9px; color: var(--ink-2); }
+  .phone .section-card {
+    background: white;
+    border-radius: 14px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+  }
+  .phone .pill {
+    display: inline-block; padding: 2px 8px; border-radius: 999px;
+    background: rgba(255,255,255,0.7); font-size: 9px; font-weight: 600;
+    margin-right: 4px;
+  }
+  .phone .cta {
+    background: var(--accent); color: white;
+    border-radius: 999px;
+    text-align: center;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 11px;
+    margin-top: auto;
+  }
+  .phone .moodavatar {
+    width: 22px; height: 22px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    flex: 0 0 auto;
+  }
+  .phone .mood-good  { color: var(--good); }
+  .phone .mood-bad   { color: var(--bad); }
+  .phone .mood-mid   { color: var(--mid); }
+
+  .phone .msg {
+    max-width: 75%;
+    padding: 8px 10px;
+    border-radius: 14px;
+    font-size: 10.5px;
+    margin-bottom: 6px;
+    line-height: 1.35;
+  }
+  .phone .msg.them { background: white; align-self: flex-start; border-bottom-left-radius: 4px; }
+  .phone .msg.me   { background: var(--accent); color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
+
+  .phone .calgrid {
+    display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px;
+    font-size: 10px; text-align: center;
+  }
+  .phone .calgrid .dh { color: var(--ink-3); font-size: 9px; }
+  .phone .calgrid .d {
+    aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    position: relative;
+  }
+  .phone .calgrid .d.today { background: var(--g-pink); color: var(--g-pink-ink); font-weight: 700; }
+  .phone .calgrid .d.dot::after {
+    content: ''; width: 4px; height: 4px; border-radius: 50%;
+    background: var(--accent); position: absolute; bottom: 2px;
+  }
+
+  /* ---------- Discovery / competitor cards ---------- */
+  .comp-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    padding: 18px;
+  }
+  .comp-card h4 {
+    margin: 0 0 6px;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .comp-card .lbl {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--purple); font-weight: 700; margin-bottom: 8px;
+  }
+
+  /* ---------- Hypothesis / metric ---------- */
+  .hyp {
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    padding: 18px;
+  }
+  .hyp .threshold {
+    display: inline-block;
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-radius: var(--r-pill);
+    padding: 2px 10px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .hyp .jtbd-tag {
+    display: inline-block;
+    background: var(--warn-soft);
+    color: var(--warn);
+    border-radius: var(--r-pill);
+    padding: 2px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    margin-left: 6px;
+  }
+
+  /* ---------- Detail / collapse ---------- */
+  details {
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    padding: 0;
+    margin: 18px 0;
+  }
+  details summary {
+    cursor: pointer; padding: 16px 20px;
+    font-weight: 600;
+    list-style: none;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::after {
+    content: "+"; color: var(--purple); font-size: 22px; font-weight: 700;
+  }
+  details[open] summary::after { content: "−"; }
+  details .body { padding: 0 20px 20px; }
+
+  /* ---------- Inline TOC ---------- */
+  .toc {
+    margin: 32px 0 8px;
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    padding: 0;
+  }
+  .toc > summary {
+    padding: 16px 22px;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    font-weight: 700;
+  }
+  .toc > summary::before {
+    content: "";
+    display: inline-block;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--purple);
+    margin-right: 12px;
+    vertical-align: -2px;
+    box-shadow: inset 0 0 0 3px var(--bg-elev);
+    outline: 1px solid var(--purple);
+  }
+  .toc > summary span.lbl { display: inline-block; }
+  .toc > summary::after { content: "+"; }
+  .toc[open] > summary::after { content: "−"; }
+  .toc-list {
+    list-style: none;
+    margin: 0;
+    padding: 4px 22px 18px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px 18px;
+    max-width: none;
+  }
+  .toc-list li { margin: 0; }
+  .toc-list a {
+    display: flex; align-items: baseline; gap: 10px;
+    padding: 8px 0;
+    color: var(--ink);
+    border-bottom: 1px solid var(--line);
+    font-size: 15px;
+    text-decoration: none;
+    transition: color .15s ease;
+  }
+  .toc-list a:hover { color: var(--purple); border-bottom-color: var(--purple); }
+  .toc-list a .num {
+    font-family: ui-serif, Georgia, "Times New Roman", serif;
+    font-style: italic;
+    color: var(--purple);
+    font-size: 14px;
+    min-width: 24px;
+  }
+  @media (max-width: 860px) {
+    .toc-list { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Hero composition ---------- */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+    align-items: start;
+    padding: 24px 0 8px;
+  }
+  .hero-art {
+    background: linear-gradient(180deg, #F8E489, #F2D266);
+    border-radius: var(--r-xl);
+    padding: 24px;
+    display: flex; justify-content: center; align-items: flex-end;
+    min-height: 360px;
+    position: relative;
+    align-self: start;
+    overflow: hidden;
+  }
+  .hero-art img {
+    width: 240px;
+    filter: drop-shadow(0 16px 32px rgba(0,0,0,0.18));
+    border-radius: 22px;
+  }
+  .hero-art::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 30% 110%, rgba(255,255,255,0.5), transparent 60%);
+  }
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Specific tweaks ---------- */
+  .scope-table {
+    width: 100%; border-collapse: collapse;
+    font-size: 14px;
+  }
+  .scope-table th, .scope-table td {
+    text-align: left; padding: 10px 12px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  .scope-table th {
+    font-weight: 700; color: var(--ink-2);
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .scope-table .status-ok::before { content: "● "; color: var(--good); }
+  .scope-table .status-invented::before { content: "● "; color: var(--purple); }
+
+  .key-numbers {
+    display: flex; flex-wrap: wrap; gap: 36px;
+    margin: 22px 0 4px;
+    justify-content: flex-start;
+    text-align: center;
+  }
+  .key-numbers .num {
+    padding: 0;
+    min-width: 0;
+    background: none;
+    border: none;
+  }
+  .key-numbers .num b {
+    display: block; font-size: 30px; line-height: 1; font-weight: 800;
+    color: var(--ink); margin-bottom: 4px;
+  }
+  .key-numbers .num span {
+    font-size: 12px; color: var(--ink-2);
+  }
+
+  /* download links for source artifacts */
+  .links a {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-right: 12px;
+    font-size: 14px;
+  }
+  .footer {
+    margin-top: 80px; padding-top: 28px;
+    border-top: 1px solid var(--line);
+    color: var(--ink-3); font-size: 13px;
+    text-align: center;
+  }
+
+  /* ---------- Hero group detail mockup ---------- */
+  .phone-mockup {
+    width: min(320px, 100%);
+    background: var(--bg);
+    border: 1px solid rgba(29, 29, 31, 0.22);
+    border-radius: 40px;
+    box-shadow: 0 18px 42px rgba(29, 29, 31, 0.2);
+    color: var(--ink);
+    font-size: 11px;
+    line-height: 1.25;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+  }
+  .phone-mockup * { box-sizing: border-box; }
+  .phone-mockup .phone-screen {
+    background: var(--bg);
+    min-height: 664px;
+    display: flex;
+    flex-direction: column;
+  }
+  .phone-mockup .phone-top {
+    background: var(--g-yellow);
+    border-radius: 0 0 18px 18px;
+    color: var(--ink);
+    padding: 12px 14px 20px;
+  }
+  .phone-mockup .status-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 0 12px 12px;
+  }
+  .phone-mockup .status-icons {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .phone-mockup .signal {
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 12px;
+  }
+  .phone-mockup .signal span {
+    width: 3px;
+    background: var(--ink);
+    border-radius: 2px;
+  }
+  .phone-mockup .signal span:nth-child(1) { height: 4px; }
+  .phone-mockup .signal span:nth-child(2) { height: 7px; }
+  .phone-mockup .signal span:nth-child(3) { height: 10px; }
+  .phone-mockup .wifi {
+    width: 15px;
+    height: 11px;
+    position: relative;
+  }
+  .phone-mockup .wifi::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 3px solid var(--ink);
+    border-bottom: 0;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-radius: 14px 14px 0 0;
+  }
+  .phone-mockup .wifi::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    bottom: 0;
+    width: 5px;
+    height: 5px;
+    background: var(--ink);
+    border-radius: 50%;
+  }
+  .phone-mockup .battery {
+    width: 22px;
+    height: 11px;
+    border: 2px solid var(--ink);
+    border-radius: 3px;
+    position: relative;
+  }
+  .phone-mockup .battery::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    width: 14px;
+    height: 3px;
+    background: var(--ink);
+    border-radius: 1px;
+  }
+  .phone-mockup .battery::after {
+    content: "";
+    position: absolute;
+    right: -4px;
+    top: 3px;
+    width: 2px;
+    height: 4px;
+    background: var(--ink);
+    border-radius: 0 2px 2px 0;
+  }
+  .phone-mockup .app-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .phone-mockup .icon-button {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.72);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    font-weight: 700;
+  }
+  .phone-mockup .hero-head {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: end;
+  }
+  .phone-mockup .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 10px;
+  }
+  .phone-mockup .chip {
+    background: rgba(255, 255, 255, 0.72);
+    border-radius: var(--r-pill);
+    color: var(--g-yellow-ink);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 8px;
+    white-space: nowrap;
+  }
+  .phone-mockup .group-title {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 0;
+    line-height: 0.95;
+    margin: 0;
+  }
+  .phone-mockup .group-subtitle {
+    color: rgba(29, 29, 31, 0.58);
+    font-size: 11px;
+    margin-top: 6px;
+  }
+  .phone-mockup .rating-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-weight: 700;
+    min-width: 42px;
+  }
+  .phone-mockup .mini-dino {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--g-green);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 0 0 4px rgba(255, 255, 255, 0.28);
+  }
+  .phone-mockup .mini-dino svg,
+  .phone-mockup .avatar svg {
+    width: 76%;
+    height: 76%;
+    fill: rgba(29, 29, 31, 0.62);
+  }
+  .phone-mockup .phone-content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 11px;
+    padding: 12px 14px 0;
+  }
+  .phone-mockup .mock-card {
+    background: rgba(255, 248, 225, 0.82);
+    border: 1px solid rgba(29, 29, 31, 0.04);
+    border-radius: 20px;
+    padding: 12px;
+  }
+  .phone-mockup .mock-card h3 {
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 1;
+    margin: 0 0 12px;
+    font-weight: 800;
+  }
+  .phone-mockup .month-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11px;
+    margin-bottom: 12px;
+  }
+  .phone-mockup .month-row b {
+    font-weight: 500;
+  }
+  .phone-mockup .month-nav {
+    font-size: 20px;
+    line-height: 1;
+  }
+  .phone-mockup .week-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 4px;
+    text-align: center;
+  }
+  .phone-mockup .week-grid span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 22px;
+  }
+  .phone-mockup .week-grid .day-name {
+    color: var(--ink-3);
+    font-size: 9px;
+  }
+  .phone-mockup .week-grid .selected {
+    background: #F56DB8;
+    border-radius: 50%;
+    color: white;
+    font-weight: 800;
+    width: 24px;
+    height: 24px;
+    justify-self: center;
+  }
+  .phone-mockup .expand {
+    color: var(--ink);
+    font-size: 18px;
+    line-height: 1;
+    margin-top: 8px;
+    text-align: center;
+  }
+  .phone-mockup .dino-list {
+    padding-bottom: 10px;
+  }
+  .phone-mockup .dino-row {
+    display: grid;
+    grid-template-columns: 34px 1fr 24px;
+    gap: 8px;
+    align-items: center;
+    min-height: 37px;
+  }
+  .phone-mockup .avatar {
+    width: 31px;
+    height: 31px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .phone-mockup .avatar-yellow { background: var(--g-yellow); }
+  .phone-mockup .avatar-pink { background: #F58EC4; }
+  .phone-mockup .avatar-blue { background: #6DA7F7; }
+  .phone-mockup .avatar-orange { background: var(--g-orange); }
+  .phone-mockup .avatar-green { background: #74C690; }
+  .phone-mockup .avatar-purple { background: var(--g-purple); }
+  .phone-mockup .dino-name {
+    display: block;
+    font-size: 12px;
+    font-weight: 800;
+  }
+  .phone-mockup .dino-note {
+    color: var(--ink-3);
+    display: block;
+    font-size: 8px;
+    margin-top: 1px;
+  }
+  .phone-mockup .mood {
+    font-size: 15px;
+    text-align: right;
+  }
+  .phone-mockup .homework {
+    margin-top: auto;
+  }
+  .phone-mockup .homework h3 {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 10px;
+  }
+  .phone-mockup .homework-link {
+    color: var(--ink-3);
+    display: block;
+    font-size: 10px;
+    padding: 5px 2px;
+  }
+  .phone-mockup .primary-action {
+    background: #F56DB8;
+    border-radius: 11px;
+    color: white;
+    font-size: 13px;
+    font-weight: 800;
+    margin: 4px 14px 12px;
+    padding: 12px;
+    text-align: center;
+  }
+  .phone-mockup .home-indicator {
+    background: var(--ink);
+    border-radius: var(--r-pill);
+    height: 4px;
+    margin: 0 auto 10px;
+    width: 98px;
+  }
+  .phone-mockup.small {
+    width: 100%;
+    border-radius: 30px;
+    box-shadow: var(--shadow-lg);
+    font-size: 10px;
+  }
+  .phone-mockup.small .phone-screen {
+    min-height: 606px;
+    overflow: hidden;
+  }
+  .phone-mockup.small .phone-top {
+    padding: 9px 12px 16px;
+  }
+  .phone-mockup.small .status-bar {
+    font-size: 10px;
+    padding: 0 10px 10px;
+  }
+  .phone-mockup.small .signal {
+    height: 10px;
+  }
+  .phone-mockup.small .signal span {
+    width: 2px;
+  }
+  .phone-mockup.small .wifi {
+    width: 12px;
+    height: 9px;
+  }
+  .phone-mockup.small .wifi::before {
+    border-width: 2px;
+    border-bottom: 0;
+  }
+  .phone-mockup.small .wifi::after {
+    left: 4px;
+    width: 4px;
+    height: 4px;
+  }
+  .phone-mockup.small .battery {
+    width: 18px;
+    height: 9px;
+    border-width: 2px;
+  }
+  .phone-mockup.small .battery::before {
+    width: 11px;
+    height: 2px;
+  }
+  .phone-mockup.small .battery::after {
+    right: -4px;
+    top: 2px;
+  }
+  .phone-mockup.small .app-bar {
+    margin-bottom: 9px;
+  }
+  .phone-mockup.small .icon-button {
+    width: 23px;
+    height: 23px;
+    font-size: 15px;
+  }
+  .phone-mockup.small .group-title {
+    font-size: 24px;
+  }
+  .phone-mockup.small .phone-content {
+    gap: 8px;
+    padding: 10px 12px 0;
+  }
+  .phone-mockup.small .mock-card {
+    border-radius: 18px;
+    padding: 10px;
+  }
+  .phone-mockup.small .mock-card h3 {
+    font-size: 12px;
+    margin-bottom: 9px;
+  }
+  .phone-mockup.small .dino-row {
+    grid-template-columns: 30px 1fr 22px;
+    gap: 7px;
+    min-height: 32px;
+  }
+  .phone-mockup.small .avatar {
+    width: 28px;
+    height: 28px;
+  }
+  .phone-mockup.small .primary-action {
+    background: #F56DB8;
+    font-size: 12px;
+    margin: 4px 12px 10px;
+    padding: 11px;
+  }
+  .phone-mockup .primary-action.action-blue {
+    background: #3B6BD8;
+  }
+  .phone-mockup .home-screen,
+  .phone-mockup .search-screen {
+    background: var(--bg);
+  }
+  .phone-mockup .home-scroll {
+    flex: 1;
+    overflow: hidden;
+    padding: 10px 12px 0;
+  }
+  .phone-mockup .profile-row {
+    display: grid;
+    grid-template-columns: 42px 1fr;
+    gap: 11px;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+  .phone-mockup .profile-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 54% 35%, #F8FFB4 0 16%, #6CCB58 48%, #20853A 100%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.35);
+  }
+  .phone-mockup .profile-avatar svg {
+    width: 72%;
+    height: 72%;
+    fill: rgba(29, 29, 31, 0.62);
+  }
+  .phone-mockup .profile-kicker {
+    color: var(--ink-3);
+    display: block;
+    font-size: 13px;
+    line-height: 1.1;
+  }
+  .phone-mockup .profile-name {
+    color: var(--ink);
+    display: block;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-top: 3px;
+  }
+  .phone-mockup .search-field {
+    align-items: center;
+    background: white;
+    border: 1px solid var(--g-green);
+    border-radius: 14px;
+    color: var(--ink-3);
+    display: flex;
+    gap: 8px;
+    min-height: 35px;
+    padding: 0 12px;
+  }
+  .phone-mockup .search-field.focused {
+    color: var(--ink);
+  }
+  .phone-mockup .search-icon {
+    color: var(--ink-3);
+    font-size: 20px;
+    line-height: 1;
+  }
+  .phone-mockup .search-text {
+    flex: 1;
+    font-size: 13px;
+  }
+  .phone-mockup .search-caret {
+    border-left: 1px solid var(--ink);
+    height: 20px;
+  }
+  .phone-mockup .search-clear {
+    color: var(--ink-3);
+    font-size: 23px;
+    line-height: 1;
+  }
+  .phone-mockup .section-heading {
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: 0;
+    line-height: 1;
+    margin: 18px 0 12px;
+  }
+  .phone-mockup .today-card,
+  .phone-mockup .group-card {
+    border-radius: 16px;
+    color: var(--ink);
+    overflow: hidden;
+    padding: 12px;
+    position: relative;
+  }
+  .phone-mockup .today-card {
+    background: #FFF080;
+    min-height: 116px;
+  }
+  .phone-mockup .today-card .card-title,
+  .phone-mockup .group-card .card-title {
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: 0;
+    line-height: 1;
+    margin-top: 12px;
+  }
+  .phone-mockup .card-subtext {
+    color: rgba(29, 29, 31, 0.58);
+    font-size: 11px;
+    margin-top: 6px;
+  }
+  .phone-mockup .card-foot {
+    align-items: center;
+    display: flex;
+    gap: 5px;
+    font-size: 10px;
+    font-weight: 650;
+    margin-top: 28px;
+  }
+  .phone-mockup .favorite-star {
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1;
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    z-index: 2;
+  }
+  .phone-mockup .segmented {
+    background: rgba(255, 255, 255, 0.72);
+    border-radius: var(--r-pill);
+    display: grid;
+    gap: 6px;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 12px;
+    padding: 0;
+  }
+  .phone-mockup .segment {
+    border-radius: var(--r-pill);
+    font-size: 11px;
+    padding: 8px 0;
+    text-align: center;
+  }
+  .phone-mockup .segment.selected {
+    background: #FFD02F;
+    font-weight: 700;
+  }
+  .phone-mockup .group-card {
+    margin-bottom: 10px;
+    min-height: 108px;
+  }
+  .phone-mockup .group-card.blue { background: var(--g-blue); }
+  .phone-mockup .group-card.pink { background: #F9B8B8; }
+  .phone-mockup .group-card.orange { background: #FFD096; }
+  .phone-mockup .group-card.purple { background: var(--g-purple); }
+  .phone-mockup .group-card.yellow { background: #FFF080; }
+  .phone-mockup .group-card .chip.blue { background: #8EDDD8; color: var(--g-blue-ink); }
+  .phone-mockup .group-card .chip.pink { background: #FF8C86; color: var(--g-pink-ink); }
+  .phone-mockup .group-card .chip.orange { background: #FFF1DA; color: var(--g-orange-ink); }
+  .phone-mockup .group-card .chip.purple { background: #C995D0; color: var(--g-purple-ink); }
+  .phone-mockup .group-card .chip.yellow { background: rgba(255, 255, 255, 0.72); color: var(--g-yellow-ink); }
+  .phone-mockup .silhouette {
+    bottom: -20px;
+    opacity: 0.42;
+    position: absolute;
+    right: -26px;
+    width: 128px;
+  }
+  .phone-mockup .silhouette svg {
+    display: block;
+    fill: currentColor;
+    width: 100%;
+  }
+  .phone-mockup .group-card.blue .silhouette { color: #5CCAC7; }
+  .phone-mockup .group-card.pink .silhouette { color: #FF6C68; }
+  .phone-mockup .group-card.orange .silhouette { color: #FFF1DA; }
+  .phone-mockup .group-card.purple .silhouette { color: #B26CC2; }
+  .phone-mockup .group-card.yellow .silhouette,
+  .phone-mockup .today-card .silhouette { color: #FFF8D6; opacity: 0.78; }
+  .phone-mockup .bottom-nav {
+    background: rgba(255, 248, 225, 0.9);
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    padding: 7px 4px 9px;
+  }
+  .phone-mockup .nav-item {
+    align-items: center;
+    color: var(--ink-3);
+    display: flex;
+    flex-direction: column;
+    font-size: 9px;
+    font-weight: 600;
+    gap: 2px;
+  }
+  .phone-mockup .nav-icon {
+    font-size: 17px;
+    line-height: 1;
+  }
+  .phone-mockup .nav-item.active {
+    color: #176B2D;
+  }
+  .phone-mockup .search-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 0;
+  }
+  .phone-mockup .search-top {
+    padding: 50px 12px 0;
+  }
+  .phone-mockup .search-results {
+    flex: 1;
+    padding: 35px 12px 0;
+  }
+  .phone-mockup .result-card {
+    background: rgba(255, 255, 255, 0.84);
+    border-radius: 18px;
+    margin-bottom: 18px;
+    padding: 18px 14px;
+  }
+  .phone-mockup .result-title {
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: 0;
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .phone-mockup .result-row {
+    align-items: center;
+    display: flex;
+    gap: 12px;
+    font-size: 15px;
+    font-weight: 650;
+  }
+  .phone-mockup .result-avatar {
+    align-items: center;
+    border-radius: 50%;
+    display: inline-flex;
+    flex: 0 0 auto;
+    height: 42px;
+    justify-content: center;
+    width: 42px;
+  }
+  .phone-mockup .result-avatar.green {
+    background: radial-gradient(circle at 44% 35%, #E9F7D8 0 24%, #74C690 100%);
+  }
+  .phone-mockup .result-avatar.teal {
+    background: var(--g-blue);
+  }
+  .phone-mockup .result-avatar svg {
+    fill: rgba(29, 29, 31, 0.46);
+    width: 72%;
+    height: 72%;
+  }
+  .phone-mockup .empty-message {
+    color: var(--ink-2);
+    font-size: 15px;
+    line-height: 1.45;
+    margin: auto 28px;
+    text-align: center;
+  }
+  .phone-mockup .ios-keyboard {
+    background: #CDD0D6;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px 4px 11px;
+  }
+  .phone-mockup .key-row {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+  }
+  .phone-mockup .key {
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.28);
+    color: #000;
+    flex: 1;
+    font-size: 16px;
+    line-height: 1;
+    min-width: 0;
+    padding: 10px 0;
+    text-align: center;
+  }
+  .phone-mockup .key.small {
+    background: #AEB4BE;
+    flex: 1.4;
+    font-size: 13px;
+  }
+  .phone-mockup .key.space {
+    flex: 3.8;
+    font-size: 13px;
+  }
+  .phone-mockup .key.go {
+    background: #AEB4BE;
+    flex: 1.5;
+    font-size: 13px;
+  }
+  .phone-mockup .schedule-event {
+    align-items: center;
+    border-top: 1px solid var(--line);
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+    padding-top: 8px;
+  }
+  .phone-mockup .schedule-time {
+    font-size: 14px;
+    font-weight: 800;
+  }
+  .phone-mockup .schedule-name {
+    color: var(--ink-2);
+    font-size: 10px;
+  }
+  @media (max-width: 420px) {
+    .phone-mockup {
+      width: min(300px, 100%);
+    }
+    .phone-mockup .phone-screen {
+      min-height: 640px;
+    }
+    .phone-mockup .group-title {
+      font-size: 25px;
+    }
+  }
+</style>
+  <!-- i18n: pick language before paint (saved choice -> browser -> English) -->
+  <script>
+    window.__i18n = {
+      en: { title: "Dinogarten — Elena Meshnina, Product Designer", desc: "Dinogarten — a kindergarten daily-report web app. Product design case study by Elena Meshnina." },
+      ru: { title: "Dinogarten — Елена Мешнина, продуктовый дизайнер", desc: "Dinogarten — веб-приложение для ежедневных отчётов детского сада. Кейс по продуктовому дизайну, Елена Мешнина." }
+    };
+    (function () {
+      var saved = null;
+      try { saved = localStorage.getItem("site-lang"); } catch (e) {}
+      var nav = (navigator.language || navigator.userLanguage || "en").toLowerCase();
+      var lang = saved || (nav.indexOf("ru") === 0 ? "ru" : "en");
+      if (lang !== "en" && lang !== "ru") lang = "en";
+      document.documentElement.setAttribute("lang", lang);
+      var m = window.__i18n[lang];
+      if (m) {
+        document.title = m.title;
+        var md = document.querySelector('meta[name="description"]');
+        if (md) md.setAttribute("content", m.desc);
+      }
+    })();
+  </script>
+</head>
+<body class="is-light">
+
+<header class="nav">
+  <div class="nav__left">
+    <a class="nav__logo" href="../../index.html">
+      <span class="nav__logo-mark">EM</span>
+    </a>
+    <a class="case-page__back" href="../../portfolio.html">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+        <path d="M7 2L3 6L7 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span data-lang="en">Back to portfolio</span><span data-lang="ru">Назад к портфолио</span>
+    </a>
+  </div>
+  <nav class="nav__links">
+    <a href="../../portfolio.html"><span data-lang="en">Portfolio</span><span data-lang="ru">Портфолио</span></a>
+    <a href="../../index.html#about"><span data-lang="en">About</span><span data-lang="ru">Обо мне</span></a>
+    <a href="../../index.html#contact"><span data-lang="en">Contact</span><span data-lang="ru">Контакты</span></a>
+    <span class="nav__social-group">
+      <a class="nav__social" href="https://www.linkedin.com/in/elena-meshnina-862780237/" aria-label="LinkedIn" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.852 3.37-1.852 3.601 0 4.267 2.37 4.267 5.455v6.288zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a class="nav__social" href="https://github.com/meshlena" aria-label="GitHub" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      </a>
+      <a class="nav__social" href="https://t.me/elena_m239" aria-label="Telegram" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.231-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+      </a>
+    </span>
+  </nav>
+  <div class="nav__lang" role="group" aria-label="Language / Язык">
+    <button type="button" class="nav__lang-btn" data-lang-btn="en" aria-label="English">EN</button>
+    <span class="nav__lang-sep" aria-hidden="true">·</span>
+    <button type="button" class="nav__lang-btn" data-lang-btn="ru" aria-label="Русский">RU</button>
+  </div>
+</header>
+
+<main id="top" class="case-zoom">
+
+  <!-- ============ HERO / META ============ -->
+  <section style="padding-top: 8px; border: none;">
+    <div class="meta">
+      <span class="pill"><span data-lang="en">Product Design</span><span data-lang="ru">Продуктовый дизайн</span></span>
+      <span class="pill"><span data-lang="en">Web App</span><span data-lang="ru">Веб-приложение</span></span>
+      </div>
+    <div class="hero">
+      <div>
+        <h1><span data-lang="en"><em>Dinogarten</em> — a kind daily report tool</span><span data-lang="ru"><em>Dinogarten</em> — добрый инструмент ежедневных отчётов</span></h1>
+        <p class="lede">
+          <span data-lang="en">A web app for a kindergarten where every child is a little dinosaur —
+          daily mood, homework, and parent chats in one calm place.</span><span data-lang="ru">Веб-приложение для детского сада, где каждый ребёнок — маленький динозаврик:
+          ежедневное настроение, домашние задания и чаты с родителями в одном спокойном месте.</span>
+        </p>
+        <div class="key-numbers">
+          <div class="num"><b>6</b><span><span data-lang="en">scenarios mapped</span><span data-lang="ru">сценариев проработано</span></span></div>
+          <div class="num"><b>75%</b><span><span data-lang="en">hypothesis threshold</span><span data-lang="ru">порог гипотезы</span></span></div>
+          <div class="num"><b>1</b><span><span data-lang="en">designer · 2 weeks</span><span data-lang="ru">дизайнер · 2 недели</span></span></div>
+        </div>
+
+        <details class="toc">
+          <summary><span class="lbl"><span data-lang="en">Navigation</span><span data-lang="ru">Навигация</span></span></summary>
+          <ul class="toc-list">
+            <li><a href="#overview"><span class="num">01</span><span data-lang="en">Project overview</span><span data-lang="ru">Обзор проекта</span></a></li>
+            <li><a href="#role"><span class="num">02</span><span data-lang="en">Role</span><span data-lang="ru">Роль</span></a></li>
+            <li><a href="#discovery"><span class="num">03</span><span data-lang="en">Discovery &amp; research</span><span data-lang="ru">Дискавери и исследование</span></a></li>
+            <li><a href="#hypotheses"><span class="num">04</span><span data-lang="en">Hypotheses &amp; JTBD</span><span data-lang="ru">Гипотезы и JTBD</span></a></li>
+            <li><a href="#scenarios"><span class="num">05</span><span data-lang="en">Scenarios &amp; solutions</span><span data-lang="ru">Сценарии и решения</span></a></li>
+            <li><a href="#concept"><span class="num">06</span><span data-lang="en">The new concept</span><span data-lang="ru">Новая концепция</span></a></li>
+            <li><a href="#summary"><span class="num">07</span><span data-lang="en">Summary</span><span data-lang="ru">Итоги</span></a></li>
+            <li><a href="#next"><span class="num">08</span><span data-lang="en">Next steps</span><span data-lang="ru">Дальнейшие шаги</span></a></li>
+            <li><a href="#appendix"><span class="num">09</span><span data-lang="en">Appendix</span><span data-lang="ru">Приложение</span></a></li>
+          </ul>
+        </details>
+      </div>
+      <div class="hero-art">
+        <div class="hero-pair">
+          <img loading="lazy" decoding="async" src="assets/screens/new/main-collapsed.png" alt="Dinogarten — home screen (375×812)">
+          <img loading="lazy" decoding="async" src="assets/screens/new/group-collapsed.png" alt="Dinogarten — group detail (375×812)">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 1. OVERVIEW ============ -->
+  <section id="overview">
+    <span class="section-num"><span class="check">✓</span> 01 · <span data-lang="en">Project overview</span><span data-lang="ru">Обзор проекта</span></span>
+    <h2><span data-lang="en">What is <em>Dinogarten</em>?</span><span data-lang="ru">Что такое <em>Dinogarten</em>?</span></h2>
+    <p>
+      <span data-lang="en">Dinogarten is a web app that turns the daily reality of a preschool group
+      into something legible at a glance. Educators manage attendance, mood,
+      homework, and parent communication for several mixed-age groups. The
+      product reframes the paperwork of childcare as a warm, picture-led
+      interface rather than a grading sheet.</span><span data-lang="ru">Dinogarten — это веб-приложение, которое превращает ежедневную жизнь
+      дошкольной группы в нечто понятное с первого взгляда. Воспитатели ведут
+      посещаемость, настроение, домашние задания и общение с родителями сразу для
+      нескольких разновозрастных групп. Продукт переосмысляет бумажную рутину
+      детского сада как тёплый, образный интерфейс, а не оценочную таблицу.</span>
+    </p>
+    <p>
+      <span data-lang="en"><b>Target audience:</b> kindergarten educators, predominantly women aged
+      25–54.
+      <br />
+      <b>User mission:</b> capture what happened with each child today, without
+      losing five minutes of attention from the room.
+      <br />
+      <b>Business goal:</b> reduce daily admin time, increase parent engagement,
+      and give administrators a real-time view of group well-being.</span><span data-lang="ru"><b>Целевая аудитория:</b> воспитатели детских садов, преимущественно женщины
+      25–54 лет.
+      <br />
+      <b>Задача пользователя:</b> зафиксировать, что сегодня произошло с каждым
+      ребёнком, не теряя ни пяти минут внимания к группе.
+      <br />
+      <b>Бизнес-цель:</b> сократить ежедневное время на админ-задачи, повысить
+      вовлечённость родителей и дать администраторам картину благополучия групп в
+      реальном времени.</span>
+    </p>
+  </section>
+
+  <!-- ============ 2. ROLE ============ -->
+  <section id="role">
+    <span class="section-num"><span class="check">✓</span> 02 · <span data-lang="en">Role</span><span data-lang="ru">Роль</span></span>
+    <h2><span data-lang="en">What I did</span><span data-lang="ru">Что я сделала</span></h2>
+    <ul>
+      <li><span data-lang="en"><b>Discovery:</b> deep-dive audit of four reference products and synthesis of best-practice insights.</span><span data-lang="ru"><b>Дискавери:</b> глубокий аудит четырёх референсных продуктов и синтез лучших практик.</span></li>
+      <li><span data-lang="en"><b>Hypothesis formulation:</b> JTBD-framed propositions per scenario, each with a success threshold.</span><span data-lang="ru"><b>Формулирование гипотез:</b> утверждения в логике JTBD под каждый сценарий, каждое со своим порогом успеха.</span></li>
+      <li><span data-lang="en"><b>User-flow design:</b> six core educator scenarios mapped end-to-end (start state, screens, decisions, exits, recovery paths).</span><span data-lang="ru"><b>Проектирование пользовательских потоков:</b> шесть ключевых сценариев воспитателя проработаны от начала до конца (стартовое состояние, экраны, решения, выходы, пути восстановления).</span></li>
+      <li><span data-lang="en"><b>UI design:</b> visual language (color-coded groups, custom dinosaur mascots, mood indicators), home, search and group-detail screens.</span><span data-lang="ru"><b>UI-дизайн:</b> визуальный язык (группы с цветовым кодированием, авторские маскоты-динозаврики, индикаторы настроения), экраны главной, поиска и деталей группы.</span></li>
+      <li><span data-lang="en"><b>Component foundations:</b> dinosaur silhouette set, mood-emoji avatars, color tokens.</span><span data-lang="ru"><b>Основы компонентов:</b> набор силуэтов динозавров, аватары-эмодзи настроений, цветовые токены.</span></li>
+      <li><span data-lang="en"><b>Presentation:</b> packaged the concept for review.</span><span data-lang="ru"><b>Презентация:</b> упаковала концепцию для ревью.</span></li>
+    </ul>
+  </section>
+
+  <!-- ============ 3. DISCOVERY ============ -->
+  <section id="discovery">
+    <span class="section-num"><span class="check">✓</span> 03 · <span data-lang="en">Discovery &amp; research</span><span data-lang="ru">Дискавери и исследование</span></span>
+    <h2><span data-lang="en">Benchmarking</span><span data-lang="ru">Бенчмаркинг</span></h2>
+    <p>
+      <span data-lang="en">Rather than inventing from zero, I audited four established products that
+      address adjacent problems and asked: <i>what pattern, if I adopted it,
+      would make an educator's day quietly easier?</i></span><span data-lang="ru">Вместо того чтобы изобретать с нуля, я провела аудит четырёх состоявшихся
+      продуктов, решающих смежные задачи, и спросила: <i>какой паттерн, если я
+      его возьму, незаметно облегчит день воспитателя?</i></span>
+    </p>
+
+    <div class="grid-4">
+      <div class="comp-card">
+        <div class="lbl"><span data-lang="en">Reference 1</span><span data-lang="ru">Референс 1</span></div>
+        <h4>SmartSchoolPro</h4>
+        <p><span data-lang="en">Information is split across tabs — each one a separate cognitive bucket. Makes a dense data screen feel light.</span><span data-lang="ru">Информация разнесена по вкладкам — каждая отдельный когнитивный «контейнер». Плотный экран данных воспринимается легко.</span></p>
+      </div>
+      <div class="comp-card">
+        <div class="lbl"><span data-lang="en">Reference 2</span><span data-lang="ru">Референс 2</span></div>
+        <h4>ClassDojo</h4>
+        <p><span data-lang="en">Parent announcements live in a chat thread. A pattern parents already understand from messaging apps.</span><span data-lang="ru">Объявления для родителей живут в ветке чата. Паттерн, который родители уже понимают по мессенджерам.</span></p>
+        <p><span data-lang="en"><b>Picture grades instead of letters</b> — kindergarten doesn't need a 1–5 score; smiles do better work.</span><span data-lang="ru"><b>Картинки вместо оценок</b> — детскому саду не нужна шкала от 1 до 5; смайлы справляются лучше.</span></p>
+      </div>
+      <div class="comp-card">
+        <div class="lbl"><span data-lang="en">Reference 3</span><span data-lang="ru">Референс 3</span></div>
+        <h4>Procare</h4>
+        <p><span data-lang="en">Birthday reminders surface before they're missed. Calendar uses color-coding consistently across the product.</span><span data-lang="ru">Напоминания о днях рождения всплывают, прежде чем их пропустят. Календарь последовательно использует цветовое кодирование по всему продукту.</span></p>
+      </div>
+      <div class="comp-card">
+        <div class="lbl"><span data-lang="en">Reference 4</span><span data-lang="ru">Референс 4</span></div>
+        <h4>Lillio</h4>
+        <p><span data-lang="en">Allergies are foregrounded in the child profile — not buried under notes. Critical safety info, treated as critical.</span><span data-lang="ru">Аллергии вынесены на первый план в профиле ребёнка — не спрятаны под заметками. Критичная для безопасности информация подаётся как критичная.</span></p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============ 4. HYPOTHESES ============ -->
+  <section id="hypotheses">
+    <span class="section-num"><span class="check">✓</span> 04 · <span data-lang="en">Hypotheses &amp; JTBD</span><span data-lang="ru">Гипотезы и JTBD</span></span>
+    <h2><span data-lang="en">What we believe before we build</span><span data-lang="ru">Во что мы верим до того, как строить</span></h2>
+    <p>
+      <span data-lang="en">Each insight from discovery becomes a testable proposition. Threshold for a
+      hypothesis to "hold": <b>75% of educators</b> in a usability round confirm
+      the behavior or preference. Threshold was chosen to flag patterns strong
+      enough to ship without leaving room for confirmation bias on small samples.</span><span data-lang="ru">Каждый инсайт из дискавери превращается в проверяемое утверждение. Порог,
+      при котором гипотеза «подтверждается»: <b>75% воспитателей</b> в раунде
+      юзабилити подтверждают поведение или предпочтение. Порог выбран так, чтобы
+      выделять паттерны, достаточно сильные для запуска, не оставляя места для
+      склонности к подтверждению на малых выборках.</span>
+    </p>
+
+    <div class="grid-2" style="margin-top: 18px;">
+      <div class="hyp">
+        <span class="threshold">≥ 75%</span><span class="jtbd-tag">JTBD</span>
+        <h3 style="margin-top: 6px;"><span data-lang="en">H1 · Color-coded groups beat alphabetical lists</span><span data-lang="ru">H1 · Цветные группы лучше алфавитных списков</span></h3>
+        <p><span data-lang="en">When an educator opens the home screen, color-themed group cards (one color per group) let them locate "their" group faster than a sortable list — because color is recognized pre-attentively.</span><span data-lang="ru">Когда воспитатель открывает главный экран, карточки групп в фирменных цветах (один цвет на группу) позволяют найти «свою» группу быстрее, чем сортируемый список — потому что цвет считывается предвнимательно.</span></p>
+        <p><span data-lang="en"><b>Job story:</b> When I work with several groups at the same time, I want to find the right group fast, so I can check the schedule without losing time.</span><span data-lang="ru"><b>Job story:</b> Когда я работаю одновременно с несколькими группами, я хочу быстро находить нужную группу, чтобы проверить расписание, не теряя времени.</span></p>
+      </div>
+      <div class="hyp">
+        <span class="threshold">≥ 75%</span><span class="jtbd-tag">JTBD</span>
+        <h3 style="margin-top: 6px;"><span data-lang="en">H2 · Smiley mood avatars are richer than a 1–5 grade</span><span data-lang="ru">H2 · Смайлики настроения богаче, чем оценка от 1 до 5</span></h3>
+        <p><span data-lang="en">Educators capture a child's daily mood faster and with less ambivalence using a 3-state picture (happy / neutral / sad) than a numeric scale — and parents understand the result without translation.</span><span data-lang="ru">Воспитатели фиксируют дневное настроение ребёнка быстрее и без сомнений с помощью трёхпозиционной картинки (радость / нейтрально / грусть), чем по числовой шкале, — а родители понимают результат без перевода.</span></p>
+        <p><span data-lang="en"><b>Job story:</b> When I want to record a dinosaur's progress for the day, I want to find them quickly, so I can log it on time and not forget anything.</span><span data-lang="ru"><b>Job story:</b> Когда я хочу зафиксировать, как прошёл день у динозаврика, я хочу быстро его найти, чтобы внести всё вовремя и ничего не забыть.</span></p>
+      </div>
+      <div class="hyp">
+        <span class="threshold">≥ 75%</span><span class="jtbd-tag">JTBD</span>
+        <h3 style="margin-top: 6px;"><span data-lang="en">H3 · Allergies belong at the top of the card</span><span data-lang="ru">H3 · Аллергиям место в верхней части карточки</span></h3>
+        <p><span data-lang="en">When a child's card is opened, foregrounded allergy callouts (red-highlighted, above the fold) prevent the moments where an educator scrolls past dietary info under stress.</span><span data-lang="ru">Когда открыта карточка ребёнка, вынесенные на первый план плашки об аллергии (красная подсветка, без прокрутки) исключают ситуации, когда воспитатель в спешке пролистывает информацию о питании.</span></p>
+        <p><span data-lang="en"><b>Job story:</b> When I need to add new information about a little dinosaur, I want to find their card quickly, so I can fill everything in on time and not forget anything.</span><span data-lang="ru"><b>Job story:</b> Когда мне нужно добавить новую информацию о маленьком динозаврике, я хочу быстро найти его карточку, чтобы всё заполнить вовремя и ничего не забыть.</span></p>
+      </div>
+      <div class="hyp">
+        <span class="threshold">≥ 75%</span><span class="jtbd-tag">JTBD</span>
+        <h3 style="margin-top: 6px;"><span data-lang="en">H4 · One group-wide announcement beats N parent DMs</span><span data-lang="ru">H4 · Одно объявление на всю группу лучше, чем N личных сообщений родителям</span></h3>
+        <p><span data-lang="en">Educators who need to inform every parent of the same thing (closure, outing, snack day) prefer a single broadcast composer to a chat list — and parents accept the format because it mirrors school-chat groups.</span><span data-lang="ru">Воспитатели, которым нужно сообщить всем родителям одно и то же (закрытие, выход, день перекуса), предпочитают единый редактор рассылки списку чатов — а родители принимают формат, потому что он повторяет школьные групповые чаты.</span></p>
+        <p><span data-lang="en"><b>Job story:</b> When I need to make an announcement for parents, I want to send it to every parent in the group at once, so I save time and don't have to repeat myself.</span><span data-lang="ru"><b>Job story:</b> Когда мне нужно сделать объявление для родителей, я хочу отправить его сразу всем родителям группы, чтобы сэкономить время и не повторять одно и то же.</span></p>
+      </div>
+      <div class="hyp">
+        <span class="threshold">≥ 75%</span><span class="jtbd-tag">JTBD</span>
+        <h3 style="margin-top: 6px;"><span data-lang="en">H5 · Favorites + calendar handle multi-group educators</span><span data-lang="ru">H5 · Избранное и календарь выручают воспитателей с несколькими группами</span></h3>
+        <p><span data-lang="en">For educators who teach across groups, a "favorites" filter plus a color-coded month calendar removes the navigation cost of swapping groups during a busy day.</span><span data-lang="ru">Для воспитателей, работающих сразу в нескольких группах, фильтр «избранное» плюс месячный календарь с цветовым кодированием убирают навигационные издержки на переключение групп в загруженный день.</span></p>
+        <p><span data-lang="en"><b>Job story:</b> When I need to set homework for the children, I want to assign it to the whole group at once, so I keep my workflow efficient.</span><span data-lang="ru"><b>Job story:</b> Когда мне нужно задать детям домашнее задание, я хочу назначить его сразу всей группе, чтобы сохранять эффективность работы.</span></p>
+      </div>
+      <div class="hyp">
+        <span class="threshold">≥ 75%</span><span class="jtbd-tag">JTBD</span>
+        <h3 style="margin-top: 6px;"><span data-lang="en">H6 · A friendly mascot lowers data-entry resistance</span><span data-lang="ru">H6 · Дружелюбный маскот снижает сопротивление вводу данных</span></h3>
+        <p><span data-lang="en">Educators report higher willingness to log daily details in a product that feels playful (dinosaurs, soft colors, named children) than in a "professional" CRM-style form — without sacrificing perceived seriousness for admins.</span><span data-lang="ru">Воспитатели охотнее фиксируют ежедневные детали в продукте, который ощущается игровым (динозавры, мягкие цвета, дети по именам), чем в «профессиональной» форме в стиле CRM — при этом не теряя ощущения серьёзности для администраторов.</span></p>
+        <p><span data-lang="en"><b>Job story:</b> When a parent messages me that their dinosaur is sick and won't come in, I want to read the message, reply, and flag the absence right away, so I don't forget and can keep working with the other children.</span><span data-lang="ru"><b>Job story:</b> Когда родитель пишет мне, что его динозаврик заболел и не придёт, я хочу прочитать сообщение, ответить и сразу отметить отсутствие, чтобы не забыть и продолжить работать с остальными детьми.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5. SCENARIOS ============ -->
+  <section id="scenarios">
+    <span class="section-num"><span class="check">✓</span> 05 · <span data-lang="en">Scenarios &amp; solutions</span><span data-lang="ru">Сценарии и решения</span></span>
+    <h2><span data-lang="en">Six scenarios, one warm system</span><span data-lang="ru">Шесть сценариев, одна тёплая система</span></h2>
+    <p>
+      <span data-lang="en">Each scenario below is framed as a Job-To-Be-Done, walked through as a
+      flow, and resolved with the screen(s) that carry it.</span><span data-lang="ru">Каждый сценарий ниже сформулирован как Job-To-Be-Done, разобран как поток и
+      закрыт экраном (или экранами), который его несёт.</span>
+    </p>
+
+    <!-- ===== Scenario 1: Quick access to child through group ===== -->
+    <div class="scenario" id="s1">
+      <div class="scenario-header">
+        <div class="scenario-num">1</div>
+        <div>
+          <h3 style="margin-top: 0;"><span data-lang="en">Quick access to a child's card through group</span><span data-lang="ru">Быстрый доступ к карточке ребёнка через группу</span></h3>
+          <p class="jtbd"><span data-lang="en">"When I need to add information about a dinosaur, I want to find their card fast so I can fill things in without losing the moment."</span><span data-lang="ru">«Когда мне нужно добавить информацию о динозаврике, я хочу быстро найти его карточку, чтобы всё внести, не упустив момент».</span></p>
+        </div>
+      </div>
+      <p>
+        <span data-lang="en">The home screen is the educator's anchor. Open the app, pick the right
+        group, scan every child in one scroll, tap to open their card — three
+        taps to the right dinosaur, no search detour, no nested menus.</span><span data-lang="ru">Главный экран — опора воспитателя. Открыть приложение, выбрать нужную
+        группу, окинуть взглядом всех детей в один скролл, тапнуть, чтобы открыть
+        карточку, — три тапа до нужного динозаврика, без захода в поиск и без
+        вложенных меню.</span>
+      </p>
+
+      <div class="screens-row">
+        <div class="screen-frame">
+          <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/main-collapsed.png" alt="Main screen (375×812)">
+          <div class="screen-caption"><span data-lang="en"><b>Home.</b> Today's schedule plus every group, color-keyed.</span><span data-lang="ru"><b>Главная.</b> Расписание на сегодня и все группы с цветовым кодом.</span></div>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">→</div>
+        <div class="screen-frame">
+          <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/group-collapsed.png" alt="Group detail (375×812)">
+          <div class="screen-caption"><span data-lang="en"><b>Group.</b> Every child in one scroll.</span><span data-lang="ru"><b>Группа.</b> Все дети в один скролл.</span></div>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">→</div>
+        <div class="screen-frame">
+          <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/kid-card-collapsed.png" alt="Kid card (375×812)">
+          <div class="screen-caption"><span data-lang="en"><b>Kid card.</b> Allergy, mood, notes, one-tap message to parent.</span><span data-lang="ru"><b>Карточка ребёнка.</b> Аллергия, настроение, заметки, сообщение родителю в один тап.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Scenario 2: Grading performance ===== -->
+    <div class="scenario" id="s2">
+      <div class="scenario-header">
+        <div class="scenario-num">2</div>
+        <div>
+          <h3 style="margin-top: 0;"><span data-lang="en">Recording how the day went</span><span data-lang="ru">Фиксация того, как прошёл день</span></h3>
+          <p class="jtbd"><span data-lang="en">"When I want to mark a dinosaur's day, I want to find them quickly and tap a feeling, not pick a number."</span><span data-lang="ru">«Когда я хочу отметить день динозаврика, я хочу быстро его найти и тапнуть по настроению, а не выбирать число».</span></p>
+        </div>
+      </div>
+      <p>
+        <span data-lang="en">On the group detail page, every child sits in a row with a one-tap mood
+        toggle — three custom icons for happy, neutral, and sad. Aggregating
+        these gives the group's rating without the educator ever entering a
+        digit.</span><span data-lang="ru">На странице деталей группы каждый ребёнок стоит в строке с переключателем
+        настроения в один тап — три авторские иконки: радость, нейтрально и
+        грусть. Их агрегирование даёт рейтинг группы, а воспитателю не приходится
+        вводить ни одной цифры.</span>
+      </p>
+      <p>
+        <span data-lang="en">Schedule and homework live in the same screen, on purpose: the educator
+        records mood right after the activity that produced it.</span><span data-lang="ru">Расписание и домашние задания живут на том же экране намеренно: воспитатель
+        отмечает настроение сразу после занятия, которое его вызвало.</span>
+      </p>
+
+      <div class="mood-demo" role="figure" aria-label="Mood tap interaction">
+        <div class="col">
+          <div class="col-label"><span data-lang="en">Before tap</span><span data-lang="ru">До тапа</span></div>
+          <div class="moods">
+            <span class="mood" aria-label="Sad"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 10v.5M16 10v.5M8 16c1.5-2 6.5-2 8 0"/></svg></span>
+            <span class="mood" aria-label="Neutral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 10v.5M16 10v.5M8 15h8"/></svg></span>
+            <span class="mood" aria-label="Happy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 10v.5M16 10v.5M8 14c1.5 2 6.5 2 8 0"/></svg></span>
+          </div>
+        </div>
+        <div class="tap" aria-hidden="true">
+          <span class="finger">👆</span>
+          <span><span data-lang="en">tap</span><span data-lang="ru">тап</span></span>
+        </div>
+        <div class="col">
+          <div class="col-label"><span data-lang="en">After tap</span><span data-lang="ru">После тапа</span></div>
+          <div class="moods">
+            <span class="mood" aria-label="Sad"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 10v.5M16 10v.5M8 16c1.5-2 6.5-2 8 0"/></svg></span>
+            <span class="mood" aria-label="Neutral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 10v.5M16 10v.5M8 15h8"/></svg></span>
+            <span class="mood picked good" aria-label="Happy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 10v.5M16 10v.5M8 14c1.5 2 6.5 2 8 0"/></svg></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="screens-row">
+        <div class="screen-frame">
+          <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/group-collapsed.png" alt="Group detail — collapsed (375×812)">
+          <div class="screen-caption"><span data-lang="en"><b>Group detail.</b> Mood tap-target lives next to the child name — gray until tapped, color when set.</span><span data-lang="ru"><b>Детали группы.</b> Область тапа по настроению стоит рядом с именем ребёнка — серая до тапа, цветная после.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Scenario 3: Reading parent message ===== -->
+    <div class="scenario" id="s3">
+      <div class="scenario-header">
+        <div class="scenario-num">3</div>
+        <div>
+          <h3 style="margin-top: 0;"><span data-lang="en">Reading a message from a parent</span><span data-lang="ru">Чтение сообщения от родителя</span></h3>
+          <p class="jtbd"><span data-lang="en">"When a parent writes that their dinosaur is sick, I want to read, reply, and mark them absent — in under a minute."</span><span data-lang="ru">«Когда родитель пишет, что его динозаврик заболел, я хочу прочитать, ответить и отметить отсутствие — меньше чем за минуту».</span></p>
+        </div>
+      </div>
+      <p>
+        <span data-lang="en">Messages live in their own tab, but every conversation is one tap from
+        the child it's about. The parent's avatar in the chat header is a
+        shortcut into the child's card — so the educator can mark absence
+        without backtracking to search.</span><span data-lang="ru">Сообщения живут на своей вкладке, но каждый диалог — в одном тапе от ребёнка,
+        о котором он. Аватар родителя в шапке чата — это ярлык в карточку ребёнка,
+        так что воспитатель может отметить отсутствие, не возвращаясь к поиску.</span>
+      </p>
+
+      <div class="screens-row">
+        <div class="screen-frame">
+          <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/messages-main.png" alt="Messages inbox (375×812)">
+          <div class="screen-caption"><span data-lang="en"><b>Inbox.</b> Parent threads stacked by recency, unread first.</span><span data-lang="ru"><b>Входящие.</b> Чаты с родителями по свежести, непрочитанные сверху.</span></div>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">→</div>
+        <div class="screen-frame">
+          <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/message-chat.png" alt="Chat with parent (375×812)">
+          <div class="screen-caption"><span data-lang="en"><b>Chat with parent.</b> Header avatar opens the child card to mark absence in one tap.</span><span data-lang="ru"><b>Чат с родителем.</b> Аватар в шапке открывает карточку ребёнка, чтобы отметить отсутствие в один тап.</span></div>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">→</div>
+        <div class="screen-frame">
+          <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/parent-messenger-card.png" alt="Parent messenger card (375×812)">
+          <div class="screen-caption"><span data-lang="en"><b>Thread preview.</b> Latest exchange surfaced, with a shortcut into the child's card.</span><span data-lang="ru"><b>Превью переписки.</b> Последний обмен сообщениями на виду, с ярлыком в карточку ребёнка.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Scenario 4: Group announcement ===== -->
+    <div class="scenario" id="s4">
+      <div class="scenario-header">
+        <div class="scenario-num">4</div>
+        <div>
+          <h3 style="margin-top: 0;"><span data-lang="en">Announcement to every parent in the group</span><span data-lang="ru">Объявление всем родителям группы</span></h3>
+          <p class="jtbd"><span data-lang="en">"When I have one thing to tell every family, I want to say it once."</span><span data-lang="ru">«Когда мне нужно сказать одно и то же каждой семье, я хочу сказать это один раз».</span></p>
+        </div>
+      </div>
+      <p>
+        <span data-lang="en">From the group detail screen, the primary blue CTA ("Make announcement")
+        opens a single composer that broadcasts to every parent in that group.</span><span data-lang="ru">С экрана деталей группы основная синяя кнопка («Сделать объявление»)
+        открывает единый редактор, который рассылает сообщение каждому родителю в этой группе.</span>
+      </p>
+
+      <div class="screens-row">
+        <div class="screen-frame">
+          <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/group-collapsed.png" alt="Group detail with announcement CTA (375×812)">
+          <div class="screen-caption"><span data-lang="en"><b>Entry point.</b> The announcement CTA is the brightest object on the screen, on purpose.</span><span data-lang="ru"><b>Точка входа.</b> Кнопка объявления — самый яркий объект на экране, и это намеренно.</span></div>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">→</div>
+        <div class="screen-frame">
+          <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/new-announcement.png" alt="New announcement composer (375×812)">
+          <div class="screen-caption"><span data-lang="en"><b>Announcement composer.</b> Recipient count is visible on the send button so nothing's sent blind.</span><span data-lang="ru"><b>Редактор объявления.</b> Число получателей видно на кнопке отправки, чтобы ничего не уходило вслепую.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Scenario 5: Homework ===== -->
+    <div class="scenario" id="s5">
+      <div class="scenario-header">
+        <div class="scenario-num">5</div>
+        <div>
+          <h3 style="margin-top: 0;"><span data-lang="en">Setting today's homework</span><span data-lang="ru">Назначение домашнего задания на сегодня</span></h3>
+          <p class="jtbd"><span data-lang="en">"When I assign homework, I want to send it to the whole group at once — but be able to add something individual if a dinosaur needs it."</span><span data-lang="ru">«Когда я задаю домашнее задание, я хочу отправить его сразу всей группе — но иметь возможность добавить что-то индивидуальное, если динозаврику это нужно».</span></p>
+        </div>
+      </div>
+      <p>
+        <span data-lang="en">Homework is a section on the group detail page — not a sub-menu — so it
+        is logged at the speed of thought. The educator types one line, picks
+        recipients (all or one), and saves. Individual variants are added by
+        jumping into a specific child's card.</span><span data-lang="ru">Домашнее задание — это раздел на странице деталей группы, а не подменю,
+        поэтому оно фиксируется со скоростью мысли. Воспитатель печатает одну
+        строку, выбирает получателей (все или один) и сохраняет. Индивидуальные
+        варианты добавляются заходом в карточку конкретного ребёнка.</span>
+      </p>
+
+      <div class="screens-row">
+        <div class="screen-frame">
+          <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/group-hw.png" alt="Group detail — homework section (375×812)">
+          <div class="screen-caption"><span data-lang="en"><b>Group detail.</b> Homework lives as a section on the group page — no sub-menu.</span><span data-lang="ru"><b>Детали группы.</b> Домашнее задание — раздел на странице группы, без подменю.</span></div>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">→</div>
+        <div class="screen-frame">
+          <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/homework.png" alt="Homework composer (375×812)">
+          <div class="screen-caption"><span data-lang="en"><b>Homework composer.</b> Same recipient toggle as the announcement modal — pattern consistency.</span><span data-lang="ru"><b>Редактор домашнего задания.</b> Тот же переключатель получателей, что и в модалке объявления, — единообразие паттерна.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Scenario 6: Favorites + calendar ===== -->
+    <div class="scenario" id="s6">
+      <div class="scenario-header">
+        <div class="scenario-num">6</div>
+        <div>
+          <h3 style="margin-top: 0;"><span data-lang="en">Working across multiple groups</span><span data-lang="ru">Работа сразу с несколькими группами</span></h3>
+          <p class="jtbd"><span data-lang="en">"When I run several groups, I want to keep them in front of me — and see whose day is when."</span><span data-lang="ru">«Когда я веду несколько групп, я хочу держать их перед глазами — и видеть, у кого когда день».</span></p>
+        </div>
+      </div>
+      <p>
+        <span data-lang="en">A heart on every group card marks the educator's favorites; the home
+        screen has a "My" filter that hides everyone else. The calendar tab
+        renders the same color-coding as the group cards — so an educator can
+        spot "Yellow is in the morning, Blue is after lunch" without reading
+        text.</span><span data-lang="ru">Сердечко на каждой карточке группы отмечает избранное воспитателя; на
+        главном экране есть фильтр «Мои», который скрывает всех остальных. Вкладка
+        календаря использует то же цветовое кодирование, что и карточки групп, —
+        так что воспитатель видит «Жёлтая утром, Синяя после обеда», не читая
+        текст.</span>
+      </p>
+
+      <div class="screens-row">
+        <div class="screen-frame">
+          <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/main-collapsed.png" alt="Main screen — My groups filter (375×812)">
+          <div class="screen-caption"><span data-lang="en"><b>"My" filter.</b> Same home, only favorited groups.</span><span data-lang="ru"><b>Фильтр «Мои».</b> Та же главная, только избранные группы.</span></div>
+        </div>
+        <div class="screen-frame">
+          <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/calendar.png" alt="Calendar tab (375×812)">
+          <div class="screen-caption"><span data-lang="en"><b>Calendar.</b> Same color-coding as the home screen, carried into the month view.</span><span data-lang="ru"><b>Календарь.</b> То же цветовое кодирование, что и на главной, перенесённое в вид месяца.</span></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============ 6. CONCEPT ============ -->
+  <section id="concept">
+    <span class="section-num"><span class="check">✓</span> 06 · <span data-lang="en">The new concept</span><span data-lang="ru">Новая концепция</span></span>
+    <h2><span data-lang="en">A daily report that doesn't feel like paperwork</span><span data-lang="ru">Ежедневный отчёт, который не ощущается как бумажная рутина</span></h2>
+    <p>
+      <span data-lang="en">The visual language is the case. Every product decision was tested against
+      one question: <b>"Would an educator still feel calm using this on their
+      worst Tuesday?"</b></span><span data-lang="ru">Визуальный язык — это и есть кейс. Каждое продуктовое решение проверялось
+      одним вопросом: <b>«Останется ли воспитатель спокойным, пользуясь этим в свой
+      худший вторник?»</b></span>
+    </p>
+
+    <h3><span data-lang="en">Design philosophy</span><span data-lang="ru">Философия дизайна</span></h3>
+    <ul>
+      <li><span data-lang="en"><b>Warm before utilitarian</b> — cream card background, soft pastels, friendly serif-adjacent display font for headers. The screen never argues with the room it's used in.</span><span data-lang="ru"><b>Тепло важнее утилитарности</b> — кремовый фон карточек, мягкие пастельные тона, дружелюбный акцидентный шрифт заголовков, близкий к серифному. Экран никогда не спорит с комнатой, в которой им пользуются.</span></li>
+      <li><span data-lang="en"><b>Color is information</b> — every group owns a hue, and that hue carries into every screen it appears on (cards, calendar, schedule strips). The educator builds a map by repetition, not by reading.</span><span data-lang="ru"><b>Цвет — это информация</b> — у каждой группы свой оттенок, и он переходит на каждый экран, где она появляется (карточки, календарь, полосы расписания). Воспитатель выстраивает карту повторением, а не чтением.</span></li>
+      <li><span data-lang="en"><b>Pictures replace grades</b> — children get cartoon avatars; their daily state is a three-state mood emoji, not a number. Aggregate numbers only appear at the group level, for administrators.</span><span data-lang="ru"><b>Картинки вместо оценок</b> — у детей мультяшные аватары; их дневное состояние — трёхпозиционный эмодзи настроения, а не число. Сводные числа появляются только на уровне группы, для администраторов.</span></li>
+      <li><span data-lang="en"><b>Critical info climbs the page</b> — allergies, today's mood, and active homework are pinned above scroll. Birthday reminders push themselves toward the educator three days early.</span><span data-lang="ru"><b>Важное поднимается вверх страницы</b> — аллергии, сегодняшнее настроение и активные домашние задания закреплены до прокрутки. Напоминания о днях рождения сами подаются воспитателю за три дня.</span></li>
+      <li><span data-lang="en"><b>One-handed by default</b> — every primary action sits in the bottom third of the screen, within thumb reach.</span><span data-lang="ru"><b>Одна рука по умолчанию</b> — каждое основное действие находится в нижней трети экрана, в зоне большого пальца.</span></li>
+    </ul>
+
+    <h3><span data-lang="en">Key screens</span><span data-lang="ru">Ключевые экраны</span></h3>
+    <div class="screens-row one-row">
+      <div class="screen-frame">
+        <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/main-collapsed.png" alt="Main screen (375×812)">
+        <div class="screen-caption"><span data-lang="en"><b>Home.</b> Today's schedule plus every group, color-keyed.</span><span data-lang="ru"><b>Главная.</b> Расписание на сегодня и все группы с цветовым кодом.</span></div>
+      </div>
+      <div class="screen-frame">
+        <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/group-collapsed.png" alt="Group detail (375×812)">
+        <div class="screen-caption"><span data-lang="en"><b>Group detail.</b> Schedule, child list, mood, homework, announcement CTA.</span><span data-lang="ru"><b>Детали группы.</b> Расписание, список детей, настроение, домашние задания, кнопка объявления.</span></div>
+      </div>
+      <div class="screen-frame">
+        <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/kid-card-collapsed.png" alt="Kid card (375×812)">
+        <div class="screen-caption"><span data-lang="en"><b>Kid card.</b> Allergy, today's mood, notes, message-parent CTA.</span><span data-lang="ru"><b>Карточка ребёнка.</b> Аллергия, сегодняшнее настроение, заметки, кнопка сообщения родителю.</span></div>
+      </div>
+      <div class="screen-frame">
+        <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/calendar.png" alt="Calendar tab (375×812)">
+        <div class="screen-caption"><span data-lang="en"><b>Calendar.</b> Same color-coding carried into the month view.</span><span data-lang="ru"><b>Календарь.</b> То же цветовое кодирование, перенесённое в вид месяца.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 7. SUMMARY ============ -->
+  <section id="summary">
+    <span class="section-num"><span class="check">✓</span> 07 · <span data-lang="en">Summary</span><span data-lang="ru">Итоги</span></span>
+    <h2><span data-lang="en">What landed</span><span data-lang="ru">Что получилось</span></h2>
+
+    <p>
+      <span data-lang="en">The concept was presented as an end-to-end walk-through: research
+      findings, user flows, hypotheses, and the visual language. The mascot and
+      the color-coded group system landed first — they reframe the product as
+      something a kindergarten <i>actually wants on its wall</i>, not a school
+      CRM. The mood-icon decision was the loudest conversation: choosing a
+      three-state picture over a number is a defendable simplification, but it
+      requires the educator and the parent to share a shorthand. That shared
+      shorthand is what the rest of the product is engineered to teach.</span><span data-lang="ru">Концепцию представили как сквозной проход: результаты исследования,
+      пользовательские потоки, гипотезы и визуальный язык. Маскот и система групп с
+      цветовым кодированием зашли первыми — они переосмысляют продукт как нечто,
+      что детский сад <i>и правда хочет повесить на стену</i>, а не как школьную
+      CRM. Решение с иконками настроения вызвало больше всего обсуждений: выбор
+      трёхпозиционной картинки вместо числа — защитимое упрощение, но оно требует,
+      чтобы воспитатель и родитель разделяли общий язык. Именно этому общему языку
+      и обучает остальной продукт.</span>
+    </p>
+    <p>
+      <span data-lang="en">Every surface — Home, Group detail, Kid card, parent chat, calendar,
+      announcement and homework composers — was carried through to a polished,
+      production-ready state in the same visual language. The case is
+      design-complete; validating it with real educators is the next step.</span><span data-lang="ru">Каждый экран — Главная, Детали группы, Карточка ребёнка, чат с родителем,
+      календарь, редакторы объявлений и домашних заданий — доведён до отполированного,
+      готового к продакшену состояния в едином визуальном языке. Кейс завершён по
+      дизайну; следующий шаг — проверка на реальных воспитателях.</span>
+    </p>
+  </section>
+
+  <!-- ============ 8. NEXT STEPS ============ -->
+  <section id="next">
+    <span class="section-num"><span class="check">✓</span> 08 · <span data-lang="en">Next steps</span><span data-lang="ru">Дальнейшие шаги</span></span>
+    <h2><span data-lang="en">What I'd do with another week or two</span><span data-lang="ru">Что бы я сделала ещё за неделю-две</span></h2>
+
+    <ul>
+      <li><span data-lang="en"><b>Usability testing with 5–8 educators</b> — confirm or break the six hypotheses; especially H2 (mood emojis ≥ grades) and H3 (allergy callout placement).</span><span data-lang="ru"><b>Юзабилити-тестирование с 5–8 воспитателями</b> — подтвердить или опровергнуть шесть гипотез; особенно H2 (эмодзи настроения ≥ оценок) и H3 (расположение плашки об аллергии).</span></li>
+      <li><span data-lang="en"><b>Finalize the invented surfaces</b> — push the child card, parent chat, announcement composer, homework form, and calendar tab from concept-mockup to production-ready.</span><span data-lang="ru"><b>Доделать придуманные экраны</b> — довести карточку ребёнка, чат с родителем, редактор объявлений, форму домашних заданий и вкладку календаря из макета-концепции до готовности к продакшену.</span></li>
+      <li><span data-lang="en"><b>Parent-side companion</b> — a read-only mobile app for parents to see today's mood, homework, and chat — leveraging the same visual system so it feels like one product.</span><span data-lang="ru"><b>Приложение-компаньон для родителей</b> — мобильное приложение только для чтения, где родители видят настроение на сегодня, домашние задания и чат, в той же визуальной системе, чтобы ощущалось как один продукт.</span></li>
+      <li><span data-lang="en"><b>Administrator role</b> — a kindergarten-director surface for cross-group well-being trends and birthday calendars across all groups.</span><span data-lang="ru"><b>Роль администратора</b> — экран для заведующей детским садом с трендами благополучия по всем группам и календарями дней рождения по всем группам.</span></li>
+      <li><span data-lang="en"><b>Lightweight Telegram-bot fallback</b> — for educators in kindergartens with patchy device access, surface the same daily mood capture as a bot conversation.</span><span data-lang="ru"><b>Лёгкий запасной Telegram-бот</b> — для воспитателей в детских садах с ограниченным доступом к устройствам реализовать тот же ежедневный сбор настроения как диалог с ботом.</span></li>
+      <li><span data-lang="en"><b>Accessibility audit</b> — verify the color-coding works for color-blind users (add a small icon or pattern overlay per group so color isn't the only signal).</span><span data-lang="ru"><b>Аудит доступности</b> — проверить, что цветовое кодирование работает для людей с дальтонизмом (добавить небольшую иконку или паттерн на каждую группу, чтобы цвет был не единственным сигналом).</span></li>
+    </ul>
+  </section>
+
+  <!-- ============ 9. APPENDIX ============ -->
+  <section id="appendix">
+    <span class="section-num"><span class="check">✓</span> 09 · <span data-lang="en">Appendix</span><span data-lang="ru">Приложение</span></span>
+    <h2><span data-lang="en">Working materials</span><span data-lang="ru">Рабочие материалы</span></h2>
+
+    <details>
+      <summary><span data-lang="en">Full 6-scenario user flow (original board)</span><span data-lang="ru">Полный пользовательский поток на 6 сценариев (исходная доска)</span></summary>
+      <div class="body">
+        <p>
+          <span data-lang="en">The board below is the original Russian working artifact for the
+          six end-to-end flows: quick child lookup, day grading, reading a
+          parent message, group announcement, homework, and favorites &amp;
+          calendar. The nodes are color-coded by type so the path can be read
+          as start state, screen, decision, side scenario, and error path.</span><span data-lang="ru">Доска ниже — исходный рабочий артефакт на русском для шести сквозных
+          потоков: быстрый поиск ребёнка, оценка дня, чтение сообщения
+          родителя, объявление в группе, домашнее задание и избранное и
+          календарь. Узлы раскрашены по типу, чтобы путь читался как стартовое
+          состояние, экран, решение, побочный сценарий и путь ошибки.</span>
+        </p>
+        <div class="callout invented" style="background: var(--bg-elev); border-color: var(--line);">
+          <div class="label" style="color: var(--ink-2);"><span data-lang="en">📎 Original working artifact (Russian)</span><span data-lang="ru">📎 Исходный рабочий артефакт (на русском)</span></div>
+          <span data-lang="en">This is the source Figma/Miro board exported as-is. An English summary follows below; the full PDF download links to the original.</span><span data-lang="ru">Это исходная доска Figma/Miro, экспортированная как есть. Ниже следует краткое описание; полная загрузка PDF ведёт к оригиналу.</span>
+        </div>
+        <img loading="lazy" decoding="async" src="assets/board/user-flow.png" alt="Full user flow diagram" style="border-radius: var(--r-md); border: 1px solid var(--line); background: white;" />
+        <div class="screen-caption"><span data-lang="en">Original board · text is in Russian.</span><span data-lang="ru">Исходная доска · текст на русском.</span></div>
+      </div>
+    </details>
+  </section>
+
+</main>
+
+<nav class="case-nav is-light">
+  <a class="case-nav__link case-nav__link--prev" href="../concepts/index.html">
+    <span class="case-nav__kicker"><span data-lang="en">← Previous</span><span data-lang="ru">← Предыдущий</span></span>
+    <span class="case-nav__title"><span data-lang="en">UI concepts</span><span data-lang="ru">UI-концепты</span></span>
+  </a>
+  <span class="case-nav__center"><a href="../../portfolio.html"><span data-lang="en">All work</span><span data-lang="ru">Все работы</span></a></span>
+  <a class="case-nav__link case-nav__link--next" href="../tracker/index.html">
+    <span class="case-nav__kicker"><span data-lang="en">Next →</span><span data-lang="ru">Следующий →</span></span>
+    <span class="case-nav__title"><span data-lang="en">Corporate task-tracker</span><span data-lang="ru">Корпоративный таск-трекер</span></span>
+  </a>
+</nav>
+
+<footer class="footer">
+  <span><span data-lang="en">© Elena Meshnina</span><span data-lang="ru">© Елена Мешнина</span></span>
+  <span><span data-lang="en">UI / UX &amp; Product Designer</span><span data-lang="ru">UI / UX и продуктовый дизайнер</span></span>
+</footer>
+
+<script src="../../script.js"></script>
+</body>
+</html>

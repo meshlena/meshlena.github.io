@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://meshlena.github.io/sitemap.xml
