@@ -248,9 +248,39 @@
   }
   initWorksIndex();
 
+  /* ---------- Before/after comparison sliders ---------- */
+  function initCompare() {
+    document.querySelectorAll('[data-compare]').forEach((c) => {
+      const knob = c.querySelector('.fix__compare__knob');
+      const setPos = (clientX) => {
+        const r = c.getBoundingClientRect();
+        let p = ((clientX - r.left) / r.width) * 100;
+        p = Math.max(0, Math.min(100, p));
+        c.style.setProperty('--pos', p + '%');
+      };
+      let dragging = false;
+      c.addEventListener('pointerdown', (e) => {
+        dragging = true;
+        setPos(e.clientX);
+        if (e.pointerId != null && c.setPointerCapture) { try { c.setPointerCapture(e.pointerId); } catch (_) {} }
+      });
+      c.addEventListener('pointermove', (e) => { if (dragging) setPos(e.clientX); });
+      c.addEventListener('pointerup', () => { dragging = false; });
+      c.addEventListener('pointercancel', () => { dragging = false; });
+      if (knob) {
+        knob.addEventListener('keydown', (e) => {
+          const cur = parseFloat(getComputedStyle(c).getPropertyValue('--pos')) || 50;
+          if (e.key === 'ArrowLeft') { c.style.setProperty('--pos', Math.max(0, cur - 4) + '%'); e.preventDefault(); }
+          else if (e.key === 'ArrowRight') { c.style.setProperty('--pos', Math.min(100, cur + 4) + '%'); e.preventDefault(); }
+        });
+      }
+    });
+  }
+  initCompare();
+
   /* ---------- Lightbox for case-page images ---------- */
   function initLightbox() {
-    const selectors = '.case-flow__visual img, .case__cover img, .concepts-grid figure img, .case-zoom img';
+    const selectors = '.case-flow__visual img, .case__cover img, .concepts-grid figure img, .case-zoom img, .fix__shots img';
     const triggers = document.querySelectorAll(selectors);
     if (!triggers.length) return;
 

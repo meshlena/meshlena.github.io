@@ -6,7 +6,7 @@
   <title>Corporate task-tracker · Elena Meshnina</title>
   <meta name="description" content="Corporate task-tracker redesign — internship at Red Collar Design Studio." />
   <meta name="author" content="Elena Meshnina" />
-  <meta name="theme-color" content="#0a0a0c" />
+  <meta name="theme-color" content="#f6f5f1" />
   <link rel="canonical" href="https://meshlena.github.io/cases/tracker/index.html" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
@@ -26,6 +26,180 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../styles.css" />
+
+  <!-- Keep the results-strip captions compact: the shared rule enlarges every span in the cell -->
+  <style>
+    .case[data-case="tracker"] .case__results-grid > div p span {
+      display: inline;
+      font-family: var(--sans);
+      font-style: normal;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 1.5;
+      margin: 0;
+      color: rgba(10,10,12,0.6);
+    }
+
+    /* Project brief + my role */
+    .case[data-case="tracker"] .case-brief,
+    .case[data-case="tracker"] .case-role {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: clamp(32px, 6vw, 88px);
+      align-items: start;
+    }
+    .case[data-case="tracker"] .case-brief {
+      padding-bottom: clamp(40px, 7vh, 80px);
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+    .case[data-case="tracker"] .case-role { padding-top: clamp(40px, 7vh, 80px); }
+    .case[data-case="tracker"] .case-brief__lead .kicker,
+    .case[data-case="tracker"] .case-role__intro .kicker { margin-bottom: 18px; }
+    .case[data-case="tracker"] .case-brief__lead p,
+    .case[data-case="tracker"] .case-role__intro p {
+      font-size: clamp(16px, 1.3vw, 20px);
+      line-height: 1.6;
+      color: rgba(10,10,12,0.74);
+      max-width: 48ch;
+      margin: 0 0 16px;
+    }
+    .case[data-case="tracker"] .case-role__intro p:last-child { margin-bottom: 0; }
+    .case[data-case="tracker"] .case-brief__def { color: rgba(10,10,12,0.55) !important; }
+    .case[data-case="tracker"] .case-brief__facts { display: grid; gap: 22px; margin: 0; }
+    .case[data-case="tracker"] .case-brief__facts > div {
+      border-top: 1px solid rgba(0,0,0,0.12);
+      padding-top: 14px;
+    }
+    .case[data-case="tracker"] .case-brief__facts dt {
+      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(10,10,12,0.5); margin-bottom: 8px;
+    }
+    .case[data-case="tracker"] .case-brief__facts dd {
+      margin: 0; font-size: clamp(15px, 1.05vw, 17px); line-height: 1.55; color: rgba(10,10,12,0.82);
+    }
+    .case[data-case="tracker"] .case-role__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+    .case[data-case="tracker"] .case-role__list li {
+      position: relative; padding-left: 26px;
+      font-size: clamp(15px, 1.05vw, 17px); line-height: 1.5; color: rgba(10,10,12,0.82);
+    }
+    .case[data-case="tracker"] .case-role__list li::before {
+      content: ''; position: absolute; left: 2px; top: 0.55em;
+      width: 8px; height: 8px; border-radius: 50%; background: #5b5bff;
+    }
+
+    /* Discovery problem lists inside case-flow text */
+    .case[data-case="tracker"] .case-flow__label {
+      font-size: 12px; letter-spacing: 0.04em; font-weight: 600;
+      color: #0a0a0c; margin: 4px 0 0;
+    }
+    .case[data-case="tracker"] .case-flow__list { list-style: none; margin: 2px 0 0; padding: 0; display: grid; gap: 10px; }
+    .case[data-case="tracker"] .case-flow__list li {
+      position: relative; padding-left: 22px;
+      font-size: clamp(14px, 1vw, 16px); line-height: 1.5; color: rgba(10,10,12,0.72);
+    }
+    .case[data-case="tracker"] .case-flow__list li::before {
+      content: ''; position: absolute; left: 0; top: 0.5em;
+      width: 6px; height: 6px; border-radius: 50%; background: #5b5bff;
+    }
+
+    /* Discovery — one section, two roles */
+    .case[data-case="tracker"] .discovery { display: flex; flex-direction: column; gap: clamp(26px, 4vw, 44px); }
+    .case[data-case="tracker"] .discovery__head .kicker { margin-bottom: 12px; }
+    .case[data-case="tracker"] .discovery__head h3 {
+      font-size: clamp(24px, 2.8vw, 38px); letter-spacing: -0.02em; line-height: 1.06; margin: 0 0 16px; max-width: 24ch;
+    }
+    .case[data-case="tracker"] .discovery__head p {
+      font-size: clamp(16px, 1.2vw, 19px); line-height: 1.6; color: rgba(10,10,12,0.74); max-width: 62ch; margin: 0;
+    }
+    .case[data-case="tracker"] .discovery__roles { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 4vw, 56px); }
+    .case[data-case="tracker"] .discovery__note {
+      font-size: clamp(15px, 1.1vw, 18px); line-height: 1.6; color: rgba(10,10,12,0.7); max-width: 62ch; margin: 0;
+    }
+
+    /* Improvements — problem / solution blocks */
+    .case[data-case="tracker"] .case-section-head { max-width: var(--maxw); margin: 0 auto; }
+    .case[data-case="tracker"] .case-section-head h2 {
+      font-size: clamp(28px, 4vw, 52px); letter-spacing: -0.025em; line-height: 1.05; margin: 10px 0 0; max-width: 20ch;
+    }
+    .case[data-case="tracker"] .fix { display: flex; flex-direction: column; gap: clamp(22px, 3vw, 36px); }
+    .case[data-case="tracker"] .fix__head { display: flex; align-items: baseline; gap: clamp(12px, 1.5vw, 20px); }
+    .case[data-case="tracker"] .fix__num {
+      font-family: var(--serif); font-style: italic; font-weight: 400;
+      font-size: clamp(26px, 3vw, 40px); color: rgba(10,10,12,0.38); line-height: 1;
+    }
+    .case[data-case="tracker"] .fix__title {
+      font-size: clamp(21px, 2.3vw, 30px); letter-spacing: -0.02em; line-height: 1.1; margin: 0; max-width: 24ch;
+    }
+    .case[data-case="tracker"] .fix__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 4vw, 64px); }
+    .case[data-case="tracker"] .fix__label {
+      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; margin: 0 0 14px; font-weight: 600;
+    }
+    .case[data-case="tracker"] .fix__col--problem .fix__label { color: #c0492b; }
+    .case[data-case="tracker"] .fix__col--solution .fix__label { color: #4b4bf5; }
+    .case[data-case="tracker"] .fix__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+    .case[data-case="tracker"] .fix__list li {
+      position: relative; padding-left: 22px;
+      font-size: clamp(14px, 1.02vw, 16px); line-height: 1.55; color: rgba(10,10,12,0.78);
+    }
+    .case[data-case="tracker"] .fix__list li::before {
+      content: ''; position: absolute; left: 0; top: 0.62em; width: 6px; height: 6px; border-radius: 50%;
+    }
+    .case[data-case="tracker"] .fix__col--problem .fix__list li::before { background: #c0492b; }
+    .case[data-case="tracker"] .fix__col--solution .fix__list li::before { background: #4b4bf5; }
+    .case[data-case="tracker"] .fix__shots {
+      display: flex; justify-content: center; align-items: center; flex-wrap: wrap;
+      gap: clamp(12px, 2vw, 24px);
+      background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.08);
+      border-radius: var(--radius); padding: clamp(18px, 3vw, 40px);
+    }
+    .case[data-case="tracker"] .fix__shots img {
+      max-width: 100%; max-height: 62vh; width: auto; height: auto; object-fit: contain;
+      border-radius: 10px; cursor: zoom-in;
+    }
+    .case[data-case="tracker"] .fix__shots--pair img { max-width: 48%; }
+
+    /* Before / after comparison slider */
+    .case[data-case="tracker"] .fix__compare {
+      position: relative; --pos: 50%;
+      width: 100%; max-width: 940px; margin: 0 auto;
+      border-radius: var(--radius); overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.08); background: rgba(0,0,0,0.04);
+      touch-action: none; user-select: none; cursor: ew-resize;
+    }
+    .case[data-case="tracker"] .fix__compare img { display: block; width: 100%; height: auto; pointer-events: none; }
+    .case[data-case="tracker"] .fix__compare__after { position: absolute; inset: 0; clip-path: inset(0 0 0 var(--pos)); }
+    .case[data-case="tracker"] .fix__compare__after img { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .case[data-case="tracker"] .fix__compare__bar {
+      position: absolute; top: 0; bottom: 0; left: var(--pos);
+      width: 2px; background: #fff; transform: translateX(-1px);
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.18); pointer-events: none;
+    }
+    .case[data-case="tracker"] .fix__compare__knob {
+      position: absolute; top: 50%; left: var(--pos);
+      width: 44px; height: 44px; margin: -22px 0 0 -22px;
+      border-radius: 50%; background: #fff; color: #4b4bf5; border: none;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.28);
+      display: flex; align-items: center; justify-content: center; cursor: ew-resize; touch-action: none;
+    }
+    .case[data-case="tracker"] .fix__compare__knob:focus-visible { outline: 2px solid #4b4bf5; outline-offset: 3px; }
+    .case[data-case="tracker"] .fix__compare__tag {
+      position: absolute; top: 14px; z-index: 2;
+      font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600;
+      padding: 5px 10px; border-radius: 999px; color: #fff; background: rgba(10,10,12,0.62); pointer-events: none;
+    }
+    .case[data-case="tracker"] .fix__compare__tag--before { left: 14px; }
+    .case[data-case="tracker"] .fix__compare__tag--after { right: 14px; }
+
+    @media (max-width: 760px) {
+      .case[data-case="tracker"] .case-brief,
+      .case[data-case="tracker"] .case-role { grid-template-columns: 1fr; gap: 28px; }
+      .case[data-case="tracker"] .discovery__roles { grid-template-columns: 1fr; gap: 24px; }
+      .case[data-case="tracker"] .fix__grid { grid-template-columns: 1fr; gap: 24px; }
+      .case[data-case="tracker"] .fix__shots--pair img { max-width: 100%; max-height: 52vh; }
+    }
+  </style>
 
   <!-- i18n: pick language before paint (saved choice -> browser -> English) -->
   <script>
@@ -49,7 +223,7 @@
     })();
   </script>
 </head>
-<body>
+<body class="is-light">
 
 <header class="nav">
   <div class="nav__left">
@@ -60,7 +234,7 @@
       <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
         <path d="M7 2L3 6L7 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
-      <span data-lang="en">Back to portfolio</span><span data-lang="ru">Назад к портфолио</span>
+      <span data-lang="en">Back to portfolio</span><span data-lang="ru">Назад к&nbsp;портфолио</span>
     </a>
   </div>
   <nav class="nav__links">
@@ -87,59 +261,312 @@
 </header>
 
 <main class="case-page">
-<section class="case case--dark" data-case="tracker">
+<section class="case case--light" data-case="tracker">
     <div class="case__hero">
       <div class="case__meta">
         <span class="chip"><span data-lang="en">Web · Product design</span><span data-lang="ru">Веб · Продуктовый дизайн</span></span>
         <span class="case__num">02</span>
       </div>
       <h2 class="case__title"><span data-lang="en">Corporate task-tracker, rethought</span><span data-lang="ru">Корпоративный таск-трекер, переосмысленный</span></h2>
-      <p class="case__sub"><span data-lang="en">Internship at <strong>Red Collar Design Studio</strong> — auditing a time-tracking & project tool used by employees and managers, then proposing a new UI and a friendlier interaction model.</span><span data-lang="ru">Стажировка в <strong>Red Collar Design Studio</strong> — аудит инструмента для учёта времени и управления проектами, которым пользуются сотрудники и руководители, и разработка нового интерфейса с более дружелюбной моделью взаимодействия.</span></p>
+      <p class="case__sub"><span data-lang="en">An internship at <strong>Red Collar</strong> — an audit of a corporate time-tracking &amp; project tool, a new UI, and a friendlier way to work with it.</span><span data-lang="ru">Стажировка в&nbsp;<strong>Red Collar</strong> — аудит корпоративного инструмента для&nbsp;учёта времени и&nbsp;управления проектами, новый UI и&nbsp;более дружелюбное взаимодействие с&nbsp;ним.</span></p>
       <div class="case__cover">
-        <img src="assets/cover.png" alt="Cover image of the corporate task tracker case" />
+        <img src="assets/cover.png" alt="Redesigned corporate task tracker interface" />
       </div>
     </div>
 
+    <div class="case-brief">
+      <div class="case-brief__lead">
+        <p class="kicker"><span data-lang="en">About the project</span><span data-lang="ru">О&nbsp;проекте</span></p>
+        <p><span data-lang="en">As part of an internship at the Red Collar design studio, the task was to audit the current task-tracker, propose a new UI, and improve the interaction with it — taking into account the context of both the employee and the manager.</span><span data-lang="ru">В&nbsp;рамках стажировки в&nbsp;дизайн-студии Red Collar задачей было провести аудит текущего таск-трекера, предложить новый UI и&nbsp;улучшить взаимодействие с&nbsp;ним, учитывая контекст работы сотрудника и&nbsp;менеджера.</span></p>
+        <p class="case-brief__def"><span data-lang="en">A corporate task-tracker is a tool for time tracking and project management.</span><span data-lang="ru">Корпоративный таск-трекер — инструмент для&nbsp;учёта времени и&nbsp;управления проектами.</span></p>
+      </div>
+      <dl class="case-brief__facts">
+        <div>
+          <dt><span data-lang="en">Audience</span><span data-lang="ru">Аудитория продукта</span></dt>
+          <dd><span data-lang="en">Company employees</span><span data-lang="ru">Сотрудники компании</span></dd>
+        </div>
+        <div>
+          <dt><span data-lang="en">User mission</span><span data-lang="ru">Миссия для&nbsp;пользователей</span></dt>
+          <dd><span data-lang="en">Simplify working with the tracker, so employees can get through their daily routine quickly and comfortably.</span><span data-lang="ru">Упростить работу с&nbsp;таск-трекером, чтобы&nbsp;сотрудники могли выполнять свою ежедневную рутину быстро и&nbsp;удобно.</span></dd>
+        </div>
+        <div>
+          <dt><span data-lang="en">Goal</span><span data-lang="ru">Цель</span></dt>
+          <dd><span data-lang="en">Improve the employee experience of the tracker through an iterative approach — first fixing the most problematic spots one by one, then gradually moving toward predictiveness and simpler interaction. Which, ultimately, leads to higher company revenue and lower losses.</span><span data-lang="ru">Улучшить пользовательский опыт сотрудников при&nbsp;взаимодействии с&nbsp;трекером путём итерационного подхода — сначала точечно доработать самые проблемные места, а&nbsp;затем постепенно приводить к&nbsp;предиктивности и&nbsp;упрощённому взаимодействию. Что, в&nbsp;конечном итоге, ведёт к&nbsp;увеличению дохода компании и&nbsp;сокращению убытков.</span></dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="case-role">
+      <div class="case-role__intro">
+        <p class="kicker"><span data-lang="en">My role</span><span data-lang="ru">Моя роль</span></p>
+        <p><span data-lang="en">I worked on the project on my own, under a mentor's guidance. The research stage (in-depth interviews, PURE) was carried out together with another intern and their mentor.</span><span data-lang="ru">Я&nbsp;работала над&nbsp;проектом самостоятельно, под&nbsp;руководством ментора. Этап исследований (глубинные интервью, PURE) был выполнен совместно с&nbsp;другим стажёром и&nbsp;его ментором.</span></p>
+      </div>
+      <ul class="case-role__list">
+        <li><span data-lang="en">Ran 4 in-depth interviews and analysed the results</span><span data-lang="ru">Провела 4 глубинных интервью и&nbsp;проанализировала результаты</span></li>
+        <li><span data-lang="en">Did a UX audit and benchmarking</span><span data-lang="ru">Выполнила UX-аудит и&nbsp;бенчмаркинг</span></li>
+        <li><span data-lang="en">Formulated hypotheses and JTBD</span><span data-lang="ru">Сформулировала гипотезы, JTBD</span></li>
+        <li><span data-lang="en">Proposed improvements to the current tracker</span><span data-lang="ru">Предложила улучшения для&nbsp;текущего трекера</span></li>
+        <li><span data-lang="en">Developed a new concept</span><span data-lang="ru">Разработала новую концепцию</span></li>
+        <li><span data-lang="en">Presented the solution to the company's team</span><span data-lang="ru">Презентовала решение сотрудникам компании</span></li>
+      </ul>
+    </div>
+
     <div class="case-flow">
-      <div class="case-flow__row">
-        <div class="case-flow__visual"><img src="assets/before.png" alt="Old tracking screen" loading="lazy" /></div>
-        <div class="case-flow__text">
-          <p class="kicker"><span data-lang="en">Discovery</span><span data-lang="ru">Исследование</span></p>
-          <h3><span data-lang="en">Eight depth interviews. Two roles. One overgrown UI</span><span data-lang="ru">Восемь глубинных интервью. Две роли. Один разросшийся интерфейс</span></h3>
-          <p><span data-lang="en">With a fellow intern I ran 8 interviews, then PURE scoring and a UX audit. The same complaints kept surfacing — the screen was loud where it should be quiet, and quiet where users needed help.</span><span data-lang="ru">Вместе с другим стажёром я провела 8 интервью, затем оценку по методу PURE и UX-аудит. Одни и те же жалобы повторялись снова и снова — экран кричал там, где должен был молчать, и молчал там, где пользователю нужна была помощь.</span></p>
+      <div class="discovery">
+        <div class="discovery__head">
+          <p class="kicker"><span data-lang="en">Discovery &amp; design research</span><span data-lang="ru">Discovery &amp; design research</span></p>
+          <h3><span data-lang="en">In-depth interviews, PURE, a UX audit</span><span data-lang="ru">Глубинные интервью, PURE, UX-аудит</span></h3>
+          <p><span data-lang="en">Together with a colleague, we identified the key scenarios for working with the tracker and the problems inside each one — across two roles.</span><span data-lang="ru">Вместе с&nbsp;коллегой мы выявили ключевые сценарии при&nbsp;взаимодействии с&nbsp;трекером и&nbsp;проблемы в&nbsp;них — в&nbsp;разрезе двух ролей.</span></p>
+        </div>
+        <div class="discovery__roles">
+          <div>
+            <p class="case-flow__label"><span data-lang="en">The employee's role</span><span data-lang="ru">Роль сотрудника</span></p>
+            <ul class="case-flow__list">
+              <li><span data-lang="en">Trouble working with the project and task list</span><span data-lang="ru">Трудности в&nbsp;работе со&nbsp;списком проектов и&nbsp;задач</span></li>
+              <li><span data-lang="en">Difficulty logging time</span><span data-lang="ru">Сложности при&nbsp;внесении времени</span></li>
+            </ul>
+          </div>
+          <div>
+            <p class="case-flow__label"><span data-lang="en">The manager's role</span><span data-lang="ru">Роль менеджера</span></p>
+            <ul class="case-flow__list">
+              <li><span data-lang="en">Creating a project is cumbersome</span><span data-lang="ru">Процесс создания проекта затруднён</span></li>
+              <li><span data-lang="en">The project table isn't interactive</span><span data-lang="ru">Таблица проектов не&nbsp;интерактивная</span></li>
+              <li><span data-lang="en">The project page is thin on information</span><span data-lang="ru">Страница проекта малоинформативна</span></li>
+              <li><span data-lang="en">Too little detail when creating a task</span><span data-lang="ru">Мало информации для&nbsp;создания задачи</span></li>
+              <li><span data-lang="en">Monitoring employees' work is hard</span><span data-lang="ru">Мониторинг работы сотрудников затруднён</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="fix__shots fix__shots--pair">
+          <img src="assets/role-employee.png" alt="Research artefact mapping employee scenarios, hypotheses and JTBD" loading="lazy" />
+          <img src="assets/role-manager.png" alt="Research artefact mapping manager scenarios, hypotheses and JTBD" loading="lazy" />
+        </div>
+        <p class="discovery__note"><span data-lang="en">Seven concrete problems came out of this — and I worked through each one in the current tracker.</span><span data-lang="ru">Из&nbsp;этого вышло семь конкретных проблем — и&nbsp;каждую я&nbsp;разобрала в&nbsp;текущем трекере.</span></p>
+      </div>
+
+      <div class="case-section-head">
+        <p class="kicker"><span data-lang="en">Improving the current tracker</span><span data-lang="ru">Улучшение текущего трекера</span></p>
+        <h2><span data-lang="en">Seven problems, seven solutions</span><span data-lang="ru">Семь проблем — семь решений</span></h2>
+      </div>
+
+      <div class="fix">
+        <div class="fix__head">
+          <span class="fix__num">01</span>
+          <h3 class="fix__title"><span data-lang="en">An inconvenient project and task list</span><span data-lang="ru">Неудобный список проектов и&nbsp;задач</span></h3>
+        </div>
+        <div class="fix__grid">
+          <div class="fix__col fix__col--problem">
+            <p class="fix__label"><span data-lang="en">Problems</span><span data-lang="ru">Проблемы</span></p>
+            <ul class="fix__list">
+              <li><span data-lang="en">The screen shows every task ever assigned to the employee, including irrelevant ones, with no way to quickly filter or find what's needed. → This increases the time spent searching for the right task, or makes the employee forget to track time.</span><span data-lang="ru">На&nbsp;экране отображаются все задачи, когда-либо назначенные сотруднику, включая неактуальные, без&nbsp;возможности быстро фильтровать или&nbsp;находить нужные. → Это увеличивает время на&nbsp;поиск актуальной задачи или&nbsp;приводит к&nbsp;тому, что&nbsp;сотрудник забывает затрекаться.</span></li>
+              <li><span data-lang="en">The “favourites” feature works unreliably and needs constant re-setup, which creates extra friction.</span><span data-lang="ru">Работа с&nbsp;избранным функционалом не&nbsp;стабильно работает и&nbsp;требует постоянных настроек, что&nbsp;создаёт дополнительные трудности.</span></li>
+              <li><span data-lang="en">Employees lack information about the hours left on a project, which makes planning and doing the work harder.</span><span data-lang="ru">Сотрудникам не&nbsp;хватает информации об&nbsp;оставшихся часах на&nbsp;проекте, что&nbsp;затрудняет планирование и&nbsp;выполнение задач.</span></li>
+            </ul>
+          </div>
+          <div class="fix__col fix__col--solution">
+            <p class="fix__label"><span data-lang="en">Solutions</span><span data-lang="ru">Решения</span></p>
+            <ul class="fix__list">
+              <li><span data-lang="en">Reworked task management: tasks can now be sent to an archive. If the manager sets deadlines on a project, the task disappears from the list automatically once the deadline passes.</span><span data-lang="ru">Доработала управление задачами: теперь можно отправлять задачи в&nbsp;архив. Если менеджер укажет сроки на&nbsp;проекте, то&nbsp;такая задача по&nbsp;истечении срока исчезнет из&nbsp;списка автоматически.</span></li>
+              <li><span data-lang="en">Added the ability to collapse the task list for better readability and navigation.</span><span data-lang="ru">Реализовала возможность сворачивать список задач для&nbsp;улучшения восприятия и&nbsp;навигации.</span></li>
+              <li><span data-lang="en">Added a drag handle on hover for arranging projects into a convenient order.</span><span data-lang="ru">Добавила иконку перетаскивания проектов по&nbsp;ховеру, чтобы&nbsp;выстраивать удобный порядок задач.</span></li>
+              <li><span data-lang="en">Added hour information on each task for more effective time planning and progress control.</span><span data-lang="ru">Добавила информацию о&nbsp;количестве часов на&nbsp;задаче для&nbsp;более эффективного планирования времени и&nbsp;контроля за&nbsp;прогрессом.</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="fix__compare" data-compare>
+          <img class="fix__compare__base" src="assets/list-before.png" alt="Old task list showing every task ever assigned" loading="lazy" />
+          <div class="fix__compare__after">
+            <img src="assets/list-after.png" alt="Redesigned task list trimmed to current work" loading="lazy" />
+          </div>
+          <span class="fix__compare__tag fix__compare__tag--before"><span data-lang="en">Before</span><span data-lang="ru">Было</span></span>
+          <span class="fix__compare__tag fix__compare__tag--after"><span data-lang="en">After</span><span data-lang="ru">Стало</span></span>
+          <div class="fix__compare__bar" aria-hidden="true"></div>
+          <button class="fix__compare__knob" type="button" aria-label="Drag to compare before and after">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6 4 12l5 6M15 6l5 6-5 6"/></svg>
+          </button>
         </div>
       </div>
-      <div class="case-flow__row">
-        <div class="case-flow__visual"><img src="assets/after.png" alt="Redesigned tracking screen" loading="lazy" /></div>
-        <div class="case-flow__text">
-          <p class="kicker"><span data-lang="en">Quick wins</span><span data-lang="ru">Быстрые победы</span></p>
-          <h3><span data-lang="en">Let employees see only today</span><span data-lang="ru">Показать сотруднику только сегодняшний день</span></h3>
-          <p><span data-lang="en">I trimmed the task list to current work, added archive and inline hour totals, and replaced the misleading hours/minutes placeholder with hour-only inputs — matching how the company actually tracks time.</span><span data-lang="ru">Я сократила список задач до текущей работы, добавила архив и подсчёт часов прямо в строке, а вводившее в заблуждение поле «часы/минуты» заменила вводом только часов — так, как компания на самом деле учитывает время.</span></p>
+
+      <div class="fix">
+        <div class="fix__head">
+          <span class="fix__num">02</span>
+          <h3 class="fix__title"><span data-lang="en">A minutes placeholder that misleads</span><span data-lang="ru">Плейсхолдер с&nbsp;минутами вводит в&nbsp;заблуждение</span></h3>
+        </div>
+        <div class="fix__grid">
+          <div class="fix__col fix__col--problem">
+            <p class="fix__label"><span data-lang="en">Problem</span><span data-lang="ru">Проблема</span></p>
+            <ul class="fix__list">
+              <li><span data-lang="en">The hours-and-minutes placeholder is misleading, because the company only logs whole hours. It causes confusion and slows the tracking process down.</span><span data-lang="ru">Плейсхолдер с&nbsp;часами и&nbsp;минутами вводит в&nbsp;заблуждение, так как&nbsp;в компании принято указывать только часы. Это создаёт путаницу и&nbsp;замедляет процесс трекинга.</span></li>
+            </ul>
+          </div>
+          <div class="fix__col fix__col--solution">
+            <p class="fix__label"><span data-lang="en">Solution</span><span data-lang="ru">Решение</span></p>
+            <ul class="fix__list">
+              <li><span data-lang="en">Added input slots for hours only, so tracking becomes clear and intuitively simple for everyone, new employees included.</span><span data-lang="ru">Добавила слоты для&nbsp;ввода только часов, чтобы&nbsp;процесс трекинга стал понятным и&nbsp;интуитивно простым для&nbsp;всех сотрудников, включая новых.</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="fix__compare" data-compare>
+          <img class="fix__compare__base" src="assets/modal-before.png" alt="Time entry hinting at hours and minutes" loading="lazy" />
+          <div class="fix__compare__after">
+            <img src="assets/modal-after.png" alt="Hour-only time entry" loading="lazy" />
+          </div>
+          <span class="fix__compare__tag fix__compare__tag--before"><span data-lang="en">Before</span><span data-lang="ru">Было</span></span>
+          <span class="fix__compare__tag fix__compare__tag--after"><span data-lang="en">After</span><span data-lang="ru">Стало</span></span>
+          <div class="fix__compare__bar" aria-hidden="true"></div>
+          <button class="fix__compare__knob" type="button" aria-label="Drag to compare before and after">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6 4 12l5 6M15 6l5 6-5 6"/></svg>
+          </button>
         </div>
       </div>
-      <div class="case-flow__row">
-        <div class="case-flow__visual"><img src="assets/role-employee.png" alt="Employee pain points" loading="lazy" /></div>
-        <div class="case-flow__text">
-          <p class="kicker"><span data-lang="en">For the employee</span><span data-lang="ru">Для сотрудника</span></p>
-          <h3><span data-lang="en">Less searching, more tracking</span><span data-lang="ru">Меньше поиска, больше учёта</span></h3>
-          <p><span data-lang="en">Drag-to-reorder, collapsible task groups, remaining-hours per project — small additions that turn tracking from a chore into a five-second routine.</span><span data-lang="ru">Перетаскивание для сортировки, сворачиваемые группы задач, остаток часов по каждому проекту — небольшие добавления, которые превращают учёт времени из рутины в дело на пять секунд.</span></p>
+
+      <div class="fix">
+        <div class="fix__head">
+          <span class="fix__num">03</span>
+          <h3 class="fix__title"><span data-lang="en">Creating a project is difficult</span><span data-lang="ru">Процесс создания проекта затруднён</span></h3>
+        </div>
+        <div class="fix__grid">
+          <div class="fix__col fix__col--problem">
+            <p class="fix__label"><span data-lang="en">Problems</span><span data-lang="ru">Проблемы</span></p>
+            <ul class="fix__list">
+              <li><span data-lang="en">A small input area and having to move between stages via on-screen buttons slow the process down. → This makes creating or editing a project time-consuming and awkward, especially for new employees.</span><span data-lang="ru">Маленькая область для&nbsp;ввода информации и&nbsp;необходимость перемещения между&nbsp;этапами через&nbsp;кнопки на&nbsp;экране замедляют процесс. → Это делает создание или&nbsp;редактирование проекта времязатратным и&nbsp;неудобным, особенно для&nbsp;новых сотрудников.</span></li>
+              <li><span data-lang="en">The window header takes up 50% of the screen and constantly shows financing types, project types and the filling steps, overloading the interface and getting in the way of focusing on the process.</span><span data-lang="ru">Шапка окна, занимающая 50% экрана, постоянно отображает информацию о&nbsp;типах финансирования, проекта и&nbsp;шаги заполнения, что&nbsp;перегружает интерфейс и&nbsp;мешает фокусироваться на&nbsp;самом процессе.</span></li>
+              <li><span data-lang="en">No standardisation when filling fields across stages (e.g. job titles, legal entities, etc.). → This leads to incorrect data being saved by accident, which then clutters the filters.</span><span data-lang="ru">Отсутствие унификации в&nbsp;заполнении полей на&nbsp;разных этапах (например, должности, юр. лица и&nbsp;т.д.). → Это приводит к&nbsp;случайному сохранению некорректных данных, что&nbsp;затем засоряет фильтры.</span></li>
+            </ul>
+          </div>
+          <div class="fix__col fix__col--solution">
+            <p class="fix__label"><span data-lang="en">Solutions</span><span data-lang="ru">Решения</span></p>
+            <ul class="fix__list">
+              <li><span data-lang="en">Widened the drawer. Reworked the project-filling flow: all steps now sit on the left and filling happens by scrolling on a single page. → A faster, more transparent filling process.</span><span data-lang="ru">Увеличила ширину дровера. Переработала процесс заполнения информации о&nbsp;проекте: теперь все шаги вынесены налево, и&nbsp;заполнение происходит по&nbsp;скроллу на&nbsp;одной странице. → Ускорение и&nbsp;повышение прозрачности процесса заполнения информации.</span></li>
+              <li><span data-lang="en">Added the ability to save new values (e.g. legal entities) during project creation, which ensures standardisation.</span><span data-lang="ru">Добавила возможность сохранять новые названия (например, юр лица) на&nbsp;этапе создания проекта, что&nbsp;обеспечит унификацию.</span></li>
+              <li><span data-lang="en">Added fields for the Jira project link, hours, budget, deadlines and project phases. → The manager can gather project analytics faster and make important decisions.</span><span data-lang="ru">Добавила поля для&nbsp;ссылки на&nbsp;проект в&nbsp;Jira, количества часов, бюджета, сроков и&nbsp;фаз проекта. → Менеджер сможет быстрее собирать аналитику по&nbsp;проекту и&nbsp;принимать важные решения.</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="fix__shots">
+          <img src="assets/project-create.png" alt="Redesigned project creation as a full-page form with a step sidebar" loading="lazy" />
         </div>
       </div>
-      <div class="case-flow__row">
-        <div class="case-flow__visual"><img src="assets/role-manager.png" alt="Manager pain points" loading="lazy" /></div>
-        <div class="case-flow__text">
-          <p class="kicker"><span data-lang="en">For the manager</span><span data-lang="ru">Для руководителя</span></p>
-          <h3><span data-lang="en">One screen for monitoring</span><span data-lang="ru">Один экран для контроля</span></h3>
-          <p><span data-lang="en">Project creation moved from a cramped drawer to a full-page scroll. The project page gained an interactive table, search and filters, plus a dedicated <em>Employee tracking</em> tab to see who logged what without hunting.</span><span data-lang="ru">Создание проекта переехало из тесной шторки на полноэкранную страницу с прокруткой. Страница проекта получила интерактивную таблицу, поиск и фильтры, а также отдельную вкладку <em>Учёт по сотрудникам</em> — чтобы видеть, кто и что отметил, без долгих поисков.</span></p>
+
+      <div class="fix">
+        <div class="fix__head">
+          <span class="fix__num">04</span>
+          <h3 class="fix__title"><span data-lang="en">The project table isn't interactive</span><span data-lang="ru">Таблица проектов не&nbsp;интерактивная</span></h3>
+        </div>
+        <div class="fix__grid">
+          <div class="fix__col fix__col--problem">
+            <p class="fix__label"><span data-lang="en">Problem</span><span data-lang="ru">Проблема</span></p>
+            <ul class="fix__list">
+              <li><span data-lang="en">The table has many attributes, but you can't interact with them — you can only open the project's info. → You can't look at one detail or make a change in the moment; you have to open the full info page or a drawer, like in project creation. This takes a lot of time.</span><span data-lang="ru">В&nbsp;таблице есть много атрибутов, но&nbsp;взаимодействовать с&nbsp;ними нельзя, можно только открыть информацию о&nbsp;проекте. → Нельзя в&nbsp;моменте что-то точечно посмотреть детально или&nbsp;внести изменения. Нужно открывать страницу со&nbsp;всей информацией или&nbsp;дровер как&nbsp;при создании проекта. Это занимает много времени.</span></li>
+            </ul>
+          </div>
+          <div class="fix__col fix__col--solution">
+            <p class="fix__label"><span data-lang="en">Solutions</span><span data-lang="ru">Решения</span></p>
+            <ul class="fix__list">
+              <li><span data-lang="en">Made the attributes interactive, so managers can review a project's full information and make changes faster.</span><span data-lang="ru">Добавила взаимодействие с&nbsp;атрибутами, чтобы&nbsp;менеджеры могли быстрее ознакамливаться с&nbsp;полной информацией о&nbsp;проекте и&nbsp;вносить изменения.</span></li>
+              <li><span data-lang="en">Added editing a project in view mode for quick changes — for example, when a mistake is spotted.</span><span data-lang="ru">Реализовала функцию редактирования проекта в&nbsp;режиме просмотра для&nbsp;быстрого внесения изменений, например, при&nbsp;обнаружении ошибки.</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="fix__shots fix__shots--pair">
+          <img src="assets/projects-table.png" alt="Interactive project table" loading="lazy" />
+          <img src="assets/project-view.png" alt="Editing a project in view mode" loading="lazy" />
         </div>
       </div>
+
+      <div class="fix">
+        <div class="fix__head">
+          <span class="fix__num">05</span>
+          <h3 class="fix__title"><span data-lang="en">The project page lacks information</span><span data-lang="ru">Страница проекта малоинформативна</span></h3>
+        </div>
+        <div class="fix__grid">
+          <div class="fix__col fix__col--problem">
+            <p class="fix__label"><span data-lang="en">Problems</span><span data-lang="ru">Проблемы</span></p>
+            <ul class="fix__list">
+              <li><span data-lang="en">The page has no project and task information that the manager needs to make decisions. → The manager can't react promptly to a situation, e.g. adding specialists to a project.</span><span data-lang="ru">На&nbsp;странице нет информации по&nbsp;проекту и&nbsp;задачам, которая важна менеджеру для&nbsp;принятия решений. → Менеджер не&nbsp;может оперативно реагировать на&nbsp;ситуацию, например, о&nbsp;добавлении специалистов на&nbsp;проект.</span></li>
+              <li><span data-lang="en">No sorting, filtering or search across the task list. → It's hard to work with the list and find the right task.</span><span data-lang="ru">Отсутствие сортировки, фильтрации и&nbsp;поиска по&nbsp;списку задач. → Сложно работать со&nbsp;списком и&nbsp;искать нужную задачу.</span></li>
+            </ul>
+          </div>
+          <div class="fix__col fix__col--solution">
+            <p class="fix__label"><span data-lang="en">Solutions</span><span data-lang="ru">Решения</span></p>
+            <ul class="fix__list">
+              <li><span data-lang="en">Placed hours, budget, deadlines and staff information in the project header.</span><span data-lang="ru">Разместила информацию о&nbsp;количестве часов, бюджете, сроках и&nbsp;сотрудниках в&nbsp;шапке проекта.</span></li>
+              <li><span data-lang="en">Added phases and the number of tracked hours to task settings.</span><span data-lang="ru">Внесла фазы и&nbsp;количество затреканных часов в&nbsp;настройки задачи.</span></li>
+              <li><span data-lang="en">Added a filter and search to find tasks quickly. → This lets the manager review information and make decisions fast.</span><span data-lang="ru">Добавила фильтр и&nbsp;поиск для&nbsp;быстрого поиска задач. → Это позволит менеджеру быстро ознакомиться с&nbsp;информацией и&nbsp;принять решения.</span></li>
+              <li><span data-lang="en">Introduced archiving tasks, so they don't show in the general list and confuse the manager. It also lets employees see only the tasks that are relevant right now.</span><span data-lang="ru">Внедрила возможность архивировать задачи, чтобы&nbsp;они не&nbsp;отображались в&nbsp;общем списке и&nbsp;не сбивали менеджера с&nbsp;толку. Также это позволяет сотрудникам видеть в&nbsp;трекинге только те задачи, которые актуальны на&nbsp;данный момент.</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="fix__shots">
+          <img src="assets/project-page.png" alt="Informative project page with hours, budget, deadlines and people" loading="lazy" />
+        </div>
+      </div>
+
+      <div class="fix">
+        <div class="fix__head">
+          <span class="fix__num">06</span>
+          <h3 class="fix__title"><span data-lang="en">Too little to go on when creating a task</span><span data-lang="ru">Мало информации для&nbsp;создания задачи</span></h3>
+        </div>
+        <div class="fix__grid">
+          <div class="fix__col fix__col--problem">
+            <p class="fix__label"><span data-lang="en">Problems</span><span data-lang="ru">Проблемы</span></p>
+            <ul class="fix__list">
+              <li><span data-lang="en">Few task settings. → It's inconvenient to interact with and manage tasks.</span><span data-lang="ru">Мало настроек задач. → Неудобно взаимодействовать и&nbsp;управлять задачами.</span></li>
+              <li><span data-lang="en">When an employee is assigned to a task, that task stays in their tracker forever. → This creates extra noise and makes managing current tasks harder.</span><span data-lang="ru">При&nbsp;назначении сотрудника на&nbsp;задачу, эта задача остается у&nbsp;него в&nbsp;трекере навсегда. → Это создает лишний шум и&nbsp;затрудняет управление текущими задачами.</span></li>
+            </ul>
+          </div>
+          <div class="fix__col fix__col--solution">
+            <p class="fix__label"><span data-lang="en">Solutions</span><span data-lang="ru">Решения</span></p>
+            <ul class="fix__list">
+              <li><span data-lang="en">Added the ability to set a task's phase and deadlines.</span><span data-lang="ru">Добавила возможность указывать фазу и&nbsp;сроки задачи.</span></li>
+              <li><span data-lang="en">Reworked assigning an employee to a task: you can now set the hours and the start and end of the work. → The manager sees both the planned hours and the actually-tracked ones, and the employee sees only their current tasks in the tracker.</span><span data-lang="ru">Доработала процесс добавления сотрудника на&nbsp;задачу: теперь можно указать количество часов, начало и&nbsp;окончание работы. → Это позволит менеджеру видеть как&nbsp;запланированное количество часов, так и&nbsp;фактически затреканное. Кроме того, у&nbsp;сотрудника в&nbsp;трекинге будут отображаться только актуальные задачи.</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="fix__shots">
+          <img src="assets/task-create.png" alt="Richer task creation with phases, deadlines and per-employee hours" loading="lazy" />
+        </div>
+      </div>
+
+      <div class="fix">
+        <div class="fix__head">
+          <span class="fix__num">07</span>
+          <h3 class="fix__title"><span data-lang="en">Monitoring tracking is hard</span><span data-lang="ru">Мониторинг трека затруднён</span></h3>
+        </div>
+        <div class="fix__grid">
+          <div class="fix__col fix__col--problem">
+            <p class="fix__label"><span data-lang="en">Problem</span><span data-lang="ru">Проблема</span></p>
+            <ul class="fix__list">
+              <li><span data-lang="en">To check employees' tracking, the manager has to type the project name on the tracking screen and then look through everyone's tracking. But that gives no clarity on why someone didn't track time, or tracked only partially. After that the manager has to search for the right employee and find the matching entry in a long task list. → The process takes a lot of time and many steps.</span><span data-lang="ru">Чтобы&nbsp;менеджер мог проверить трек сотрудников, ему нужно вручную ввести название проекта на&nbsp;экране трекинга, затем просмотреть трек сотрудников. Однако, это не&nbsp;даёт ясности, почему сотрудник не&nbsp;затрекал время или&nbsp;сделал это частично. После&nbsp;этого менеджеру нужно искать нужного сотрудника в&nbsp;поиске и&nbsp;в длинном списке задач находить соответствующую запись. → Процесс занимает много времени и&nbsp;требует множества действий.</span></li>
+            </ul>
+          </div>
+          <div class="fix__col fix__col--solution">
+            <p class="fix__label"><span data-lang="en">Solution</span><span data-lang="ru">Решение</span></p>
+            <ul class="fix__list">
+              <li><span data-lang="en">Now, to check tracking, the manager just opens the “employee tracking” tab in the tracker section. All the data shows on one screen, with no need to switch between the “project” and “employee” views. The manager can tailor the list with a filter on a single screen, see who hasn't tracked time, and view which tasks each employee tracked (by clicking a slot). → This lets the manager monitor the process faster and report to the client promptly.</span><span data-lang="ru">Теперь, чтобы&nbsp;проверить трек сотрудников, достаточно выбрать вкладку «трекинг сотрудников» в&nbsp;разделе трекера. Все данные отображаются на&nbsp;одном экране, без&nbsp;необходимости переключаться между&nbsp;видами «проект» и&nbsp;«сотрудник». Менеджер может настроить список под&nbsp;свои нужды с&nbsp;помощью фильтра на&nbsp;одном экране, увидеть, кто из&nbsp;сотрудников не&nbsp;затрекал время, а&nbsp;также просмотреть, какие задачи были затреканы каждым сотрудником (по&nbsp;клику на&nbsp;слот). → Это позволяет менеджеру быстрее мониторить процесс и&nbsp;оперативно отчитываться перед&nbsp;клиентом.</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="fix__shots">
+          <img src="assets/monitoring.png" alt="Employee tracking tab showing the whole team on one screen" loading="lazy" />
+        </div>
+      </div>
+
       <div class="case-flow__row">
-        <div class="case-flow__visual"><img src="assets/concept-tracking.png" alt="New tracker concept" loading="lazy" /></div>
+        <div class="case-flow__visual"><img src="assets/concept.png" alt="New tracker concept with brighter colour and predictive nudges" loading="lazy" /></div>
         <div class="case-flow__text">
           <p class="kicker"><span data-lang="en">New concept</span><span data-lang="ru">Новый концепт</span></p>
-          <h3><span data-lang="en">A tracker that feels human</span><span data-lang="ru">Трекер с человеческим лицом</span></h3>
-          <p><span data-lang="en">A friendlier visual, predictive nudges, and a tone-of-voice that treats the employee like a teammate — not a timesheet. Several of these ideas were taken into development after my presentation.</span><span data-lang="ru">Более дружелюбная визуальная подача, предугадывающие подсказки и тон голоса, который относится к сотруднику как к коллеге, а не как к табелю учёта. Несколько из этих идей взяли в разработку после моей презентации.</span></p>
+          <h3><span data-lang="en">A tracker that feels human</span><span data-lang="ru">Трекер с&nbsp;человеческим лицом</span></h3>
+          <p><span data-lang="en">Beyond the fixes, I proposed a friendlier direction: bright colour and clear shortcuts, a tone of voice that talks to a teammate rather than a timesheet, and predictive nudges that remind people to track before a manager has to ask. Projects become draggable and sort into phases, tasks, analytics, timeline and people. Next up — usability testing, and lighter ways to log time: a Telegram bot, one-tap requests for missed days.</span><span data-lang="ru">Помимо точечных правок, я&nbsp;предложила более дружелюбное направление: яркий цвет и&nbsp;понятные шорткаты, тон голоса, который обращается к&nbsp;коллеге, а&nbsp;не к&nbsp;табелю, и&nbsp;предугадывающие подсказки, напоминающие затрекать время до&nbsp;того, как&nbsp;спросит руководитель. Проекты можно перетаскивать и&nbsp;раскладывать по&nbsp;фазам, задачам, аналитике, таймлайну и&nbsp;участникам. Дальше — юзабилити-тестирование и&nbsp;более лёгкие способы учёта: Telegram-бот и&nbsp;заявка на&nbsp;пропущенный трек в&nbsp;один тап.</span></p>
         </div>
+      </div>
+    </div>
+
+    <div class="case__results">
+      <div class="case__results-grid">
+        <div><span>7</span><p><span data-lang="en">pain points reworked</span><span data-lang="ru">проблем переработано</span></p></div>
+        <div><span>2</span><p><span data-lang="en">roles kept in balance</span><span data-lang="ru">роли в&nbsp;балансе</span></p></div>
+        <div><span data-lang="en">Live</span><span data-lang="ru">В&nbsp;работе</span><p><span data-lang="en">ideas taken into development</span><span data-lang="ru">идеи взяли в&nbsp;разработку</span></p></div>
       </div>
     </div>
   </section>
@@ -154,14 +581,14 @@
     </span>
     <a class="case-nav__link case-nav__link--next" href="../sber/index.html">
       <span class="case-nav__kicker"><span data-lang="en">Next case →</span><span data-lang="ru">Следующий кейс →</span></span>
-      <span class="case-nav__title"><span data-lang="en">SberHealth booking</span><span data-lang="ru">SberHealth · запись к врачу</span></span>
+      <span class="case-nav__title"><span data-lang="en">SberHealth booking</span><span data-lang="ru">SberHealth · запись к&nbsp;врачу</span></span>
     </a>
   </nav>
 </main>
 
 <footer class="footer">
   <span><span data-lang="en">© Elena Meshnina</span><span data-lang="ru">© Елена Мешнина</span></span>
-  <span><span data-lang="en">UI / UX & Product Designer</span><span data-lang="ru">UI / UX и продуктовый дизайнер</span></span>
+  <span><span data-lang="en">UI / UX & Product Designer</span><span data-lang="ru">UI / UX и&nbsp;продуктовый дизайнер</span></span>
 </footer>
 
 <script src="../../script.js"></script>
