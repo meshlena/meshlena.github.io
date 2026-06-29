@@ -57,8 +57,8 @@
     .case[data-case="tracker"] .case-role { padding-top: clamp(40px, 7vh, 80px); }
     .case[data-case="tracker"] .case-brief__lead .kicker,
     .case[data-case="tracker"] .case-role__intro .kicker { margin-bottom: 18px; }
-    .case[data-case="tracker"] .case-brief__lead p,
-    .case[data-case="tracker"] .case-role__intro p {
+    .case[data-case="tracker"] .case-brief__lead p:not(.kicker),
+    .case[data-case="tracker"] .case-role__intro p:not(.kicker) {
       font-size: clamp(16px, 1.3vw, 20px);
       line-height: 1.6;
       color: rgba(10,10,12,0.74);
@@ -104,22 +104,219 @@
       width: 6px; height: 6px; border-radius: 50%; background: #5b5bff;
     }
 
+    /* Unified overline: one size for every section label in the case */
+    .case[data-case="tracker"] .kicker {
+      font-size: clamp(16px, 1.3vw, 20px); letter-spacing: 0.1em; font-weight: 600;
+    }
+
     /* Discovery — one section, two roles */
     .case[data-case="tracker"] .discovery { display: flex; flex-direction: column; gap: clamp(26px, 4vw, 44px); }
     .case[data-case="tracker"] .discovery__head .kicker { margin-bottom: 12px; }
-    .case[data-case="tracker"] .discovery__head h3 {
-      font-size: clamp(24px, 2.8vw, 38px); letter-spacing: -0.02em; line-height: 1.06; margin: 0 0 16px; max-width: 24ch;
+    /* "Discovery & design research" is the only overline kept in Latin; its Latin caps read
+       ~13% taller than the surrounding Cyrillic labels, so match them optically in the Russian view. */
+    :root[lang="ru"] .case[data-case="tracker"] .discovery--teaser .discovery__head .kicker,
+    :root[lang="ru"] .case[data-case="tracker"] .discovery--full .discovery__head .kicker {
+      font-size: clamp(14px, 1.15vw, 17.7px);
     }
-    .case[data-case="tracker"] .discovery__head p {
+    /* Subhead under the Discovery overline — modest, distinct from the all-caps labels */
+    .case[data-case="tracker"] .discovery__head h2 {
+      font-size: clamp(19px, 2vw, 25px); font-weight: 600; letter-spacing: -0.01em; line-height: 1.15; margin: 0 0 16px; max-width: none;
+    }
+    .case[data-case="tracker"] .discovery__head p:not(.kicker) {
       font-size: clamp(16px, 1.2vw, 19px); line-height: 1.6; color: rgba(10,10,12,0.74); max-width: 62ch; margin: 0;
     }
     .case[data-case="tracker"] .discovery__roles { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 4vw, 56px); }
     .case[data-case="tracker"] .discovery__note {
-      font-size: clamp(15px, 1.1vw, 18px); line-height: 1.6; color: rgba(10,10,12,0.7); max-width: 62ch; margin: 0;
+      font-size: clamp(15px, 1.1vw, 18px); line-height: 1.6; color: rgba(10,10,12,0.7); max-width: 62ch;
+      /* sit closer to the "read the full research" link above */
+      margin: calc(24px - clamp(80px, 14vh, 160px)) 0 0;
+    }
+
+    /* Discovery teaser — "read more" anchor + full research section at the bottom */
+    .case[data-case="tracker"] .discovery--teaser { gap: clamp(20px, 3vw, 32px); }
+    .case[data-case="tracker"] .discovery__more { margin: 2px 0 0; }
+    .case[data-case="tracker"] .discovery__more a {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: clamp(14px, 1.05vw, 16px); font-weight: 600; color: #4b4bf5;
+      text-decoration: none; border-bottom: 1px solid rgba(75,75,245,0.35); padding-bottom: 2px;
+      transition: border-color 0.15s ease;
+    }
+    .case[data-case="tracker"] .discovery__more a:hover { border-bottom-color: #4b4bf5; }
+    .case[data-case="tracker"] .research-flow { border-top: 1px solid rgba(0,0,0,0.1); }
+    .case[data-case="tracker"] #research,
+    .case[data-case="tracker"] #improvements,
+    .case[data-case="tracker"] #concept { scroll-margin-top: 92px; }
+
+    /* In-page links inside the "My role" list — blue, no arrow, same weight */
+    .case[data-case="tracker"] .case-link {
+      color: #4b4bf5; text-decoration: none;
+      border-bottom: 1px solid rgba(75,75,245,0.35); transition: border-color 0.15s ease;
+    }
+    .case[data-case="tracker"] .case-link:hover { border-bottom-color: #4b4bf5; }
+
+    /* Two hypotheses side by side, styled as cards */
+    .case[data-case="tracker"] .discovery__hypos {
+      display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 3vw, 32px);
+    }
+    .case[data-case="tracker"] .discovery__hypos .discovery__hypo {
+      max-width: none; background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.08);
+      border-radius: var(--radius); padding: clamp(20px, 2.6vw, 30px);
+    }
+
+    /* New concept — captioned screens interleaved with descriptive text */
+    .case[data-case="tracker"] .concept-shot {
+      margin: 0; display: flex; flex-direction: column; align-items: center; gap: 14px;
+      background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.08);
+      border-radius: var(--radius); padding: clamp(16px, 2.6vw, 36px);
+    }
+    .case[data-case="tracker"] .concept-shot img {
+      max-width: 100%; max-height: 78vh; width: auto; height: auto; object-fit: contain;
+      border-radius: 12px; cursor: zoom-in;
+    }
+    .case[data-case="tracker"] .concept-shot figcaption {
+      font-size: 13px; letter-spacing: 0.01em; color: rgba(10,10,12,0.6);
+    }
+    /* Concept section: tighter base rhythm than the research blocks */
+    .case[data-case="tracker"] #concept { gap: clamp(16px, 2vw, 22px); }
+    /* Text that introduces the screen(s) right after it — close to its screens (proximity),
+       with a clear gap above it to separate from the previous group */
+    .case[data-case="tracker"] .concept-note { max-width: 64ch; margin-top: clamp(40px, 5vw, 64px); }
+    .case[data-case="tracker"] .concept-note p {
+      font-size: clamp(15px, 1.1vw, 18px); line-height: 1.6; color: rgba(10,10,12,0.74); margin: 0 0 12px;
+    }
+    .case[data-case="tracker"] .concept-note p:last-child { margin-bottom: 0; }
+
+    /* Outcomes / What's next */
+    .case[data-case="tracker"] .case-outcomes {
+      max-width: var(--maxw); margin: 0 auto;
+      /* bottom space matches the research section's top padding, so the divider sits evenly */
+      padding: clamp(56px, 9vh, 110px) 0 clamp(60px, 10vh, 120px);
+      display: flex; flex-direction: column; gap: clamp(36px, 5vw, 56px);
+    }
+    .case[data-case="tracker"] .case-outcome__title {
+      font-size: clamp(22px, 2.6vw, 30px); font-weight: 700; letter-spacing: -0.02em;
+      line-height: 1.1; margin: 0 0 16px; color: #0a0a0c;
+    }
+    .case[data-case="tracker"] .case-outcome__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; max-width: 74ch; }
+    .case[data-case="tracker"] .case-outcome__list li {
+      position: relative; padding-left: 22px;
+      font-size: clamp(15px, 1.1vw, 18px); line-height: 1.6; color: rgba(10,10,12,0.78);
+    }
+    .case[data-case="tracker"] .case-outcome__list li::before {
+      content: ''; position: absolute; left: 2px; top: 0.62em; width: 6px; height: 6px; border-radius: 50%; background: #5b5bff;
+    }
+    .case[data-case="tracker"] .case-outcome > p {
+      font-size: clamp(15px, 1.1vw, 18px); line-height: 1.6; color: rgba(10,10,12,0.78); max-width: 74ch; margin: 0 0 8px;
+    }
+    .case[data-case="tracker"] .case-outcome > p:last-child { margin-bottom: 0; }
+
+    /* Jump-links at the end of the case (back to Improvements / New concept) */
+    .case[data-case="tracker"] .case-jumplinks {
+      max-width: var(--maxw); margin: 0 auto;
+      padding: clamp(48px, 7vh, 88px) 0 clamp(16px, 3vh, 36px);
+      display: flex; flex-direction: column; gap: 16px; align-items: flex-start;
+    }
+    .case[data-case="tracker"] .case-jumplink {
+      font-size: clamp(14px, 1.05vw, 16px); font-weight: 600;
+      color: #4b4bf5; text-decoration: none;
+      border-bottom: 1px solid rgba(75,75,245,0.35); padding-bottom: 2px;
+      transition: border-color 0.15s ease;
+    }
+    .case[data-case="tracker"] .case-jumplink:hover { border-bottom-color: #4b4bf5; }
+    @media (max-width: 760px) {
+      .case[data-case="tracker"] .discovery__hypos { grid-template-columns: 1fr; }
+    }
+
+    /* Semibold inline highlight */
+    .case[data-case="tracker"] .semi { font-weight: 600; }
+
+    /* Discovery — research narrative blocks */
+    .case[data-case="tracker"] .discovery__block { max-width: 64ch; }
+    .case[data-case="tracker"] .discovery__block p:not(.discovery__sublabel):not(.role-overline) {
+      font-size: clamp(15px, 1.1vw, 18px); line-height: 1.6; color: rgba(10,10,12,0.74); margin: 0 0 12px;
+    }
+    .case[data-case="tracker"] .discovery__block p:last-child { margin-bottom: 0; }
+    .case[data-case="tracker"] .discovery__block .case-flow__label { margin: 0 0 10px; font-size: 13px; }
+    .case[data-case="tracker"] .discovery__def {
+      color: rgba(10,10,12,0.55) !important; font-style: italic;
+    }
+    /* Pull a block up tight against the previous one (proximity grouping) */
+    .case[data-case="tracker"] .discovery__attached { margin-top: calc(14px - clamp(26px, 4vw, 44px)); }
+
+    /* Insight / hypothesis sub-sections */
+    .case[data-case="tracker"] .discovery__block--wide { max-width: none; }
+    .case[data-case="tracker"] .discovery__block--wide .discovery__roles { margin-top: 4px; }
+    /* Sub-block labels (Insights, Conclusions) — same small style as
+       the "In-depth interviews / PURE & UX audit / Hypotheses" labels */
+    .case[data-case="tracker"] .discovery__sublabel {
+      font-size: 13px; letter-spacing: 0.04em; font-weight: 600;
+      color: #0a0a0c; margin: 0 0 10px;
+    }
+    /* Role labels — same overline style as the brief's "Audience / User mission / Goal" */
+    .case[data-case="tracker"] .role-overline {
+      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(10,10,12,0.5); font-weight: 400; margin: 0 0 12px;
+    }
+
+    /* Improvements section head — left aligned */
+    .case[data-case="tracker"] .case-section-head { text-align: left; }
+    .case[data-case="tracker"] .case-section-head .kicker,
+    .case[data-case="tracker"] .case-section-head h2 { margin-left: 0; margin-right: 0; }
+
+    /* Fix #3 — stacked before/after (different aspect ratios) */
+    .case[data-case="tracker"] .fix__shots--stack { flex-direction: column; }
+    .case[data-case="tracker"] .fix__shots--stack figure { margin: 0; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .case[data-case="tracker"] .fix__shots--stack figcaption {
+      order: -1; align-self: flex-start;
+      font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600;
+      color: #fff; background: rgba(10,10,12,0.62); padding: 5px 10px; border-radius: 999px;
+    }
+    .case[data-case="tracker"] .fix__shots--stack img { max-width: 100%; max-height: 78vh; }
+
+    /* Before → after for screens of very different sizes (side by side, with an arrow) */
+    .case[data-case="tracker"] .fix__beforeafter {
+      display: grid; grid-template-columns: 1fr auto 1fr; align-items: start;
+      gap: clamp(12px, 2vw, 28px);
+      background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.08);
+      border-radius: var(--radius); padding: clamp(18px, 3vw, 40px);
+    }
+    .case[data-case="tracker"] .fix__ba-item {
+      margin: 0; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 12px;
+    }
+    .case[data-case="tracker"] .fix__ba-item figcaption {
+      font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600;
+      color: #fff; background: rgba(10,10,12,0.62); padding: 5px 10px; border-radius: 999px;
+    }
+    .case[data-case="tracker"] .fix__ba-item img {
+      max-width: 100%; max-height: 70vh; width: auto; height: auto; object-fit: contain;
+      align-self: center; border-radius: 10px; cursor: zoom-in;
+    }
+    .case[data-case="tracker"] .fix__ba-arrow {
+      align-self: center; font-size: clamp(22px, 3vw, 34px); line-height: 1; color: rgba(10,10,12,0.4);
+    }
+    @media (max-width: 760px) {
+      .case[data-case="tracker"] .fix__beforeafter { grid-template-columns: 1fr; justify-items: stretch; }
+      .case[data-case="tracker"] .fix__beforeafter > .fix__ba-arrow { justify-self: center; transform: rotate(90deg); }
+    }
+    /* Vertical variant — one "before" flowing down into stacked solutions */
+    .case[data-case="tracker"] .fix__beforeafter--vert {
+      display: flex; flex-direction: column; align-items: stretch; gap: clamp(16px, 2.5vw, 28px);
+    }
+    .case[data-case="tracker"] .fix__beforeafter--vert .fix__ba-arrow { align-self: center; transform: rotate(90deg); margin: 2px 0; }
+    /* Match the slider sections' screen width (~940px), centred — all three equal */
+    .case[data-case="tracker"] .fix__beforeafter--vert .fix__ba-item {
+      align-self: center; width: 940px; max-width: 100%;
+    }
+    .case[data-case="tracker"] .fix__beforeafter--vert .fix__ba-item img {
+      width: 100%; max-width: 100%; max-height: none;
     }
 
     /* Improvements — problem / solution blocks */
-    .case[data-case="tracker"] .case-section-head { max-width: var(--maxw); margin: 0 auto; }
+    .case[data-case="tracker"] .case-section-head {
+      max-width: none; align-self: stretch;
+      /* cancel most of the case-flow gap so the label sits right above the first fix */
+      margin: 0 0 calc(18px - clamp(80px, 14vh, 160px));
+    }
     .case[data-case="tracker"] .case-section-head h2 {
       font-size: clamp(28px, 4vw, 52px); letter-spacing: -0.025em; line-height: 1.05; margin: 10px 0 0; max-width: 20ch;
     }
@@ -134,7 +331,7 @@
     }
     .case[data-case="tracker"] .fix__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 4vw, 64px); }
     .case[data-case="tracker"] .fix__label {
-      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; margin: 0 0 14px; font-weight: 600;
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; margin: 0 0 14px; font-weight: 600;
     }
     .case[data-case="tracker"] .fix__col--problem .fix__label { color: #c0492b; }
     .case[data-case="tracker"] .fix__col--solution .fix__label { color: #4b4bf5; }
@@ -238,6 +435,8 @@
     </a>
   </div>
   <nav class="nav__links">
+    <a class="nav__cv" href="https://drive.google.com/file/d/12Ta2eBWsoasW1WxpJvM2IOqPrqqzx4fJ/view?usp=drive_link" target="_blank" rel="noopener" data-lang="en">CV</a>
+    <a class="nav__cv" href="https://drive.google.com/file/d/12idHV0poSKtOPqxzbGs6QoRKvgf6kzxC/view?usp=drive_link" target="_blank" rel="noopener" data-lang="ru">Резюме</a>
     <a href="../../portfolio.html"><span data-lang="en">Portfolio</span><span data-lang="ru">Портфолио</span></a>
     <a href="../../index.html#about"><span data-lang="en">About</span><span data-lang="ru">Обо мне</span></a>
     <a href="../../index.html#contact"><span data-lang="en">Contact</span><span data-lang="ru">Контакты</span></a>
@@ -265,10 +464,10 @@
     <div class="case__hero">
       <div class="case__meta">
         <span class="chip"><span data-lang="en">Web · Product design</span><span data-lang="ru">Веб · Продуктовый дизайн</span></span>
-        <span class="case__num">02</span>
+        <span class="case__num">03</span>
       </div>
-      <h2 class="case__title"><span data-lang="en">Corporate task-tracker, rethought</span><span data-lang="ru">Корпоративный таск-трекер, переосмысленный</span></h2>
-      <p class="case__sub"><span data-lang="en">An internship at <strong>Red Collar</strong> — an audit of a corporate time-tracking &amp; project tool, a new UI, and a friendlier way to work with it.</span><span data-lang="ru">Стажировка в&nbsp;<strong>Red Collar</strong> — аудит корпоративного инструмента для&nbsp;учёта времени и&nbsp;управления проектами, новый UI и&nbsp;более дружелюбное взаимодействие с&nbsp;ним.</span></p>
+      <h2 class="case__title"><span data-lang="en">Corporate task-tracker</span><span data-lang="ru">Корпоративный таск-трекер</span></h2>
+      <p class="case__sub"><span data-lang="en">An internship at <strong>Red Collar</strong> — an audit of a corporate time-tracking &amp; project tool, a new UI, and a friendlier way to work with it</span><span data-lang="ru">Стажировка в&nbsp;<strong>Red Collar</strong> — аудит корпоративного инструмента для&nbsp;учёта времени и&nbsp;управления проектами, новый UI и&nbsp;более дружелюбное взаимодействие с&nbsp;ним</span></p>
       <div class="case__cover">
         <img src="assets/cover.png" alt="Redesigned corporate task tracker interface" />
       </div>
@@ -278,7 +477,7 @@
       <div class="case-brief__lead">
         <p class="kicker"><span data-lang="en">About the project</span><span data-lang="ru">О&nbsp;проекте</span></p>
         <p><span data-lang="en">As part of an internship at the Red Collar design studio, the task was to audit the current task-tracker, propose a new UI, and improve the interaction with it — taking into account the context of both the employee and the manager.</span><span data-lang="ru">В&nbsp;рамках стажировки в&nbsp;дизайн-студии Red Collar задачей было провести аудит текущего таск-трекера, предложить новый UI и&nbsp;улучшить взаимодействие с&nbsp;ним, учитывая контекст работы сотрудника и&nbsp;менеджера.</span></p>
-        <p class="case-brief__def"><span data-lang="en">A corporate task-tracker is a tool for time tracking and project management.</span><span data-lang="ru">Корпоративный таск-трекер — инструмент для&nbsp;учёта времени и&nbsp;управления проектами.</span></p>
+        <p class="case-brief__def"><span data-lang="en"><b class="semi">A corporate task-tracker</b> is a tool for time tracking and project management.</span><span data-lang="ru"><b class="semi">Корпоративный таск-трекер</b> — инструмент для&nbsp;учёта времени и&nbsp;управления проектами.</span></p>
       </div>
       <dl class="case-brief__facts">
         <div>
@@ -305,48 +504,50 @@
         <li><span data-lang="en">Ran 4 in-depth interviews and analysed the results</span><span data-lang="ru">Провела 4 глубинных интервью и&nbsp;проанализировала результаты</span></li>
         <li><span data-lang="en">Did a UX audit and benchmarking</span><span data-lang="ru">Выполнила UX-аудит и&nbsp;бенчмаркинг</span></li>
         <li><span data-lang="en">Formulated hypotheses and JTBD</span><span data-lang="ru">Сформулировала гипотезы, JTBD</span></li>
-        <li><span data-lang="en">Proposed improvements to the current tracker</span><span data-lang="ru">Предложила улучшения для&nbsp;текущего трекера</span></li>
-        <li><span data-lang="en">Developed a new concept</span><span data-lang="ru">Разработала новую концепцию</span></li>
+        <li><a class="case-link" href="#improvements"><span data-lang="en">Proposed improvements to the current tracker</span><span data-lang="ru">Предложила улучшения для&nbsp;текущего трекера</span></a></li>
+        <li><a class="case-link" href="#concept"><span data-lang="en">Developed a new concept</span><span data-lang="ru">Разработала новую концепцию</span></a></li>
         <li><span data-lang="en">Presented the solution to the company's team</span><span data-lang="ru">Презентовала решение сотрудникам компании</span></li>
       </ul>
     </div>
 
     <div class="case-flow">
-      <div class="discovery">
+      <div class="discovery discovery--teaser">
         <div class="discovery__head">
           <p class="kicker"><span data-lang="en">Discovery &amp; design research</span><span data-lang="ru">Discovery &amp; design research</span></p>
-          <h3><span data-lang="en">In-depth interviews, PURE, a UX audit</span><span data-lang="ru">Глубинные интервью, PURE, UX-аудит</span></h3>
+          <h2><span data-lang="en">In-depth interviews, PURE, a UX audit</span><span data-lang="ru">Глубинные интервью, PURE, UX-аудит</span></h2>
           <p><span data-lang="en">Together with a colleague, we identified the key scenarios for working with the tracker and the problems inside each one — across two roles.</span><span data-lang="ru">Вместе с&nbsp;коллегой мы выявили ключевые сценарии при&nbsp;взаимодействии с&nbsp;трекером и&nbsp;проблемы в&nbsp;них — в&nbsp;разрезе двух ролей.</span></p>
         </div>
-        <div class="discovery__roles">
-          <div>
-            <p class="case-flow__label"><span data-lang="en">The employee's role</span><span data-lang="ru">Роль сотрудника</span></p>
-            <ul class="case-flow__list">
-              <li><span data-lang="en">Trouble working with the project and task list</span><span data-lang="ru">Трудности в&nbsp;работе со&nbsp;списком проектов и&nbsp;задач</span></li>
-              <li><span data-lang="en">Difficulty logging time</span><span data-lang="ru">Сложности при&nbsp;внесении времени</span></li>
-            </ul>
-          </div>
-          <div>
-            <p class="case-flow__label"><span data-lang="en">The manager's role</span><span data-lang="ru">Роль менеджера</span></p>
-            <ul class="case-flow__list">
-              <li><span data-lang="en">Creating a project is cumbersome</span><span data-lang="ru">Процесс создания проекта затруднён</span></li>
-              <li><span data-lang="en">The project table isn't interactive</span><span data-lang="ru">Таблица проектов не&nbsp;интерактивная</span></li>
-              <li><span data-lang="en">The project page is thin on information</span><span data-lang="ru">Страница проекта малоинформативна</span></li>
-              <li><span data-lang="en">Too little detail when creating a task</span><span data-lang="ru">Мало информации для&nbsp;создания задачи</span></li>
-              <li><span data-lang="en">Monitoring employees' work is hard</span><span data-lang="ru">Мониторинг работы сотрудников затруднён</span></li>
-            </ul>
+
+        <div class="discovery__block discovery__block--wide">
+          <p class="discovery__sublabel"><span data-lang="en">Interview insights</span><span data-lang="ru">Инсайты интервью</span></p>
+          <div class="discovery__roles">
+            <div>
+              <p class="role-overline"><span data-lang="en">The employee's role</span><span data-lang="ru">Роль сотрудника</span></p>
+              <ul class="case-flow__list">
+                <li><span data-lang="en">Trouble working with the project and task list</span><span data-lang="ru">Трудности в&nbsp;работе со&nbsp;списком проектов и&nbsp;задач</span></li>
+                <li><span data-lang="en">Difficulty logging time</span><span data-lang="ru">Сложности при&nbsp;внесении времени</span></li>
+              </ul>
+            </div>
+            <div>
+              <p class="role-overline"><span data-lang="en">The manager's role</span><span data-lang="ru">Роль менеджера</span></p>
+              <ul class="case-flow__list">
+                <li><span data-lang="en">Creating a project is cumbersome</span><span data-lang="ru">Процесс создания проекта затруднён</span></li>
+                <li><span data-lang="en">The project table isn't interactive</span><span data-lang="ru">Таблица проектов не&nbsp;интерактивная</span></li>
+                <li><span data-lang="en">The project page is thin on information</span><span data-lang="ru">Страница проекта малоинформативна</span></li>
+                <li><span data-lang="en">Too little detail when creating a task</span><span data-lang="ru">Мало информации для&nbsp;создания задачи</span></li>
+                <li><span data-lang="en">Monitoring employees' work is hard</span><span data-lang="ru">Мониторинг работы сотрудников затруднён</span></li>
+              </ul>
+            </div>
           </div>
         </div>
-        <div class="fix__shots fix__shots--pair">
-          <img src="assets/role-employee.png" alt="Research artefact mapping employee scenarios, hypotheses and JTBD" loading="lazy" />
-          <img src="assets/role-manager.png" alt="Research artefact mapping manager scenarios, hypotheses and JTBD" loading="lazy" />
-        </div>
-        <p class="discovery__note"><span data-lang="en">Seven concrete problems came out of this — and I worked through each one in the current tracker.</span><span data-lang="ru">Из&nbsp;этого вышло семь конкретных проблем — и&nbsp;каждую я&nbsp;разобрала в&nbsp;текущем трекере.</span></p>
+
+        <p class="discovery__more"><a href="#research"><span data-lang="en">Read the full research →</span><span data-lang="ru">Подробнее об&nbsp;исследовании →</span></a></p>
       </div>
 
-      <div class="case-section-head">
+      <p class="discovery__note"><span data-lang="en">Seven concrete problems came out of this — and I worked through each one in the current tracker.</span><span data-lang="ru">Из&nbsp;этого вышло семь конкретных проблем — и&nbsp;каждую я&nbsp;разобрала в&nbsp;текущем трекере.</span></p>
+
+      <div class="case-section-head" id="improvements">
         <p class="kicker"><span data-lang="en">Improving the current tracker</span><span data-lang="ru">Улучшение текущего трекера</span></p>
-        <h2><span data-lang="en">Seven problems, seven solutions</span><span data-lang="ru">Семь проблем — семь решений</span></h2>
       </div>
 
       <div class="fix">
@@ -443,8 +644,16 @@
             </ul>
           </div>
         </div>
-        <div class="fix__shots">
-          <img src="assets/project-create.png" alt="Redesigned project creation as a full-page form with a step sidebar" loading="lazy" />
+        <div class="fix__beforeafter">
+          <figure class="fix__ba-item">
+            <figcaption><span data-lang="en">Before</span><span data-lang="ru">Было</span></figcaption>
+            <img src="assets/project-before.png" alt="Old project creation modal with a cramped input area and step buttons" loading="lazy" />
+          </figure>
+          <div class="fix__ba-arrow" aria-hidden="true">→</div>
+          <figure class="fix__ba-item">
+            <figcaption><span data-lang="en">After</span><span data-lang="ru">Стало</span></figcaption>
+            <img src="assets/project-after.png" alt="Redesigned project creation as a full-page form with a step sidebar" loading="lazy" />
+          </figure>
         </div>
       </div>
 
@@ -468,9 +677,20 @@
             </ul>
           </div>
         </div>
-        <div class="fix__shots fix__shots--pair">
-          <img src="assets/projects-table.png" alt="Interactive project table" loading="lazy" />
-          <img src="assets/project-view.png" alt="Editing a project in view mode" loading="lazy" />
+        <div class="fix__beforeafter fix__beforeafter--vert">
+          <figure class="fix__ba-item">
+            <figcaption><span data-lang="en">Before</span><span data-lang="ru">Было</span></figcaption>
+            <img src="assets/table-before.png" alt="Non-interactive project table with a read-only info panel" loading="lazy" />
+          </figure>
+          <div class="fix__ba-arrow" aria-hidden="true">→</div>
+          <figure class="fix__ba-item">
+            <figcaption><span data-lang="en">Solution 1</span><span data-lang="ru">Решение 1</span></figcaption>
+            <img src="assets/table-solution-1.png" alt="Interactive project table with inline editing and a participants popup" loading="lazy" />
+          </figure>
+          <figure class="fix__ba-item">
+            <figcaption><span data-lang="en">Solution 2</span><span data-lang="ru">Решение 2</span></figcaption>
+            <img src="assets/table-solution-2.png" alt="Editing a project in view mode" loading="lazy" />
+          </figure>
         </div>
       </div>
 
@@ -497,8 +717,16 @@
             </ul>
           </div>
         </div>
-        <div class="fix__shots">
-          <img src="assets/project-page.png" alt="Informative project page with hours, budget, deadlines and people" loading="lazy" />
+        <div class="fix__beforeafter">
+          <figure class="fix__ba-item">
+            <figcaption><span data-lang="en">Before</span><span data-lang="ru">Было</span></figcaption>
+            <img src="assets/project-page-before.png" alt="Old project page without key information or filtering" loading="lazy" />
+          </figure>
+          <div class="fix__ba-arrow" aria-hidden="true">→</div>
+          <figure class="fix__ba-item">
+            <figcaption><span data-lang="en">After</span><span data-lang="ru">Стало</span></figcaption>
+            <img src="assets/project-page-after.png" alt="Informative project page with hours, budget, deadlines, people, filter and search" loading="lazy" />
+          </figure>
         </div>
       </div>
 
@@ -523,8 +751,16 @@
             </ul>
           </div>
         </div>
-        <div class="fix__shots">
-          <img src="assets/task-create.png" alt="Richer task creation with phases, deadlines and per-employee hours" loading="lazy" />
+        <div class="fix__beforeafter">
+          <figure class="fix__ba-item">
+            <figcaption><span data-lang="en">Before</span><span data-lang="ru">Было</span></figcaption>
+            <img src="assets/task-before.png" alt="Old task creation with few settings" loading="lazy" />
+          </figure>
+          <div class="fix__ba-arrow" aria-hidden="true">→</div>
+          <figure class="fix__ba-item">
+            <figcaption><span data-lang="en">After</span><span data-lang="ru">Стало</span></figcaption>
+            <img src="assets/task-after.png" alt="Richer task creation with phases, deadlines and per-employee hours" loading="lazy" />
+          </figure>
         </div>
       </div>
 
@@ -547,41 +783,175 @@
             </ul>
           </div>
         </div>
-        <div class="fix__shots">
-          <img src="assets/monitoring.png" alt="Employee tracking tab showing the whole team on one screen" loading="lazy" />
+        <div class="fix__beforeafter">
+          <figure class="fix__ba-item">
+            <figcaption><span data-lang="en">Before</span><span data-lang="ru">Было</span></figcaption>
+            <img src="assets/monitoring-before.png" alt="Old tracking monitoring split between project and employee views" loading="lazy" />
+          </figure>
+          <div class="fix__ba-arrow" aria-hidden="true">→</div>
+          <figure class="fix__ba-item">
+            <figcaption><span data-lang="en">After</span><span data-lang="ru">Стало</span></figcaption>
+            <img src="assets/monitoring-after.png" alt="Employee tracking tab showing the whole team on one screen with filtering" loading="lazy" />
+          </figure>
         </div>
       </div>
 
-      <div class="case-flow__row">
-        <div class="case-flow__visual"><img src="assets/concept.png" alt="New tracker concept with brighter colour and predictive nudges" loading="lazy" /></div>
-        <div class="case-flow__text">
+      <div class="discovery" id="concept">
+        <div class="discovery__head">
           <p class="kicker"><span data-lang="en">New concept</span><span data-lang="ru">Новый концепт</span></p>
-          <h3><span data-lang="en">A tracker that feels human</span><span data-lang="ru">Трекер с&nbsp;человеческим лицом</span></h3>
-          <p><span data-lang="en">Beyond the fixes, I proposed a friendlier direction: bright colour and clear shortcuts, a tone of voice that talks to a teammate rather than a timesheet, and predictive nudges that remind people to track before a manager has to ask. Projects become draggable and sort into phases, tasks, analytics, timeline and people. Next up — usability testing, and lighter ways to log time: a Telegram bot, one-tap requests for missed days.</span><span data-lang="ru">Помимо точечных правок, я&nbsp;предложила более дружелюбное направление: яркий цвет и&nbsp;понятные шорткаты, тон голоса, который обращается к&nbsp;коллеге, а&nbsp;не к&nbsp;табелю, и&nbsp;предугадывающие подсказки, напоминающие затрекать время до&nbsp;того, как&nbsp;спросит руководитель. Проекты можно перетаскивать и&nbsp;раскладывать по&nbsp;фазам, задачам, аналитике, таймлайну и&nbsp;участникам. Дальше — юзабилити-тестирование и&nbsp;более лёгкие способы учёта: Telegram-бот и&nbsp;заявка на&nbsp;пропущенный трек в&nbsp;один тап.</span></p>
+          <p><span data-lang="en">I chose this visual because it creates a friendly atmosphere through bright colour and clear shortcuts, while a friendly tone of voice gives the tracker a human mood and a sense of care for the employee. Predictive elements make the work more convenient and engaging, improving the overall experience.</span><span data-lang="ru">Я&nbsp;выбрала этот визуал, потому что&nbsp;он создаёт дружелюбную атмосферу за&nbsp;счёт ярких цветов и&nbsp;понятных горячих клавиш, а&nbsp;дружелюбный tone of voice придаёт трекеру человечное настроение и&nbsp;заботу о&nbsp;сотруднике. Предиктивные элементы помогают повысить удобство работы и&nbsp;вовлечённость, улучшая общий пользовательский опыт.</span></p>
+        </div>
+
+        <div class="concept-note">
+          <p><span data-lang="en">The employee sees only the tasks assigned for the day, with the number of hours, shown in the placeholder. So they immediately know what to do today, with no extra searching.</span><span data-lang="ru">Сотрудник видит только назначенные задачи с&nbsp;указанием количества часов на&nbsp;день, что&nbsp;отображается в&nbsp;плейсхолдере. Так он сразу узнаёт, что&nbsp;нужно сделать сегодня, без&nbsp;лишнего поиска.</span></p>
+          <p><span data-lang="en">I added reminders you can interact with, so the employee doesn't forget to track time. That helps them report on time to managers — and managers, to clients.</span><span data-lang="ru">Добавила напоминания, с&nbsp;которыми можно взаимодействовать, чтобы&nbsp;сотрудник не&nbsp;забывал трекать время. Это поможет ему вовремя предоставлять данные для&nbsp;отчётов менеджерам, а&nbsp;тем — клиентам.</span></p>
+        </div>
+
+        <figure class="concept-shot">
+          <img src="assets/concept.png" alt="Time-tracking board with bright colour, day totals and a friendly nudge" loading="lazy" />
+          <figcaption><span data-lang="en">Time tracking</span><span data-lang="ru">Трекинг времени</span></figcaption>
+        </figure>
+        <figure class="concept-shot">
+          <img src="assets/concept-add-project.png" alt="Creating a project as a full-page form with sections and a step sidebar" loading="lazy" />
+          <figcaption><span data-lang="en">Creating a project</span><span data-lang="ru">Добавление проекта</span></figcaption>
+        </figure>
+
+        <div class="concept-note">
+          <p><span data-lang="en">Now you can interact with the attributes and drag projects around, so the manager can set the screen up to suit themselves.</span><span data-lang="ru">Теперь можно взаимодействовать с&nbsp;атрибутами и&nbsp;перетаскивать проекты, чтобы&nbsp;менеджер мог настроить экран под&nbsp;себя.</span></p>
+        </div>
+        <figure class="concept-shot">
+          <img src="assets/concept-projects.png" alt="Interactive projects list with attributes and inline people" loading="lazy" />
+          <figcaption><span data-lang="en">Projects</span><span data-lang="ru">Проекты</span></figcaption>
+        </figure>
+        <figure class="concept-shot">
+          <img src="assets/concept-project-view.png" alt="Viewing and editing a project in a side drawer" loading="lazy" />
+          <figcaption><span data-lang="en">Viewing &amp; editing a project</span><span data-lang="ru">Просмотр и&nbsp;редактирование проекта</span></figcaption>
+        </figure>
+
+        <div class="concept-note">
+          <p><span data-lang="en">Project information can now be viewed by sections: phases, tasks, analytics, timeline and people. Tasks are split into phases, which can be set when creating a project or added inside it. A filter and search were added.</span><span data-lang="ru">Информацию о&nbsp;проекте теперь можно просматривать по&nbsp;разделам: фазы, задачи, аналитика, таймлайн и&nbsp;участники. Задачи разделены по&nbsp;фазам, которые можно указать при&nbsp;создании проекта или&nbsp;добавить внутри. Добавлена фильтрация и&nbsp;поиск.</span></p>
+        </div>
+        <figure class="concept-shot">
+          <img src="assets/concept-project.png" alt="Informative project page with phases, tasks, hours and people" loading="lazy" />
+          <figcaption><span data-lang="en">Project</span><span data-lang="ru">Проект</span></figcaption>
+        </figure>
+        <figure class="concept-shot">
+          <img src="assets/concept-task.png" alt="Creating a task with phase, deadlines and per-employee hours" loading="lazy" />
+          <figcaption><span data-lang="en">Creating a task</span><span data-lang="ru">Добавление задачи</span></figcaption>
+        </figure>
+        <figure class="concept-shot">
+          <img src="assets/concept-monitoring.png" alt="Employee tracking on one screen with per-day breakdown" loading="lazy" />
+          <figcaption><span data-lang="en">Monitoring employees' work</span><span data-lang="ru">Мониторинг работы сотрудников</span></figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="case-outcomes">
+      <div class="case-outcome">
+        <h3 class="case-outcome__title"><span data-lang="en">Outcomes</span><span data-lang="ru">Итоги</span></h3>
+        <ul class="case-outcome__list">
+          <li><span data-lang="en">At the presentation, the team noted that the proposed solutions can solve employees' key problems. The reworked project-creation flow (where the small drawer became a full page) got positive feedback.</span><span data-lang="ru">На&nbsp;презентации отметили, что&nbsp;предложенные решения могут решить ключевые проблемы сотрудников. Переработанный процесс создания проектов (когда маленький дровер стал полноценной страницей) получил положительные отклики.</span></li>
+          <li><span data-lang="en">After the internship ended, I can't follow the further work on the tracker, but I know some of my ideas were taken into development.</span><span data-lang="ru">По&nbsp;окончании стажировки я&nbsp;не&nbsp;могу отслеживать дальнейшую работу над&nbsp;трекером, но&nbsp;знаю, что&nbsp;некоторые мои идеи были приняты в&nbsp;разработку.</span></li>
+        </ul>
+      </div>
+      <div class="case-outcome">
+        <h3 class="case-outcome__title"><span data-lang="en">What's next?</span><span data-lang="ru">Что дальше?</span></h3>
+        <p><span data-lang="en">Run usability testing.</span><span data-lang="ru">Провести юзабилити-тестирование.</span></p>
+        <p><span data-lang="en">Work through other scenarios, such as time tracking via a Telegram bot and a simplified request for missed tracking.</span><span data-lang="ru">Проработать другие сценарии, такие как трек времени через тг-бот и&nbsp;упрощённый запрос на&nbsp;пропущенный трек.</span></p>
+      </div>
+    </div>
+
+    <div class="case-flow research-flow">
+      <div class="discovery discovery--full" id="research">
+        <div class="discovery__head">
+          <p class="kicker"><span data-lang="en">Discovery &amp; design research</span><span data-lang="ru">Discovery &amp; design research</span></p>
+          <h2><span data-lang="en">In-depth interviews, PURE, a UX audit</span><span data-lang="ru">Глубинные интервью, PURE, UX-аудит</span></h2>
+          <p><span data-lang="en"><b class="semi">Goal</b> — to understand how the employees' work process is built, identify which tasks they solve with the tracker, and what difficulties they face when working with the current version.</span><span data-lang="ru"><b class="semi">Цель</b> — узнать как&nbsp;построен процесс работы сотрудников, определить какие задачи они решают с&nbsp;помощью трекера, и&nbsp;с какими трудностями они сталкиваются при&nbsp;взаимодействии с&nbsp;текущей версией.</span></p>
+        </div>
+
+        <div class="discovery__block">
+          <p class="case-flow__label"><span data-lang="en">In-depth interviews</span><span data-lang="ru">Глубинные интервью</span></p>
+          <p><span data-lang="en">Together with a colleague who had the same task, we ran 8 in-depth interviews. We identified the key scenarios for working with the tracker and the problems within them.</span><span data-lang="ru">Вместе с&nbsp;коллегой, у&nbsp;которого было такое же задание, мы провели 8 глубинок. Выявили ключевые сценарии при&nbsp;взаимодействии с&nbsp;трекером и&nbsp;проблемы в&nbsp;них.</span></p>
+        </div>
+
+        <div class="discovery__block discovery__block--wide">
+          <p class="discovery__sublabel"><span data-lang="en">Interview insights</span><span data-lang="ru">Инсайты интервью</span></p>
+          <div class="discovery__roles">
+            <div>
+              <p class="role-overline"><span data-lang="en">The employee's role</span><span data-lang="ru">Роль сотрудника</span></p>
+              <ul class="case-flow__list">
+                <li><span data-lang="en">Trouble working with the project and task list</span><span data-lang="ru">Трудности в&nbsp;работе со&nbsp;списком проектов и&nbsp;задач</span></li>
+                <li><span data-lang="en">Difficulty logging time</span><span data-lang="ru">Сложности при&nbsp;внесении времени</span></li>
+              </ul>
+            </div>
+            <div>
+              <p class="role-overline"><span data-lang="en">The manager's role</span><span data-lang="ru">Роль менеджера</span></p>
+              <ul class="case-flow__list">
+                <li><span data-lang="en">Creating a project is cumbersome</span><span data-lang="ru">Процесс создания проекта затруднён</span></li>
+                <li><span data-lang="en">The project table isn't interactive</span><span data-lang="ru">Таблица проектов не&nbsp;интерактивная</span></li>
+                <li><span data-lang="en">The project page is thin on information</span><span data-lang="ru">Страница проекта малоинформативна</span></li>
+                <li><span data-lang="en">Too little detail when creating a task</span><span data-lang="ru">Мало информации для&nbsp;создания задачи</span></li>
+                <li><span data-lang="en">Monitoring employees' work is hard</span><span data-lang="ru">Мониторинг работы сотрудников затруднён</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="discovery__block">
+          <p class="case-flow__label"><span data-lang="en">PURE &amp; UX audit</span><span data-lang="ru">PURE и&nbsp;UX-аудит</span></p>
+          <p><span data-lang="en">We realised that for interviews this is a small sample, so after analysing the respondents' answers we ran them through the PURE method (together with my colleague) and did a UX audit (individually).</span><span data-lang="ru">Мы поняли, что&nbsp;для интервью это маленькая выборка, поэтому после&nbsp;анализа ответов респондентов мы прогнали их через&nbsp;метод PURE (вместе с&nbsp;коллегой) и&nbsp;провели UX-аудит (индивидуально).</span></p>
+          <p class="discovery__def"><span data-lang="en">PURE is a quantitative usability method for assessing how hard a scenario is to complete, scored from 1 to 3 (from easy to hard).</span><span data-lang="ru">PURE — это количественный юзабилити-метод для&nbsp;оценки сложности прохождения сценария и&nbsp;оценивается от&nbsp;1 до&nbsp;3 (от&nbsp;легко до&nbsp;сложно).</span></p>
+        </div>
+
+        <div class="discovery__block discovery__attached">
+          <p class="discovery__sublabel"><span data-lang="en">Conclusions</span><span data-lang="ru">Выводы</span></p>
+          <p><span data-lang="en">PURE and the UX audit helped confirm the pains we found during the interviews, and look at them from different angles through different research methods. That let me prioritise the pains and take the most serious ones into work.</span><span data-lang="ru">PURE и&nbsp;UX-аудит помогли подтвердить боли, которые мы выявили на&nbsp;этапе глубинок, а&nbsp;так же посмотреть на&nbsp;них с&nbsp;разных сторон, через&nbsp;разные методы исследования. Это позволило мне приоритизировать боли и&nbsp;взять в&nbsp;работу самые серьёзные.</span></p>
+        </div>
+
+        <div class="discovery__block">
+          <p class="case-flow__label"><span data-lang="en">Hypotheses</span><span data-lang="ru">Гипотезы</span></p>
+          <p><span data-lang="en">After the interviews, PURE, the UX audit and benchmarking, I formulated hypotheses. First I wrote the ones shared across the employee and manager roles.</span><span data-lang="ru">После&nbsp;проведения глубинок, PURE, UX-аудита и&nbsp;бенчмаркинга, я&nbsp;сформулировала гипотезы. Сначала я&nbsp;прописала общие для&nbsp;роли сотрудника и&nbsp;менеджера.</span></p>
+        </div>
+
+        <div class="discovery__hypos discovery__attached">
+          <div class="discovery__block discovery__hypo">
+            <p class="role-overline"><span data-lang="en">The employee's role</span><span data-lang="ru">Роль сотрудника</span></p>
+            <p><span data-lang="en">We believe that if we improve the time-tracking process for employees who track time, with a way to quickly log worked hours, it will help increase company revenue. To test this, we'll run hallway testing. The hypothesis holds true if 75% of respondents log a task without difficulty.</span><span data-lang="ru">Мы верим, что&nbsp;если улучшим процесс трекинга времени для&nbsp;тех сотрудников, кто трекается, с&nbsp;возможностью быстрого внесения отработанного времени, то&nbsp;это поможет увеличить доход компании. Для&nbsp;того, чтобы&nbsp;это проверить, мы проведём коридорное тестирование. Гипотеза окажется верной, если 75% респондентов затрекают задачу без&nbsp;трудностей.</span></p>
+          </div>
+
+          <div class="discovery__block discovery__hypo">
+            <p class="role-overline"><span data-lang="en">The manager's role</span><span data-lang="ru">Роль менеджера</span></p>
+            <p><span data-lang="en">We believe that if we improve project management for managers, with convenient access to information about the project, the people and the workload, it will help increase company revenue, make it easier to get analytics for the client, and track problem spots on a project. To test this, we'll run hallway testing. The hypothesis holds true if 75% of respondents can create a project and find all its details.</span><span data-lang="ru">Мы верим, что&nbsp;если улучшим ведение проектов для&nbsp;менеджеров с&nbsp;возможностью удобного получения информации о&nbsp;проекте, о&nbsp;сотрудниках, загрузке, то&nbsp;это поможет увеличить доход компании, облегчить получение аналитики для&nbsp;клиента и&nbsp;отслеживать проблемные точки на&nbsp;проекте. Для&nbsp;того, чтобы&nbsp;это проверить, мы проведём коридорное тестирование. Гипотеза окажется верной, если 75% респондентов смогут создать проект и&nbsp;найти все детали по&nbsp;нему.</span></p>
+          </div>
+        </div>
+
+        <div class="discovery__block">
+          <p><span data-lang="en">After that, I formulated specific hypotheses and JTBD for every problem found in the key scenarios.</span><span data-lang="ru">После&nbsp;этого, я&nbsp;сформулировала частные гипотезы и&nbsp;JTBD для&nbsp;всех выявленных проблем в&nbsp;ключевых сценариях.</span></p>
+        </div>
+        <div class="fix__shots fix__shots--pair discovery__attached">
+          <img src="assets/role-employee.png" alt="Research artefact mapping employee scenarios, hypotheses and JTBD" loading="lazy" />
+          <img src="assets/role-manager.png" alt="Research artefact mapping manager scenarios, hypotheses and JTBD" loading="lazy" />
         </div>
       </div>
     </div>
 
-    <div class="case__results">
-      <div class="case__results-grid">
-        <div><span>7</span><p><span data-lang="en">pain points reworked</span><span data-lang="ru">проблем переработано</span></p></div>
-        <div><span>2</span><p><span data-lang="en">roles kept in balance</span><span data-lang="ru">роли в&nbsp;балансе</span></p></div>
-        <div><span data-lang="en">Live</span><span data-lang="ru">В&nbsp;работе</span><p><span data-lang="en">ideas taken into development</span><span data-lang="ru">идеи взяли в&nbsp;разработку</span></p></div>
-      </div>
+    <div class="case-jumplinks">
+      <a class="case-jumplink" href="#improvements"><span data-lang="en">Improving the current tracker</span><span data-lang="ru">Улучшение текущего трекера</span></a>
+      <a class="case-jumplink" href="#concept"><span data-lang="en">New tracker concept</span><span data-lang="ru">Новая концепция трекера</span></a>
     </div>
   </section>
 
   <nav class="case-nav">
     <a class="case-nav__link case-nav__link--prev" href="../dinogarten/index.html">
       <span class="case-nav__kicker"><span data-lang="en">← Previous case</span><span data-lang="ru">← Предыдущий кейс</span></span>
-      <span class="case-nav__title">Dinogarten</span>
+      <span class="case-nav__title"><span data-lang="en">Dinogarten</span><span data-lang="ru">Диносадик</span></span>
     </a>
     <span class="case-nav__center">
       <a href="../../portfolio.html"><span data-lang="en">All work</span><span data-lang="ru">Все работы</span></a>
     </span>
-    <a class="case-nav__link case-nav__link--next" href="../sber/index.html">
+    <a class="case-nav__link case-nav__link--next" href="../concepts/index.html">
       <span class="case-nav__kicker"><span data-lang="en">Next case →</span><span data-lang="ru">Следующий кейс →</span></span>
-      <span class="case-nav__title"><span data-lang="en">SberHealth booking</span><span data-lang="ru">SberHealth · запись к&nbsp;врачу</span></span>
+      <span class="case-nav__title"><span data-lang="en">UI concepts</span><span data-lang="ru">UI-концепты</span></span>
     </a>
   </nav>
 </main>

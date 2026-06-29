@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Atlas — AML triage workspace · Elena Meshnina</title>
+  <meta name="description" content="Atlas — a workspace for AML compliance analysts that turns a wall of risk signals into a decision in seconds. Research, UX, UI and a design system." />
+  <meta name="author" content="Elena Meshnina" />
+  <meta name="theme-color" content="#0a0a0c" />
+  <link rel="canonical" href="https://meshlena.github.io/cases/atlas/index.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+  <!-- Open Graph / social -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Elena Meshnina" />
+  <meta property="og:title" content="Atlas — AML triage workspace · Elena Meshnina" />
+  <meta property="og:description" content="A workspace for AML compliance analysts that turns a wall of risk signals into a decision in seconds." />
+  <meta property="og:url" content="https://meshlena.github.io/cases/atlas/index.html" />
+  <meta property="og:image" content="https://meshlena.github.io/cases/atlas/assets/01-queue-default.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Atlas — AML triage workspace · Elena Meshnina" />
+  <meta name="twitter:description" content="A workspace for AML compliance analysts that turns a wall of risk signals into a decision in seconds." />
+  <meta name="twitter:image" content="https://meshlena.github.io/cases/atlas/assets/01-queue-default.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css" />
+
+  <style>
+    .case[data-case="atlas"] .atlas { max-width: var(--maxw); margin: 0 auto; display: flex; flex-direction: column; gap: clamp(44px, 8vh, 96px); }
+    .case[data-case="atlas"] .atlas-block { display: flex; flex-direction: column; gap: 16px; }
+    .case[data-case="atlas"] .atlas-block > h2 {
+      font-size: clamp(28px, 4vw, 50px); letter-spacing: -0.025em; line-height: 1.04; margin: 0; max-width: 22ch;
+    }
+    .case[data-case="atlas"] .atlas-block h3 {
+      font-size: clamp(20px, 2.2vw, 28px); letter-spacing: -0.02em; line-height: 1.15; margin: 14px 0 0;
+    }
+    .case[data-case="atlas"] .atlas-block h4 {
+      font-size: clamp(15px, 1.4vw, 17px); font-weight: 600; letter-spacing: 0.01em; line-height: 1.2; margin: 8px 0 0; color: rgba(255,255,255,0.6);
+    }
+    .case[data-case="atlas"] .atlas-block p {
+      font-size: clamp(16px, 1.2vw, 18px); line-height: 1.65; color: rgba(255,255,255,0.78); margin: 0; max-width: 72ch;
+    }
+    .case[data-case="atlas"] .atlas-block p strong { color: #fff; font-weight: 600; }
+
+    /* lists */
+    .case[data-case="atlas"] .atlas-ol, .case[data-case="atlas"] .atlas-ul { margin: 4px 0 0; padding: 0; list-style: none; display: grid; gap: 14px; counter-reset: a; }
+    .case[data-case="atlas"] .atlas-ol li, .case[data-case="atlas"] .atlas-ul li {
+      position: relative; padding-left: 30px;
+      font-size: clamp(15px, 1.1vw, 17px); line-height: 1.6; color: rgba(255,255,255,0.8); max-width: 72ch;
+    }
+    .case[data-case="atlas"] .atlas-ol li { counter-increment: a; }
+    .case[data-case="atlas"] .atlas-ol li::before {
+      content: counter(a); position: absolute; left: 0; top: 0.05em;
+      font-size: 12px; font-weight: 600; color: var(--accent);
+      width: 20px; height: 20px; border: 1px solid rgba(212,255,58,0.4); border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .case[data-case="atlas"] .atlas-ul li::before {
+      content: ''; position: absolute; left: 6px; top: 0.7em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+    }
+    .case[data-case="atlas"] .atlas-ol li strong, .case[data-case="atlas"] .atlas-ul li strong { color: #fff; font-weight: 600; }
+
+    /* quote */
+    .case[data-case="atlas"] .atlas-quote { margin: 6px 0 0; border-left: 2px solid var(--accent); padding: 4px 0 4px 24px; max-width: 60ch; }
+    .case[data-case="atlas"] .atlas-quote p {
+      font-family: var(--serif); font-style: italic; font-weight: 400;
+      font-size: clamp(20px, 2.4vw, 30px); line-height: 1.32; color: #fff; margin: 0;
+    }
+    .case[data-case="atlas"] .atlas-quote cite { display: block; margin-top: 12px; font-style: normal; font-size: 13px; letter-spacing: 0.02em; color: rgba(255,255,255,0.5); }
+
+    /* tables */
+    .case[data-case="atlas"] .atlas-tablewrap { overflow-x: auto; margin: 6px 0 0; -webkit-overflow-scrolling: touch; }
+    .case[data-case="atlas"] table.atlas-table { width: 100%; border-collapse: collapse; min-width: 520px; font-size: clamp(13px, 1vw, 15px); }
+    .case[data-case="atlas"] .atlas-table th, .case[data-case="atlas"] .atlas-table td {
+      text-align: left; padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.1); vertical-align: top; line-height: 1.5;
+    }
+    .case[data-case="atlas"] .atlas-table th {
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); font-weight: 600; white-space: nowrap;
+    }
+    .case[data-case="atlas"] .atlas-table td { color: rgba(255,255,255,0.8); }
+    .case[data-case="atlas"] .atlas-table td strong { color: #fff; font-weight: 600; }
+    .case[data-case="atlas"] .atlas-table .num { text-align: center; font-variant-numeric: tabular-nums; white-space: nowrap; color: rgba(255,255,255,0.7); }
+    .case[data-case="atlas"] .atlas-table .rice { text-align: center; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+
+    /* hypotheses */
+    .case[data-case="atlas"] .atlas-hyp { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .case[data-case="atlas"] .atlas-hyp p { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius); padding: clamp(16px, 2vw, 22px); max-width: none; }
+
+    /* screen shots */
+    .case[data-case="atlas"] .case-flow__visual {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius); padding: clamp(10px, 1.6vw, 22px); overflow: hidden;
+    }
+    .case[data-case="atlas"] .case-flow__visual img { width: 100%; height: auto; display: block; border-radius: 8px; cursor: zoom-in; }
+    .case[data-case="atlas"] .atlas-pair { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(12px, 2vw, 20px); }
+    .case[data-case="atlas"] .atlas-cap { font-size: 12px; letter-spacing: 0.04em; color: rgba(255,255,255,0.5); margin: 10px 0 0; }
+
+    /* hero cover on a backing, like the design shots */
+    .case[data-case="atlas"] .case__cover { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius); padding: clamp(14px,2.2vw,34px); aspect-ratio: auto; overflow: visible; margin-top: clamp(28px,4vw,52px); }
+    .case[data-case="atlas"] .case__cover img { display: block; width: 100%; height: auto; object-fit: contain; transform: none !important; border-radius: 8px; }
+
+    /* research problem stickers */
+    .case[data-case="atlas"] .atlas-stickers { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-top: 4px; }
+    .case[data-case="atlas"] .atlas-sticky { border-radius: 4px; padding: 18px 18px 22px; min-height: 148px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 10px 26px rgba(0,0,0,0.3); }
+    .case[data-case="atlas"] .atlas-sticky--y { background: #FFD96B; transform: rotate(-1.2deg); }
+    .case[data-case="atlas"] .atlas-sticky--p { background: #FF9DBA; transform: rotate(1.5deg); }
+    .case[data-case="atlas"] .atlas-sticky--c { background: #A4ECFF; transform: rotate(-0.8deg); }
+    .case[data-case="atlas"] .atlas-sticky--g { background: #B5F0CC; transform: rotate(1.1deg); }
+    .case[data-case="atlas"] .atlas-sticky__n { font-family: var(--mono, ui-monospace, SFMono-Regular, monospace); font-size: 12px; font-weight: 700; color: rgba(26,15,31,0.5); }
+    .case[data-case="atlas"] .atlas-sticky p { font-size: 13px; line-height: 1.4; font-weight: 500; color: #1A0F1F; margin: 0; max-width: none; }
+
+    /* key insights cards */
+    .case[data-case="atlas"] .atlas-insights { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 4px; }
+    .case[data-case="atlas"] .atlas-insight { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: clamp(18px,2vw,24px); display: flex; flex-direction: column; gap: 10px; }
+    .case[data-case="atlas"] .atlas-insight h4 { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin: 0; font-weight: 600; }
+    .case[data-case="atlas"] .atlas-insight p { font-size: clamp(14px,1.05vw,16px); line-height: 1.55; color: rgba(255,255,255,0.8); margin: 0; max-width: none; }
+
+    /* uniform 16px body text */
+    .case[data-case="atlas"] .atlas-block > p,
+    .case[data-case="atlas"] .atlas-ol li,
+    .case[data-case="atlas"] .atlas-ul li,
+    .case[data-case="atlas"] .atlas-hyp p { font-size: 16px; }
+
+    /* job-story stickers */
+    .case[data-case="atlas"] .atlas-jobs { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 14px; margin-top: 4px; }
+    .case[data-case="atlas"] .atlas-jobs .atlas-sticky { min-height: auto; padding: 15px 16px 17px; gap: 7px; }
+    .case[data-case="atlas"] .atlas-jobs h5 { font-size: 14px; font-weight: 700; color: #1A0F1F; margin: 0; letter-spacing: -0.01em; }
+    .case[data-case="atlas"] .atlas-jobs p { font-size: 13px; line-height: 1.4; color: #1A0F1F; margin: 0; font-weight: 500; }
+
+    /* RICE compact ranked bars */
+    .case[data-case="atlas"] .atlas-rice { display: grid; gap: 9px; margin-top: 6px; }
+    .case[data-case="atlas"] .atlas-rice__row { display: grid; grid-template-columns: minmax(120px,180px) 1fr 48px; align-items: center; gap: 14px; }
+    .case[data-case="atlas"] .atlas-rice__name { font-size: 14px; color: rgba(255,255,255,0.88); }
+    .case[data-case="atlas"] .atlas-rice__name strong { font-weight: 600; }
+    .case[data-case="atlas"] .atlas-rice__bar { height: 8px; border-radius: 999px; background: rgba(255,255,255,0.08); overflow: hidden; }
+    .case[data-case="atlas"] .atlas-rice__fill { display: block; height: 100%; background: var(--accent); border-radius: 999px; }
+    .case[data-case="atlas"] .atlas-rice__score { text-align: right; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; font-size: 14px; }
+
+    /* dark / light comparison slider for screens */
+    .case[data-case="atlas"] .fix__compare { position: relative; --pos: 50%; width: 100%; margin: 6px 0 0; border-radius: var(--radius); overflow: hidden; border: 1px solid rgba(255,255,255,0.1); background: #0a0a0c; touch-action: none; user-select: none; cursor: ew-resize; }
+    .case[data-case="atlas"] .fix__compare img { display: block; width: 100%; height: auto; pointer-events: none; }
+    .case[data-case="atlas"] .fix__compare__after { position: absolute; inset: 0; clip-path: inset(0 0 0 var(--pos)); }
+    .case[data-case="atlas"] .fix__compare__after img { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .case[data-case="atlas"] .fix__compare__bar { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 2px; background: #fff; transform: translateX(-1px); box-shadow: 0 0 0 1px rgba(0,0,0,0.3); pointer-events: none; }
+    .case[data-case="atlas"] .fix__compare__knob { position: absolute; top: 50%; left: var(--pos); width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%; background: #fff; color: #0a0a0c; border: none; box-shadow: 0 4px 16px rgba(0,0,0,0.45); display: flex; align-items: center; justify-content: center; cursor: ew-resize; touch-action: none; }
+    .case[data-case="atlas"] .fix__compare__knob:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .case[data-case="atlas"] .fix__compare__tag { position: absolute; top: 14px; z-index: 2; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600; padding: 5px 10px; border-radius: 999px; color: #fff; background: rgba(10,10,12,0.6); pointer-events: none; }
+    .case[data-case="atlas"] .fix__compare__tag--before { left: 14px; }
+    .case[data-case="atlas"] .fix__compare__tag--after { right: 14px; }
+
+    /* two-col intro grid */
+    .case[data-case="atlas"] .atlas-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(28px, 5vw, 72px); align-items: start; }
+
+    /* keep results-strip captions compact: the shared rule enlarges every span in the cell */
+    .case[data-case="atlas"] .case__results-grid > div p span {
+      display: inline; font-family: var(--sans); font-style: normal; font-weight: 400;
+      font-size: 15px; line-height: 1.5; margin: 0; color: var(--fg-dim);
+    }
+
+    @media (max-width: 760px) {
+      .case[data-case="atlas"] .atlas-grid { grid-template-columns: 1fr; gap: 24px; }
+      .case[data-case="atlas"] .atlas-pair { grid-template-columns: 1fr; }
+      .case[data-case="atlas"] .atlas-stickers { grid-template-columns: 1fr 1fr; }
+      .case[data-case="atlas"] .atlas-insights { grid-template-columns: 1fr; }
+      .case[data-case="atlas"] .atlas-hyp { grid-template-columns: 1fr; }
+      .case[data-case="atlas"] .atlas-rice__row { grid-template-columns: minmax(90px,1fr) 1.3fr 44px; gap: 10px; }
+    }
+  </style>
+
+  <!-- i18n: pick language before paint (saved choice -> browser -> English) -->
+  <script>
+    window.__i18n = {
+      en: { title: "Atlas — AML triage workspace · Elena Meshnina", desc: "A workspace for AML compliance analysts that turns a wall of risk signals into a decision in seconds." },
+      ru: { title: "Atlas — рабочее пространство для AML-триажа · Елена Мешнина", desc: "Рабочее пространство для финансовых комплаенс-аналитиков, которое превращает стену риск-сигналов в решение за секунды." }
+    };
+    (function () {
+      var saved = null;
+      try { saved = localStorage.getItem("site-lang"); } catch (e) {}
+      var nav = (navigator.language || navigator.userLanguage || "en").toLowerCase();
+      var lang = saved || (nav.indexOf("ru") === 0 ? "ru" : "en");
+      if (lang !== "en" && lang !== "ru") lang = "en";
+      document.documentElement.setAttribute("lang", lang);
+      var m = window.__i18n[lang];
+      if (m) {
+        document.title = m.title;
+        var md = document.querySelector('meta[name="description"]');
+        if (md) md.setAttribute("content", m.desc);
+      }
+    })();
+  </script>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav__left">
+    <a class="nav__logo" href="../../index.html">
+      <span class="nav__logo-mark">EM</span>
+    </a>
+    <a class="case-page__back" href="../../portfolio.html">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+        <path d="M7 2L3 6L7 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span data-lang="en">Back to portfolio</span><span data-lang="ru">Назад к&nbsp;портфолио</span>
+    </a>
+  </div>
+  <nav class="nav__links">
+    <a class="nav__cv" href="https://drive.google.com/file/d/12Ta2eBWsoasW1WxpJvM2IOqPrqqzx4fJ/view?usp=drive_link" target="_blank" rel="noopener" data-lang="en">CV</a>
+    <a class="nav__cv" href="https://drive.google.com/file/d/12idHV0poSKtOPqxzbGs6QoRKvgf6kzxC/view?usp=drive_link" target="_blank" rel="noopener" data-lang="ru">Резюме</a>
+    <a href="../../portfolio.html"><span data-lang="en">Portfolio</span><span data-lang="ru">Портфолио</span></a>
+    <a href="../../index.html#about"><span data-lang="en">About</span><span data-lang="ru">Обо мне</span></a>
+    <a href="../../index.html#contact"><span data-lang="en">Contact</span><span data-lang="ru">Контакты</span></a>
+    <span class="nav__social-group">
+      <a class="nav__social" href="https://www.linkedin.com/in/elena-meshnina-862780237/" aria-label="LinkedIn" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.852 3.37-1.852 3.601 0 4.267 2.37 4.267 5.455v6.288zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a class="nav__social" href="https://github.com/meshlena" aria-label="GitHub" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      </a>
+      <a class="nav__social" href="https://t.me/elena_m239" aria-label="Telegram" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.231-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+      </a>
+    </span>
+  </nav>
+  <div class="nav__lang" role="group" aria-label="Language / Язык">
+    <button type="button" class="nav__lang-btn" data-lang-btn="en" aria-label="English">EN</button>
+    <span class="nav__lang-sep" aria-hidden="true">·</span>
+    <button type="button" class="nav__lang-btn" data-lang-btn="ru" aria-label="Русский">RU</button>
+  </div>
+</header>
+
+<main class="case-page">
+<section class="case case--dark" data-case="atlas">
+
+  <div class="case__hero">
+    <div class="case__meta">
+      <span class="chip"><span data-lang="en">AML compliance · Product design</span><span data-lang="ru">AML-комплаенс · Продуктовый дизайн</span></span>
+      <span class="case__num">01</span>
+    </div>
+    <h2 class="case__title">Atlas</h2>
+    <p class="case__sub"><span data-lang="en">A workspace for investigating suspicious financial transactions</span><span data-lang="ru">Рабочее пространство для&nbsp;расследования подозрительных финансовых операций</span></p>
+    <div class="case__cover">
+      <img src="assets/01-queue-default.png" alt="Atlas case queue — analyst home screen with colour-coded severity" />
+    </div>
+  </div>
+
+  <div class="atlas">
+
+    <!-- My role -->
+    <div class="atlas-block">
+      <p class="kicker"><span data-lang="en">My role</span><span data-lang="ru">Моя роль</span></p>
+      <p><span data-lang="en">I led the product redesign end to end — from research to handoff</span><span data-lang="ru">Я&nbsp;провела редизайн продукта целиком — от&nbsp;исследования до&nbsp;передачи в&nbsp;разработку</span></p>
+    </div>
+
+    <!-- Context and problem -->
+    <div class="atlas-block">
+      <p class="kicker"><span data-lang="en">Context &amp; problem</span><span data-lang="ru">Контекст и&nbsp;проблема</span></p>
+      <p><span data-lang="en">Financial-monitoring specialists work through hundreds of cases every day. To make a decision, they have to gather context from several systems and screens. Instead of investigating, a large part of their time goes to searching for and matching up information</span><span data-lang="ru">Специалисты по&nbsp;финансовому мониторингу ежедневно разбирают сотни кейсов. Чтобы&nbsp;принять решение, им&nbsp;приходится собирать контекст из&nbsp;нескольких систем и&nbsp;экранов. Вместо расследования значительная часть времени уходит на&nbsp;поиск и&nbsp;сопоставление информации</span></p>
+      <div class="atlas-quote">
+        <p><span data-lang="en">"I've been looking at this queue for six months. I still don't know which case to take first. I look at the table and try to decide."</span><span data-lang="ru">«Я&nbsp;смотрю на&nbsp;эту очередь полгода. До&nbsp;сих пор не&nbsp;знаю, какой кейс брать первым. Смотрю на&nbsp;таблицу и&nbsp;пытаюсь решить.»</span></p>
+        <cite><span data-lang="en">Senior AML analyst</span><span data-lang="ru">Senior AML-аналитик</span></cite>
+      </div>
+    </div>
+
+    <!-- Research -->
+    <div class="atlas-block">
+      <p class="kicker"><span data-lang="en">Research</span><span data-lang="ru">Исследование</span></p>
+      <h3><span data-lang="en">12 interviews and a diary study</span><span data-lang="ru">12 интервью и&nbsp;дневниковое исследование</span></h3>
+      <div class="atlas-stickers">
+        <div class="atlas-sticky atlas-sticky--y"><span class="atlas-sticky__n">01</span><p><span data-lang="en">No fast way to tell which case is the priority</span><span data-lang="ru">Невозможно быстро определить приоритет</span></p></div>
+        <div class="atlas-sticky atlas-sticky--p"><span class="atlas-sticky__n">02</span><p><span data-lang="en">No dedicated space for the investigation</span><span data-lang="ru">Нет отдельного пространства для&nbsp;расследования</span></p></div>
+        <div class="atlas-sticky atlas-sticky--c"><span class="atlas-sticky__n">03</span><p><span data-lang="en">Investigation context is scattered across systems and screens</span><span data-lang="ru">Контекст расследования разбросан между&nbsp;системами и&nbsp;экранами</span></p></div>
+        <div class="atlas-sticky atlas-sticky--g"><span class="atlas-sticky__n">04</span><p><span data-lang="en">Knowledge is handed between analysts manually</span><span data-lang="ru">Передача знаний между&nbsp;аналитиками происходит вручную</span></p></div>
+      </div>
+    </div>
+
+    <div class="atlas-block">
+      <h3><span data-lang="en">Competitive analysis — five products</span><span data-lang="ru">Анализ конкурентов — пять продуктов</span></h3>
+      <p><span data-lang="en">I benchmarked five products in the financial-compliance space — <strong>Chainalysis Reactor</strong>, <strong>Quantexa</strong>, <strong>TRM Labs Forensics</strong>, <strong>Hawk:AI</strong>, and <strong>Feedzai</strong> — against twelve criteria. They fell into two structural camps:</span><span data-lang="ru">Я&nbsp;провела бенчмаркинг 5 продуктов в&nbsp;сфере финансового комплаенса — <strong>Chainalysis Reactor</strong>, <strong>Quantexa</strong>, <strong>TRM Labs Forensics</strong>, <strong>Hawk:AI</strong> и&nbsp;<strong>Feedzai</strong> — по&nbsp;двенадцати критериям. Продукты распались на&nbsp;два структурных лагеря:</span></p>
+      <ul class="atlas-ul">
+        <li><span data-lang="en"><strong>Investigation-grade tools</strong> (Reactor, Quantexa, TRM Labs) bring all investigation material together — alerts, entities, addresses, and other linked objects. But the case mostly serves to store and structure information, not to organise the investigation itself.</span><span data-lang="ru"><strong>Investigation-grade инструменты</strong> (Reactor, Quantexa, TRM Labs) объединяют все материалы расследования — алерты, сущности, адреса и&nbsp;другие связанные объекты. Но&nbsp;роль кейса в&nbsp;основном сводится к&nbsp;хранению и&nbsp;структурированию информации, а&nbsp;не к&nbsp;организации самого процесса расследования.</span></li>
+        <li><span data-lang="en"><strong>Alert-centric tools</strong> (Hawk:AI, Feedzai) work with individual alerts that the analyst reviews and closes independently of one another.</span><span data-lang="ru"><strong>Alert-centric инструменты</strong> (Hawk:AI, Feedzai) работают с&nbsp;отдельными алертами, которые аналитик рассматривает и&nbsp;закрывает независимо от&nbsp;других.</span></li>
+      </ul>
+    </div>
+
+    <div class="atlas-block">
+      <h3><span data-lang="en">Key insights</span><span data-lang="ru">Ключевые инсайты</span></h3>
+      <div class="atlas-insights">
+        <div class="atlas-insight">
+          <h4><span data-lang="en">Interviews</span><span data-lang="ru">Интервью</span></h4>
+          <p><span data-lang="en">New hires have nowhere to start — the queue has no clear entry point. Seniors fear not the wrong call, but being unable to defend it when an auditor asks six months later</span><span data-lang="ru">Новичкам негде начать — в&nbsp;очереди нет ясной точки старта. Сеньоры боятся не&nbsp;неверного решения, а&nbsp;того, что&nbsp;не смогут защитить его перед&nbsp;аудитором через&nbsp;полгода</span></p>
+        </div>
+        <div class="atlas-insight">
+          <h4><span data-lang="en">Diary study</span><span data-lang="ru">Дневниковое исследование</span></h4>
+          <p><span data-lang="en">5–6 tools per case, ~40% of time on routine, ~25% on reassembling context between systems</span><span data-lang="ru">5–6 инструментов на&nbsp;кейс, ~40% времени — рутина, ~25% — пересборка контекста между&nbsp;системами</span></p>
+        </div>
+        <div class="atlas-insight">
+          <h4><span data-lang="en">Competitive analysis</span><span data-lang="ru">Анализ конкурентов</span></h4>
+          <p><span data-lang="en">No product makes the case a true workspace: the case stores information rather than hosting the investigation</span><span data-lang="ru">Ни&nbsp;один продукт не&nbsp;делает кейс полноценным рабочим пространством: кейс служит хранилищем, а&nbsp;не местом расследования</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="atlas-block">
+      <h3><span data-lang="en">Information architecture</span><span data-lang="ru">Информационная архитектура</span></h3>
+      <p><span data-lang="en">An open card sort (8 participants) showed that most analysts group information the same way. These five categories became the structure of the case dossier:</span><span data-lang="ru">Открытая карточная сортировка (8 участников) показала, что&nbsp;большинство аналитиков группируют информацию одинаково. Эти пять категорий легли в&nbsp;основу структуры досье кейса:</span></p>
+      <ul class="atlas-ul">
+        <li><span data-lang="en"><strong>Subject</strong> — profile, KYC, beneficial owners, jurisdiction.</span><span data-lang="ru"><strong>Субъект</strong> — профиль, KYC, бенефициары, юрисдикция.</span></li>
+        <li><span data-lang="en"><strong>Accounts</strong> — bank accounts, types and balances.</span><span data-lang="ru"><strong>Счета</strong> — банковские счета, типы и&nbsp;балансы.</span></li>
+        <li><span data-lang="en"><strong>Money flow</strong> — transactions, suspicious chains, risk scoring.</span><span data-lang="ru"><strong>Денежные потоки</strong> — транзакции, подозрительные цепочки, оценка риска.</span></li>
+        <li><span data-lang="en"><strong>Evidence</strong> — documents, screenshots and other investigation material.</span><span data-lang="ru"><strong>Доказательства</strong> — документы, скриншоты и&nbsp;другие материалы расследования.</span></li>
+        <li><span data-lang="en"><strong>Activity</strong> — the investigation history and decisions made</span><span data-lang="ru"><strong>Активность</strong> — история расследования и&nbsp;принятые решения</span></li>
+      </ul>
+    </div>
+
+    <!-- Jobs to Be Done -->
+    <div class="atlas-block">
+      <p class="kicker"><span data-lang="en">Strategy</span><span data-lang="ru">Стратегия</span></p>
+      <h3>Jobs to Be Done</h3>
+      <h4><span data-lang="en">Core job</span><span data-lang="ru">База</span></h4>
+      <div class="atlas-quote">
+        <p><span data-lang="en">When I get a new case, I want to understand all the risks and have the full picture, so I can close the case quickly and leave no questions an auditor might ask later.</span><span data-lang="ru">Когда я&nbsp;получаю новый кейс, я&nbsp;хочу понять все риски и&nbsp;получить полную информацию по&nbsp;нему, чтобы&nbsp;закрыть кейс быстро и&nbsp;не оставить вопросов, которые аудитор может задать потом.</span></p>
+      </div>
+    </div>
+
+    <div class="atlas-block">
+      <div class="atlas-jobs">
+        <div class="atlas-sticky atlas-sticky--y"><h5>JS1 · <span data-lang="en">Triage</span><span data-lang="ru">Приоритизация</span></h5><p><span data-lang="en">See which cases need attention first and take on the highest-priority work</span><span data-lang="ru">Видеть, какие кейсы требуют внимания в&nbsp;первую очередь, и&nbsp;браться за&nbsp;самое приоритетное</span></p></div>
+        <div class="atlas-sticky atlas-sticky--p"><h5>JS2 · <span data-lang="en">Investigate</span><span data-lang="ru">Расследование</span></h5><p><span data-lang="en">See the subject, accounts, money flows, evidence and prior decisions in one place</span><span data-lang="ru">Видеть субъект, счета, потоки, доказательства и&nbsp;прошлые решения в&nbsp;одном месте</span></p></div>
+        <div class="atlas-sticky atlas-sticky--c"><h5>JS3 · <span data-lang="en">Escalate</span><span data-lang="ru">Эскалация</span></h5><p><span data-lang="en">Escalate with full context attached, so a senior decides fast</span><span data-lang="ru">Эскалировать с&nbsp;полным контекстом, чтобы&nbsp;сеньор решил быстро</span></p></div>
+        <div class="atlas-sticky atlas-sticky--g"><h5>JS4 · <span data-lang="en">Close</span><span data-lang="ru">Закрытие</span></h5><p><span data-lang="en">Record what was found and decided, so the next reviewer can follow the logic</span><span data-lang="ru">Зафиксировать, что&nbsp;нашёл и&nbsp;решил, чтобы&nbsp;следующий мог понять логику</span></p></div>
+        <div class="atlas-sticky atlas-sticky--y"><h5>JS5 · <span data-lang="en">Onboard</span><span data-lang="ru">Онбординг</span></h5><p><span data-lang="en">Let the interface guide the steps, so a new hire becomes independent faster</span><span data-lang="ru">Чтобы&nbsp;интерфейс подсказывал порядок действий и&nbsp;новичок быстрее стал самостоятельным</span></p></div>
+        <div class="atlas-sticky atlas-sticky--p"><h5>JS6 · <span data-lang="en">Defend</span><span data-lang="ru">Защита</span></h5><p><span data-lang="en">Show a regulator the full investigation history without rebuilding it</span><span data-lang="ru">Показать регулятору полную историю расследования без&nbsp;восстановления по&nbsp;кусочкам</span></p></div>
+        <div class="atlas-sticky atlas-sticky--c"><h5>JS7 · <span data-lang="en">Coordinate</span><span data-lang="ru">Координация</span></h5><p><span data-lang="en">Hand a case off so a colleague continues from where I left off</span><span data-lang="ru">Передать кейс так, чтобы&nbsp;коллега продолжил с&nbsp;того места, где&nbsp;я остановился</span></p></div>
+      </div>
+      <p><span data-lang="en">Five primary job stories define the system's key effectiveness criteria. Two more — Escalation and Coordination — fall outside the core investigation process but come up regularly in practice and need product support</span><span data-lang="ru">Пять основных job stories определяют ключевые критерии эффективности системы. Еще две — Эскалация и&nbsp;Координация — не&nbsp;относятся к&nbsp;основному процессу расследования, но&nbsp;регулярно возникают на&nbsp;практике и&nbsp;требуют поддержки со&nbsp;стороны продукта</span></p>
+    </div>
+
+    <div class="atlas-block">
+      <h3><span data-lang="en">Prioritisation with RICE</span><span data-lang="ru">Приоритизация по&nbsp;RICE</span></h3>
+      <p><span data-lang="en">To decide what to take into the first iteration, I scored all seven job stories with RICE (Reach × Impact × Confidence ÷ Effort, 1–5 scale).</span><span data-lang="ru">Чтобы&nbsp;решить, что&nbsp;взять в&nbsp;первую итерацию, я&nbsp;оценила все семь job stories по&nbsp;модели RICE (Reach × Impact × Confidence ÷ Effort, шкала 1–5).</span></p>
+      <div class="atlas-rice">
+        <div class="atlas-rice__row"><span class="atlas-rice__name"><strong>JS1</strong> · <span data-lang="en">Triage</span><span data-lang="ru">Приоритизация</span></span><span class="atlas-rice__bar"><span class="atlas-rice__fill" style="width:100%"></span></span><span class="atlas-rice__score">62.5</span></div>
+        <div class="atlas-rice__row"><span class="atlas-rice__name"><strong>JS2</strong> · <span data-lang="en">Investigate</span><span data-lang="ru">Расследование</span></span><span class="atlas-rice__bar"><span class="atlas-rice__fill" style="width:67%"></span></span><span class="atlas-rice__score">41.7</span></div>
+        <div class="atlas-rice__row"><span class="atlas-rice__name"><strong>JS4</strong> · <span data-lang="en">Close</span><span data-lang="ru">Закрытие</span></span><span class="atlas-rice__bar"><span class="atlas-rice__fill" style="width:67%"></span></span><span class="atlas-rice__score">41.7</span></div>
+        <div class="atlas-rice__row"><span class="atlas-rice__name"><strong>JS6</strong> · <span data-lang="en">Defend</span><span data-lang="ru">Защита</span></span><span class="atlas-rice__bar"><span class="atlas-rice__fill" style="width:53%"></span></span><span class="atlas-rice__score">33.3</span></div>
+        <div class="atlas-rice__row"><span class="atlas-rice__name"><strong>JS3</strong> · <span data-lang="en">Escalate</span><span data-lang="ru">Эскалация</span></span><span class="atlas-rice__bar"><span class="atlas-rice__fill" style="width:43%"></span></span><span class="atlas-rice__score">26.7</span></div>
+        <div class="atlas-rice__row"><span class="atlas-rice__name"><strong>JS7</strong> · <span data-lang="en">Coordinate</span><span data-lang="ru">Координация</span></span><span class="atlas-rice__bar"><span class="atlas-rice__fill" style="width:22%"></span></span><span class="atlas-rice__score">13.5</span></div>
+        <div class="atlas-rice__row"><span class="atlas-rice__name"><strong>JS5</strong> · <span data-lang="en">Onboard</span><span data-lang="ru">Онбординг</span></span><span class="atlas-rice__bar"><span class="atlas-rice__fill" style="width:19%"></span></span><span class="atlas-rice__score">12.0</span></div>
+      </div>
+      <p><span data-lang="en"><strong>JS1 (Triage)</strong> and <strong>JS2 (Investigate)</strong> went into the first iteration. These flows happen in every case and form the base of the analyst's work: before you can close, escalate, or hand off a case, you first have to assess and investigate it.</span><span data-lang="ru">В&nbsp;первую итерацию вошли <strong>JS1 (Приоритизация)</strong> и&nbsp;<strong>JS2 (Расследование)</strong>. Эти сценарии выполняются в&nbsp;каждом кейсе и&nbsp;образуют базу работы аналитика: прежде чем закрыть, эскалировать или&nbsp;передать кейс, его нужно оценить и&nbsp;расследовать.</span></p>
+      <p><span data-lang="en">JS3 (Escalate), JS4 (Close), JS6 (Defend), and JS7 (Coordinate) are deferred to the next iteration, where they build on the process already in place.</span><span data-lang="ru">JS3 (Эскалация), JS4 (Закрытие), JS6 (Защита) и&nbsp;JS7 (Координация) вынесены в&nbsp;следующую итерацию, где&nbsp;они развивают уже построенный процесс.</span></p>
+    </div>
+
+    <!-- Hypotheses -->
+    <div class="atlas-block">
+      <p class="kicker"><span data-lang="en">Hypotheses</span><span data-lang="ru">Гипотезы</span></p>
+      <h3><span data-lang="en">Four primary hypotheses</span><span data-lang="ru">Четыре основных гипотезы</span></h3>
+      <div class="atlas-hyp">
+        <p><span data-lang="en"><strong>H1 · Onboarding → JS5.</strong> We expect that making the case structure and the next investigative step obvious will help new analysts learn the system faster and start closing cases independently sooner. Success will mean a 25–35% drop in the median time to a first independently closed case (from 13 to about 9 working days) within four months of launch.</span><span data-lang="ru"><strong>H1 · Онбординг → JS5.</strong> Мы предполагаем, что&nbsp;если сделать структуру кейса и&nbsp;следующий шаг в&nbsp;расследовании очевидными, новые аналитики быстрее освоят систему и&nbsp;раньше начнут самостоятельно закрывать кейсы. Успехом будем считать сокращение медианного времени до&nbsp;первого самостоятельно закрытого кейса на&nbsp;25–35% (с&nbsp;13 до&nbsp;примерно 9 рабочих дней) в&nbsp;течение четырёх месяцев после&nbsp;запуска.</span></p>
+        <p><span data-lang="en"><strong>H2 · Throughput → JS2 + JS4.</strong> We expect that reducing routine work during an investigation — through automatic evidence collection, anomaly scoring, and investigation-history capture — will let analysts spend more time on decisions and close more cases. Success will mean a 15–25% rise in cases closed per analyst per week (from 13.2 to about 15.6) within four months of launch.</span><span data-lang="ru"><strong>H2 · Пропускная способность → JS2 + JS4.</strong> Мы предполагаем, что&nbsp;если сократить объём рутинной работы при&nbsp;расследовании за&nbsp;счёт автоматического сбора доказательств, оценки аномалий и&nbsp;ведения истории расследования, аналитики смогут уделять больше времени принятию решений и&nbsp;закрывать больше кейсов. Успехом будем считать рост количества закрытых кейсов на&nbsp;одного аналитика на&nbsp;15–25% в&nbsp;неделю (с&nbsp;13,2 до&nbsp;примерно 15,6) в&nbsp;течение четырёх месяцев после&nbsp;запуска.</span></p>
+        <p><span data-lang="en"><strong>H3 · Time per case → JS2 + JS1.</strong> We expect that with all the information needed for an investigation available in one place, analysts will spend less time searching for data and switching between tools, and more on the investigation itself. Success will mean a 20–30% drop in the median investigation time per case (from 4.2 to about 3.2 working days).</span><span data-lang="ru"><strong>H3 · Время на&nbsp;кейс → JS2 + JS1.</strong> Мы предполагаем, что&nbsp;если вся информация, необходимая для&nbsp;расследования, будет доступна в&nbsp;одном месте, аналитики будут тратить меньше времени на&nbsp;поиск данных и&nbsp;переключение между&nbsp;инструментами, а&nbsp;больше — на&nbsp;само расследование. Успехом будем считать сокращение медианного времени расследования одного кейса на&nbsp;20–30% (с&nbsp;4,2 до&nbsp;примерно 3,2 рабочих дней).</span></p>
+        <p><span data-lang="en"><strong>H4 · Audit-trail completeness → JS4 + JS6.</strong> We expect that if the system automatically saves the investigation history and every significant action, analysts will close cases with no extra documentation effort, and the organisation will be better prepared for internal and external reviews. Success will mean an increase in the share of cases passing all seven internal-audit criteria, from 62% to at least 85%, on a quarterly sample of 90 cases.</span><span data-lang="ru"><strong>H4 · Полнота audit trail → JS4 + JS6.</strong> Мы предполагаем, что&nbsp;если система будет автоматически сохранять историю расследования и&nbsp;всех значимых действий, аналитики смогут закрывать кейсы без&nbsp;дополнительных усилий по&nbsp;документированию, а&nbsp;организация будет лучше подготовлена к&nbsp;внутренним и&nbsp;внешним проверкам. Успехом будем считать увеличение доли кейсов, успешно проходящих все семь критериев внутреннего аудита, с&nbsp;62% до&nbsp;не менее 85% по&nbsp;результатам квартальной выборки из&nbsp;90 кейсов.</span></p>
+      </div>
+    </div>
+
+    <div class="atlas-block">
+      <h3><span data-lang="en">Two supporting hypotheses</span><span data-lang="ru">Две сопутствующих гипотезы</span></h3>
+      <div class="atlas-hyp">
+        <p><span data-lang="en"><strong>H5 · Escalation cycle → JS3.</strong> We expect that if a colleague receives the full investigation context at the moment of escalation, decision time will drop and analysts won't have to explain the situation again. Success will mean a 40–50% drop in the median time from escalation to a senior's decision (from about 24 to 12 hours).</span><span data-lang="ru"><strong>H5 · Цикл эскалации → JS3.</strong> Мы предполагаем, что&nbsp;если при&nbsp;эскалации коллега сразу получит весь контекст расследования, время на&nbsp;принятие решения сократится, а&nbsp;аналитикам не&nbsp;придётся дополнительно объяснять ситуацию. Успехом будем считать сокращение медианного времени от&nbsp;эскалации до&nbsp;решения сеньора на&nbsp;40–50% (с&nbsp;примерно 24 до&nbsp;12 часов).</span></p>
+        <p><span data-lang="en"><strong>H6 · Handoff continuity → JS7.</strong> We expect that if the system keeps the full investigation context and action history, analysts can hand off cases without losing information or adding explanations. Success will mean at least 70% of handoffs completed without a synchronous context handover.</span><span data-lang="ru"><strong>H6 · Непрерывность передачи → JS7.</strong> Мы предполагаем, что&nbsp;если система будет сохранять полный контекст расследования и&nbsp;историю действий, аналитики смогут передавать кейсы без&nbsp;потери информации и&nbsp;дополнительных объяснений. Успехом будем считать долю передач кейсов, завершённых без&nbsp;синхронной передачи контекста, не&nbsp;менее 70%.</span></p>
+      </div>
+    </div>
+
+    <div class="atlas-block">
+      <h3><span data-lang="en">Solutions</span><span data-lang="ru">Решения</span></h3>
+      <div class="atlas-tablewrap">
+        <table class="atlas-table">
+          <thead>
+            <tr>
+              <th><span data-lang="en">Hypothesis</span><span data-lang="ru">Гипотеза</span></th>
+              <th><span data-lang="en">Solution</span><span data-lang="ru">Решение</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>H1</strong> · <span data-lang="en">Onboarding</span><span data-lang="ru">Онбординг</span></td><td><span data-lang="en">Clear statuses and priorities, plus a predictable action rail</span><span data-lang="ru">Наглядные статусы, приоритеты и&nbsp;предсказуемая панель действий</span></td></tr>
+            <tr><td><strong>H2</strong> · <span data-lang="en">Throughput</span><span data-lang="ru">Пропускная способность</span></td><td><span data-lang="en">Fast filtering and automatic evidence capture</span><span data-lang="ru">Быстрая фильтрация и&nbsp;автосбор доказательств</span></td></tr>
+            <tr><td><strong>H3</strong> · <span data-lang="en">Time per case</span><span data-lang="ru">Время на&nbsp;кейс</span></td><td><span data-lang="en">A single case workspace with all the information</span><span data-lang="ru">Единое рабочее пространство кейса со&nbsp;всей информацией</span></td></tr>
+            <tr><td><strong>H4</strong> · Audit trail</td><td><span data-lang="en">Automatic capture of the investigation history and notes</span><span data-lang="ru">Автоматическая фиксация истории расследования и&nbsp;заметок</span></td></tr>
+            <tr><td><strong>H5</strong> · <span data-lang="en">Escalation</span><span data-lang="ru">Эскалация</span></td><td><span data-lang="en">Escalation with full case context</span><span data-lang="ru">Эскалация с&nbsp;полным контекстом кейса</span></td></tr>
+            <tr><td><strong>H6</strong> · <span data-lang="en">Handoff</span><span data-lang="ru">Передача</span></td><td><span data-lang="en">A shared investigation history for everyone involved</span><span data-lang="ru">Общая история расследования для&nbsp;всех участников</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Scope -->
+    <div class="atlas-block">
+      <p class="kicker"><span data-lang="en">Scope</span><span data-lang="ru">Объём</span></p>
+      <h3><span data-lang="en">Scope of this iteration</span><span data-lang="ru">Объём этой итерации</span></h3>
+      <p><span data-lang="en">The first iteration covered the product's core: the case queue, the prioritisation panel, and the case workspace. They close the analyst's two key tasks — triage and investigation.</span><span data-lang="ru">В&nbsp;первую итерацию вошло ядро продукта: очередь кейсов, панель приоритизации и&nbsp;рабочее пространство кейса. Они закрывают две ключевые задачи аналитика — приоритизацию и&nbsp;расследование.</span></p>
+      <p><span data-lang="en">The closing, escalation, and handoff flows are left for the next iteration, so the key hypotheses can be tested first on the analyst's core loop.</span><span data-lang="ru">Сценарии закрытия, эскалации и&nbsp;передачи кейса оставлены для&nbsp;следующей итерации, чтобы&nbsp;сначала проверить ключевые гипотезы на&nbsp;основном рабочем цикле аналитика.</span></p>
+    </div>
+
+    <!-- Design / screens -->
+    <div class="atlas-block">
+      <p class="kicker"><span data-lang="en">Design</span><span data-lang="ru">Дизайн</span></p>
+      <h3><span data-lang="en">01 · Cases</span><span data-lang="ru">01 · Cases</span></h3>
+      <p><span data-lang="en">A case queue where priority reads at a glance. Colour coding helps quickly gauge severity, while filters and saved views help focus on the right group of cases. Selecting a row opens the investigation detail.</span><span data-lang="ru">Очередь кейсов, в&nbsp;которой приоритет считывается с&nbsp;первого взгляда. Цветовая индикация помогает быстро определить критичность, а&nbsp;фильтры и&nbsp;сохранённые представления — сосредоточиться на&nbsp;нужной группе кейсов. Выбор строки открывает детали расследования.</span></p>
+      <div class="fix__compare" data-compare>
+        <img class="fix__compare__base" src="assets/01-queue-default.png" alt="Atlas case queue — dark theme" loading="lazy" decoding="async" />
+        <div class="fix__compare__after"><img src="assets/01-queue-default-light.png" alt="Atlas case queue — light theme" loading="lazy" decoding="async" /></div>
+        <span class="fix__compare__tag fix__compare__tag--before"><span data-lang="en">Dark</span><span data-lang="ru">Тёмная</span></span>
+        <span class="fix__compare__tag fix__compare__tag--after"><span data-lang="en">Light</span><span data-lang="ru">Светлая</span></span>
+        <div class="fix__compare__bar" aria-hidden="true"></div>
+        <button class="fix__compare__knob" type="button" aria-label="Drag to compare dark and light"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6 4 12l5 6M15 6l5 6-5 6"/></svg></button>
+      </div>
+    </div>
+
+    <div class="atlas-block">
+      <h3><span data-lang="en">02 · Cases (side panel)</span><span data-lang="ru">02 · Cases (боковая панель)</span></h3>
+      <p><span data-lang="en">The side panel helps make a priority decision without opening the case. Key risk signals, the transaction amount, and money flows are gathered in one place, and the primary action is highlighted.</span><span data-lang="ru">Боковая панель помогает принять решение о&nbsp;приоритете без&nbsp;перехода в&nbsp;кейс. Ключевые сигналы риска, сумма операций и&nbsp;денежные потоки собраны в&nbsp;одном месте, а&nbsp;главное действие выделено визуально.</span></p>
+      <div class="fix__compare" data-compare>
+        <img class="fix__compare__base" src="assets/01-queue-triage.png" alt="Atlas triage side panel — dark theme" loading="lazy" decoding="async" />
+        <div class="fix__compare__after"><img src="assets/01-queue-triage-light.png" alt="Atlas triage side panel — light theme" loading="lazy" decoding="async" /></div>
+        <span class="fix__compare__tag fix__compare__tag--before"><span data-lang="en">Dark</span><span data-lang="ru">Тёмная</span></span>
+        <span class="fix__compare__tag fix__compare__tag--after"><span data-lang="en">Light</span><span data-lang="ru">Светлая</span></span>
+        <div class="fix__compare__bar" aria-hidden="true"></div>
+        <button class="fix__compare__knob" type="button" aria-label="Drag to compare dark and light"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6 4 12l5 6M15 6l5 6-5 6"/></svg></button>
+      </div>
+    </div>
+
+    <div class="atlas-block">
+      <h3><span data-lang="en">03 · Case workspace</span><span data-lang="ru">03 · Рабочее пространство кейса</span></h3>
+      <p><span data-lang="en">All investigation material is gathered in one workspace: details on the subject, accounts, money flows, evidence, and the investigation history. Analyst actions and notes are saved automatically, building a complete investigation history.</span><span data-lang="ru">Все материалы расследования собраны в&nbsp;одном рабочем пространстве: сведения о&nbsp;субъекте, счетах, денежных потоках, доказательствах и&nbsp;истории расследования. Действия аналитика и&nbsp;заметки автоматически сохраняются, формируя полную историю расследования.</span></p>
+      <div class="fix__compare" data-compare>
+        <img class="fix__compare__base" src="assets/02-dossier.png" alt="Atlas case dossier — dark theme" loading="lazy" decoding="async" />
+        <div class="fix__compare__after"><img src="assets/02-dossier-light.png" alt="Atlas case dossier — light theme" loading="lazy" decoding="async" /></div>
+        <span class="fix__compare__tag fix__compare__tag--before"><span data-lang="en">Dark</span><span data-lang="ru">Тёмная</span></span>
+        <span class="fix__compare__tag fix__compare__tag--after"><span data-lang="en">Light</span><span data-lang="ru">Светлая</span></span>
+        <div class="fix__compare__bar" aria-hidden="true"></div>
+        <button class="fix__compare__knob" type="button" aria-label="Drag to compare dark and light"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6 4 12l5 6M15 6l5 6-5 6"/></svg></button>
+      </div>
+    </div>
+
+    <!-- Validation -->
+    <div class="atlas-block">
+      <p class="kicker"><span data-lang="en">Testing</span><span data-lang="ru">Тестирование</span></p>
+      <p><span data-lang="en">Validation ran on detailed prototypes of the three key screens. I used two methods to assess the decisions</span><span data-lang="ru">Проверка проводилась на&nbsp;детализированных прототипах трёх ключевых экранов. Для&nbsp;оценки решений я&nbsp;использовала два метода</span></p>
+
+      <h3><span data-lang="en">Moderated usability testing (n = 6)</span><span data-lang="ru">Модерируемое юзабилити-тестирование (n = 6)</span></h3>
+      <p><span data-lang="en">6 analysts (junior–senior) ran five scenarios — from prioritising cases to finding information in a dossier</span><span data-lang="ru">6 аналитиков (junior–senior) выполняли пять сценариев — от&nbsp;приоритизации до&nbsp;поиска информации в&nbsp;досье</span></p>
+      <ul class="atlas-ul">
+        <li><span data-lang="en">median prioritisation time dropped from 47 to 7.2 seconds;</span><span data-lang="ru">медианное время приоритизации сократилось с&nbsp;47 до&nbsp;7,2 секунды;</span></li>
+        <li><span data-lang="en">5 of 6 participants found the key risk signals within the first five seconds;</span><span data-lang="ru">5 из&nbsp;6 участников нашли ключевые сигналы риска в&nbsp;первые пять секунд;</span></li>
+        <li><span data-lang="en">all predefined success criteria were met.</span><span data-lang="ru">все заранее определённые критерии успешности были достигнуты.</span></li>
+      </ul>
+
+      <h3><span data-lang="en">Five-second test (n = 42)</span><span data-lang="ru">Пятисекундный тест (n = 42)</span></h3>
+      <p><span data-lang="en">Participants assessed how quickly a case's priority and the primary action read</span><span data-lang="ru">Участники оценивали, насколько быстро считываются приоритет кейса и&nbsp;главное действие</span></p>
+      <ul class="atlas-ul">
+        <li><span data-lang="en">89% correctly identified the HIGH risk level;</span><span data-lang="ru">89% правильно определили уровень риска HIGH;</span></li>
+        <li><span data-lang="en">76% picked Open &amp; assign me as the primary action;</span><span data-lang="ru">76% выбрали Open &amp; assign me как&nbsp;главное действие;</span></li>
+        <li><span data-lang="en">64% recalled at least one risk signal without a second look.</span><span data-lang="ru">64% вспомнили хотя бы один сигнал риска без&nbsp;повторного просмотра.</span></li>
+      </ul>
+    </div>
+
+    <div class="atlas-block">
+      <h3><span data-lang="en">What validation showed</span><span data-lang="ru">Что показала валидация</span></h3>
+      <p><span data-lang="en">Validation confirmed that analysts identify a case's priority faster and make the first decision with more confidence. The next step is to measure the impact of these changes on product metrics after the full investigation flow launches.</span><span data-lang="ru">Проверка подтвердила, что&nbsp;аналитики быстрее определяют приоритет кейса и&nbsp;увереннее принимают первое решение. Следующий этап — проверить влияние этих изменений на&nbsp;продуктовые метрики после&nbsp;запуска полного сценария расследования.</span></p>
+    </div>
+
+    <div class="case__results">
+      <div class="case__results-grid">
+        <div><span>47→7.2s</span><p><span data-lang="en">median triage time, in testing</span><span data-lang="ru">медиана приоритизации, в&nbsp;тесте</span></p></div>
+        <div><span>89%</span><p><span data-lang="en">read the correct severity in 5 seconds</span><span data-lang="ru">считали верный уровень за&nbsp;5 секунд</span></p></div>
+        <div><span>76%</span><p><span data-lang="en">found the primary action unprompted</span><span data-lang="ru">нашли главное действие без&nbsp;подсказки</span></p></div>
+      </div>
+    </div>
+
+    <!-- Next iteration -->
+    <div class="atlas-block">
+      <p class="kicker"><span data-lang="en">Next iteration</span><span data-lang="ru">Следующая итерация</span></p>
+      <p><span data-lang="en">The next step is to complete the closing, escalation, and handoff flows. Their priority was set with RICE.</span><span data-lang="ru">Следующий этап — завершить сценарии закрытия, эскалации и&nbsp;передачи кейса. Их&nbsp;приоритет определён с&nbsp;помощью RICE.</span></p>
+      <p><span data-lang="en">Testing confirmed that the core of the investigation process works. Once the remaining flows are built, what's left is to measure the impact of the decisions on product metrics.</span><span data-lang="ru">Тестирование подтвердило, что&nbsp;ядро процесса расследования работает. После&nbsp;реализации остальных сценариев останется проверить влияние решений на&nbsp;продуктовые метрики.</span></p>
+    </div>
+
+  </div>
+
+</section>
+
+  <nav class="case-nav">
+    <a class="case-nav__link case-nav__link--prev" href="../concepts/index.html">
+      <span class="case-nav__kicker"><span data-lang="en">← Previous case</span><span data-lang="ru">← Предыдущий кейс</span></span>
+      <span class="case-nav__title"><span data-lang="en">UI concepts</span><span data-lang="ru">UI-концепты</span></span>
+    </a>
+    <span class="case-nav__center">
+      <a href="../../portfolio.html"><span data-lang="en">All work</span><span data-lang="ru">Все работы</span></a>
+    </span>
+    <a class="case-nav__link case-nav__link--next" href="../dinogarten/index.html">
+      <span class="case-nav__kicker"><span data-lang="en">Next case →</span><span data-lang="ru">Следующий кейс →</span></span>
+      <span class="case-nav__title"><span data-lang="en">Dinogarten</span><span data-lang="ru">Диносадик</span></span>
+    </a>
+  </nav>
+</main>
+
+<footer class="footer">
+  <span><span data-lang="en">© Elena Meshnina</span><span data-lang="ru">© Елена Мешнина</span></span>
+  <span><span data-lang="en">UI / UX &amp; Product Designer</span><span data-lang="ru">UI / UX и&nbsp;продуктовый дизайнер</span></span>
+</footer>
+
+<script src="../../script.js"></script>
+</body>
+</html>

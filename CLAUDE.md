@@ -28,22 +28,20 @@ meshlena.github.io/
 │   ├── avatar/portrait.jpg       ← shared (not case-specific)
 │   └── og-cover.jpg              ← 1200×630 Open Graph card (cropped from tracker cover)
 └── cases/                        ← one self-contained folder per case study
+    ├── atlas/{index.html, assets/}        (AML triage workspace, dark theme; newest case)
     ├── dinogarten/{index.html, assets/}   (cream / Archivo; embedded styles override globals)
     ├── tracker/{index.html, assets/}      (dark theme, Red Collar internship case)
-    ├── sber/{index.html, assets/}         (light/cream theme, mobile workshop case)
-    ├── plant/{index.html, assets/}        (green theme; JPGs, not PNGs)
     └── concepts/{index.html, assets/}     (light theme, UI concept exercises)
 ```
 
-**Five cases total, in this order** (matches the portfolio list, hero carousel, and case-num):
+**Four cases total, in this order** (matches the portfolio list, hero carousel, and case-num):
 
-1. Dinogarten — kindergarten daily-report web app
-2. Corporate task-tracker (Red Collar)
-3. SberHealth booking (Workshop)
-4. Plant Pal (diploma)
-5. UI concepts (Vika Breusova course)
+1. Atlas — AML triage workspace
+2. Dinogarten — kindergarten daily-report web app
+3. Corporate task-tracker (Red Collar)
+4. UI concepts (Vika Breusova course)
 
-Dinosadik was removed; don't reintroduce. Hero carousel on the index shows the first 3 only.
+Dinosadik, SberHealth, and Plant Pal were removed; don't reintroduce. Hero carousel on the index shows the first 3 only (Atlas / Dinogarten / Tracker).
 
 ## Deployment (GitHub Pages)
 
@@ -58,7 +56,7 @@ Dinosadik was removed; don't reintroduce. Hero carousel on the index shows the f
 Every page carries: `<title>`, `description`, `author`, `theme-color`, `canonical`, `favicon.svg`, and a full Open Graph + Twitter card block.
 
 - **OG image:** `index.html` and `portfolio.html` use the shared `https://meshlena.github.io/assets/og-cover.jpg` (1200×630). Each case page uses **its own cover** as the OG image (dinogarten has no cover file, so it uses a representative screen). All absolute URLs — relative OG images don't resolve for crawlers.
-- `theme-color` matches each page's background: `#0a0a0c` (dark: index, portfolio, tracker), `#102b1f` (plant green), cream (`#f6f5f1` for sber/concepts, `#FBF1D5` for dinogarten).
+- `theme-color` matches each page's background: `#0a0a0c` (dark: index, portfolio, tracker, atlas), cream (`#f6f5f1` for concepts, `#FBF1D5` for dinogarten).
 - `robots.txt` allows everything and points to `sitemap.xml`; `sitemap.xml` lists all 7 routes.
 - To regenerate the OG card: `sips --resampleWidth 1200 <src>.png --out w.png && sips --cropToHeightWidth 630 1200 w.png --out c.png && sips -s format jpeg -s formatOptions 82 c.png --out assets/og-cover.jpg`.
 - **When adding/renaming a route**, update `sitemap.xml` and the canonical/OG `og:url` of the new page.
@@ -115,7 +113,7 @@ In order:
 2. **Nav** — fixed, blurred.
 3. **Hero** — two-column `.hero__layout`:
    - **Left** (`.hero__intro`): pill eyebrow (`UX / UI Product Designer`), two-line headline (`Elena` / *Meshnina* in italic serif), short lede paragraph, single `Get in touch` CTA (mailto).
-   - **Right** (`.hero__work`): vertical scroll-snap carousel of the first 3 cases (Dinogarten / Tracker / Sber). Each card is an `<a class="work-card">` linking to the case page. Carousel ends with a `Full portfolio →` pill.
+   - **Right** (`.hero__work`): vertical scroll-snap carousel of the first 3 cases (Atlas / Dinogarten / Tracker). Each card is an `<a class="work-card">` linking to the case page. Carousel ends with a `Full portfolio →` pill.
    - The Dinogarten card uses a special `.work-card--dinogarten` modifier with `.work-card__media--hero-art` — yellow gradient + two phone screens.
    - **No entry animations** on the headline, lede, CTA, or work cards. Hover transforms remain.
 4. **About — horizontal slider** (`section.about[data-about-slider]`): portrait left; `.about__viewport` right with three `.about-card` panels (**How I work** → **Today** → **About**); `.slider-controls` pill below.
@@ -131,7 +129,7 @@ Removed (don't reintroduce): Experience timeline, Education/Courses/Languages, W
 
 ### Case sub-pages (`cases/<slug>/index.html`)
 
-Skeleton (tracker / sber / plant / concepts):
+Skeleton (tracker / concepts):
 
 ```html
 <body[ class="is-light"]>            <!-- is-light hardcoded on cream-themed cases -->
@@ -152,15 +150,15 @@ Cases scroll **naturally** — no sticky pinning, no scroll-jacking, no slider c
 
 ### Prev/next chain & themes
 
-Cyclic prev/next: **dinogarten → tracker → sber → plant → concepts → dinogarten**.
+Cyclic prev/next: **atlas → dinogarten → tracker → concepts → atlas**.
 
 | Slug | Theme | Body class | Tail | Notes |
 |---|---|---|---|---|
 | `cases/dinogarten/` | custom cream (`#FBF1D5`) | `is-light` | self-contained sections | Embedded `<style>` block; Archivo headings; loads global `styles.css` for chrome |
 | `cases/tracker/` | `case--dark` | — | 5-row case-flow | |
-| `cases/sber/` | `case--light` | `is-light` | 5-row case-flow | |
-| `cases/plant/` | `case--green` | — | 5-row case-flow + `.case__results` 3-stat strip | |
 | `cases/concepts/` | `case--light` | `is-light` | `.concepts-grid` (4 figures) | |
+
+(Atlas was added later — dark theme; see `cases/atlas/index.html` for its structure.)
 
 ### Lightbox
 
@@ -243,11 +241,11 @@ Adding a new case = new folder under `cases/<slug>/` with its own `index.html` +
 - Add the route to `sitemap.xml`; set the new page's `canonical`, `og:url`, and OG image.
 - Match tone: short editorial paragraphs, italic serif `<em>` for emphasis, kicker labels in caps.
 - All case links from `index.html` / `portfolio.html` use the explicit `cases/<slug>/index.html` form.
-- Test all 7 routes after structural changes — every `src`/`href` must resolve relative to its own file:
+- Test all 6 routes after structural changes — every `src`/`href` must resolve relative to its own file:
   ```
   /, /portfolio.html,
-  /cases/dinogarten/index.html, /cases/tracker/index.html,
-  /cases/sber/index.html, /cases/plant/index.html, /cases/concepts/index.html
+  /cases/atlas/index.html, /cases/dinogarten/index.html,
+  /cases/tracker/index.html, /cases/concepts/index.html
   ```
 
 ## Open / deferred items

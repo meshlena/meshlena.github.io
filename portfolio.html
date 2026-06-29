@@ -66,6 +66,8 @@
     </a>
   </div>
   <nav class="nav__links">
+    <a class="nav__cv" href="https://drive.google.com/file/d/12Ta2eBWsoasW1WxpJvM2IOqPrqqzx4fJ/view?usp=drive_link" target="_blank" rel="noopener" data-lang="en">CV</a>
+    <a class="nav__cv" href="https://drive.google.com/file/d/12idHV0poSKtOPqxzbGs6QoRKvgf6kzxC/view?usp=drive_link" target="_blank" rel="noopener" data-lang="ru">Резюме</a>
     <a href="index.html"><span data-lang="en">Home</span><span data-lang="ru">Главная</span></a>
     <a href="index.html#about"><span data-lang="en">About</span><span data-lang="ru">Обо мне</span></a>
     <a href="index.html#contact"><span data-lang="en">Contact</span><span data-lang="ru">Контакты</span></a>
@@ -90,14 +92,18 @@
 
 <main class="portfolio-page">
   <header class="portfolio-page__head">
-    <h1><span data-lang="en">Selected<br/><em>work</em></span><span data-lang="ru">Избранные<br/><em>работы</em></span></h1>
-    <p><span data-lang="en">Five cases spanning a kindergarten daily-report web app, an enterprise task-tracker, a healthcare booking flow, a houseplant-care mobile app, and a set of UI concept exercises. Click any tile to read the full case.</span><span data-lang="ru">Пять кейсов — от веб-приложения с ежедневными отчётами для детского сада и корпоративного таск-трекера до записи к врачу, мобильного приложения по уходу за растениями и серии UI-концептов. Откройте любой кейс целиком одним кликом.</span></p>
+    <h1><span data-lang="en">Selected<br/><em>work</em></span><span data-lang="ru"><em>Кейсы</em></span></h1>
+    <p><span data-lang="en">Product cases — from research to proven design decisions.</span><span data-lang="ru">Продуктовые кейсы — от&nbsp;исследования до&nbsp;проверенных дизайн-решений</span></p>
   </header>
 
   <section class="works-index" data-works-index>
     <div class="works-preview" aria-hidden="true">
       <div class="works-preview__inner">
-        <div class="works-preview__slide is-active" data-slide="dinogarten">
+        <div class="works-preview__slide is-active" data-slide="atlas">
+          <img loading="lazy" decoding="async" src="cases/atlas/assets/01-queue-default.png" alt="" />
+          <a class="works-preview__link" href="cases/atlas/index.html" tabindex="-1" aria-hidden="true"></a>
+        </div>
+        <div class="works-preview__slide" data-slide="dinogarten">
           <div class="works-preview__hero-art">
             <img loading="lazy" decoding="async" src="cases/dinogarten/assets/screens/new/main-collapsed.png" alt="" />
             <img loading="lazy" decoding="async" src="cases/dinogarten/assets/screens/new/group-collapsed.png" alt="" />
@@ -108,14 +114,6 @@
           <img loading="lazy" decoding="async" src="cases/tracker/assets/cover.png" alt="" />
           <a class="works-preview__link" href="cases/tracker/index.html" tabindex="-1" aria-hidden="true"></a>
         </div>
-        <div class="works-preview__slide" data-slide="sber">
-          <img loading="lazy" decoding="async" src="cases/sber/assets/cover.png" alt="" />
-          <a class="works-preview__link" href="cases/sber/index.html" tabindex="-1" aria-hidden="true"></a>
-        </div>
-        <div class="works-preview__slide" data-slide="plant">
-          <img loading="lazy" decoding="async" src="cases/plant/assets/cover.jpg" alt="" />
-          <a class="works-preview__link" href="cases/plant/index.html" tabindex="-1" aria-hidden="true"></a>
-        </div>
         <div class="works-preview__slide" data-slide="concepts">
           <img loading="lazy" decoding="async" src="cases/concepts/assets/cover.png" alt="" />
           <a class="works-preview__link" href="cases/concepts/index.html" tabindex="-1" aria-hidden="true"></a>
@@ -125,9 +123,19 @@
 
     <ol class="works-list">
       <li>
-        <a class="works-item is-active" href="cases/dinogarten/index.html" data-preview="dinogarten">
+        <a class="works-item is-active" href="cases/atlas/index.html" data-preview="atlas">
           <span class="works-item__num">01</span>
-          <span class="works-item__title"><span data-lang="en">Dinogarten</span><span data-lang="ru">Dinogarten</span></span>
+          <span class="works-item__title"><span data-lang="en">Atlas — AML triage workspace</span><span data-lang="ru">Atlas — AML-триаж</span></span>
+          <span class="works-item__chip"><span data-lang="en">Product · UX/UI · Research</span><span data-lang="ru">Продукт · UX/UI · Research</span></span>
+          <span class="works-item__media">
+            <img loading="lazy" decoding="async" src="cases/atlas/assets/01-queue-default.png" alt="" />
+          </span>
+        </a>
+      </li>
+      <li>
+        <a class="works-item" href="cases/dinogarten/index.html" data-preview="dinogarten">
+          <span class="works-item__num">02</span>
+          <span class="works-item__title"><span data-lang="en">Dinogarten</span><span data-lang="ru">Диносадик</span></span>
           <span class="works-item__chip"><span data-lang="en">Web App · Product Design</span><span data-lang="ru">Веб-приложение · Продуктовый дизайн</span></span>
           <span class="works-item__media">
             <img loading="lazy" decoding="async" src="cases/dinogarten/assets/screens/new/main-collapsed.png" alt="" />
@@ -136,7 +144,7 @@
       </li>
       <li>
         <a class="works-item" href="cases/tracker/index.html" data-preview="tracker">
-          <span class="works-item__num">02</span>
+          <span class="works-item__num">03</span>
           <span class="works-item__title"><span data-lang="en">Corporate task-tracker</span><span data-lang="ru">Корпоративный таск-трекер</span></span>
           <span class="works-item__chip"><span data-lang="en">Web · Red Collar</span><span data-lang="ru">Веб · Red Collar</span></span>
           <span class="works-item__media">
@@ -145,28 +153,8 @@
         </a>
       </li>
       <li>
-        <a class="works-item" href="cases/sber/index.html" data-preview="sber">
-          <span class="works-item__num">03</span>
-          <span class="works-item__title"><span data-lang="en">SberHealth booking</span><span data-lang="ru">SberHealth · запись к врачу</span></span>
-          <span class="works-item__chip"><span data-lang="en">Mobile · Workshop</span><span data-lang="ru">Мобайл · Воркшоп</span></span>
-          <span class="works-item__media">
-            <img loading="lazy" decoding="async" src="cases/sber/assets/cover.png" alt="" />
-          </span>
-        </a>
-      </li>
-      <li>
-        <a class="works-item" href="cases/plant/index.html" data-preview="plant">
-          <span class="works-item__num">04</span>
-          <span class="works-item__title"><span data-lang="en">Plant Pal</span><span data-lang="ru">Plant Pal</span></span>
-          <span class="works-item__chip"><span data-lang="en">Mobile · Diploma</span><span data-lang="ru">Мобайл · Диплом</span></span>
-          <span class="works-item__media">
-            <img loading="lazy" decoding="async" src="cases/plant/assets/cover.jpg" alt="" />
-          </span>
-        </a>
-      </li>
-      <li>
         <a class="works-item" href="cases/concepts/index.html" data-preview="concepts">
-          <span class="works-item__num">05</span>
+          <span class="works-item__num">04</span>
           <span class="works-item__title"><span data-lang="en">UI concepts</span><span data-lang="ru">UI-концепты</span></span>
           <span class="works-item__chip"><span data-lang="en">Web · Mobile · Course</span><span data-lang="ru">Веб · Мобайл · Курс</span></span>
           <span class="works-item__media">

@@ -280,7 +280,7 @@
 
   /* ---------- Lightbox for case-page images ---------- */
   function initLightbox() {
-    const selectors = '.case-flow__visual img, .case__cover img, .concepts-grid figure img, .case-zoom img, .fix__shots img';
+    const selectors = '.case-flow__visual img, .case__cover img, .concepts-grid figure img, .case-zoom img, .fix__shots img, .concept-shot img, .fix__ba-item img';
     const triggers = document.querySelectorAll(selectors);
     if (!triggers.length) return;
 
