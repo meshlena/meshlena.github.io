@@ -40,6 +40,10 @@
       color: rgba(10,10,12,0.6);
     }
 
+    /* More air under the cover than the default 60px: this is the seam between
+       two blocks, not two lines inside one. */
+    .case[data-case="tracker"] .case__hero { margin-bottom: clamp(120px, 18vh, 200px); }
+
     /* Project brief + my role */
     .case[data-case="tracker"] .case-brief,
     .case[data-case="tracker"] .case-role {
@@ -104,20 +108,18 @@
       width: 6px; height: 6px; border-radius: 50%; background: #5b5bff;
     }
 
+    /* Screen width for the whole case. 1000 CSS px = exactly 2000 device px on a
+       2x display, i.e. 1:1 with the 2000px-wide exports — the browser never resamples. */
+    .case[data-case="tracker"] { --shot-w: 1000px; }
+
     /* Unified overline: one size for every section label in the case */
     .case[data-case="tracker"] .kicker {
-      font-size: clamp(16px, 1.3vw, 20px); letter-spacing: 0.1em; font-weight: 600;
+      font-size: clamp(16px, 1.3vw, 20px); letter-spacing: 0.04em; font-weight: 600;
     }
 
     /* Discovery — one section, two roles */
     .case[data-case="tracker"] .discovery { display: flex; flex-direction: column; gap: clamp(26px, 4vw, 44px); }
-    .case[data-case="tracker"] .discovery__head .kicker { margin-bottom: 12px; }
-    /* "Discovery & design research" is the only overline kept in Latin; its Latin caps read
-       ~13% taller than the surrounding Cyrillic labels, so match them optically in the Russian view. */
-    :root[lang="ru"] .case[data-case="tracker"] .discovery--teaser .discovery__head .kicker,
-    :root[lang="ru"] .case[data-case="tracker"] .discovery--full .discovery__head .kicker {
-      font-size: clamp(14px, 1.15vw, 17.7px);
-    }
+    .case[data-case="tracker"] .discovery__head .kicker { margin-bottom: 18px; }
     /* Subhead under the Discovery overline — modest, distinct from the all-caps labels */
     .case[data-case="tracker"] .discovery__head h2 {
       font-size: clamp(19px, 2vw, 25px); font-weight: 600; letter-spacing: -0.01em; line-height: 1.15; margin: 0 0 16px; max-width: none;
@@ -132,27 +134,11 @@
       margin: calc(24px - clamp(80px, 14vh, 160px)) 0 0;
     }
 
-    /* Discovery teaser — "read more" anchor + full research section at the bottom */
-    .case[data-case="tracker"] .discovery--teaser { gap: clamp(20px, 3vw, 32px); }
-    .case[data-case="tracker"] .discovery__more { margin: 2px 0 0; }
-    .case[data-case="tracker"] .discovery__more a {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: clamp(14px, 1.05vw, 16px); font-weight: 600; color: #4b4bf5;
-      text-decoration: none; border-bottom: 1px solid rgba(75,75,245,0.35); padding-bottom: 2px;
-      transition: border-color 0.15s ease;
-    }
-    .case[data-case="tracker"] .discovery__more a:hover { border-bottom-color: #4b4bf5; }
-    .case[data-case="tracker"] .research-flow { border-top: 1px solid rgba(0,0,0,0.1); }
     .case[data-case="tracker"] #research,
     .case[data-case="tracker"] #improvements,
     .case[data-case="tracker"] #concept { scroll-margin-top: 92px; }
 
     /* In-page links inside the "My role" list — blue, no arrow, same weight */
-    .case[data-case="tracker"] .case-link {
-      color: #4b4bf5; text-decoration: none;
-      border-bottom: 1px solid rgba(75,75,245,0.35); transition: border-color 0.15s ease;
-    }
-    .case[data-case="tracker"] .case-link:hover { border-bottom-color: #4b4bf5; }
 
     /* Two hypotheses side by side, styled as cards */
     .case[data-case="tracker"] .discovery__hypos {
@@ -164,23 +150,30 @@
     }
 
     /* New concept — captioned screens interleaved with descriptive text */
+    /* Screens sit straight on the page: the frame is the hairline + shadow, not a panel.
+       Exports are bare frames — no baked-in card. */
     .case[data-case="tracker"] .concept-shot {
-      margin: 0; display: flex; flex-direction: column; align-items: center; gap: 14px;
-      background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.08);
-      border-radius: var(--radius); padding: clamp(16px, 2.6vw, 36px);
+      margin: 0; display: flex; flex-direction: column; align-items: center; gap: 18px;
+      background: none; border: 0; padding: 0;
     }
     .case[data-case="tracker"] .concept-shot img {
-      max-width: 100%; max-height: 78vh; width: auto; height: auto; object-fit: contain;
-      border-radius: 12px; cursor: zoom-in;
+      width: var(--shot-w); max-width: 100%; height: auto;
+      /* The violet plate and the rounded corners are baked into the PNG. drop-shadow
+         follows the alpha channel, so it traces them — don't add a radius here. */
+      filter: drop-shadow(0 12px 26px rgba(20,18,40,0.15));
+      cursor: zoom-in;
     }
     .case[data-case="tracker"] .concept-shot figcaption {
       font-size: 13px; letter-spacing: 0.01em; color: rgba(10,10,12,0.6);
     }
     /* Concept section: tighter base rhythm than the research blocks */
-    .case[data-case="tracker"] #concept { gap: clamp(16px, 2vw, 22px); }
+    .case[data-case="tracker"] #concept { gap: clamp(18px, 2.4vw, 32px); }
+    .case[data-case="tracker"] .concept-shot { margin-block: clamp(6px, 1.4vw, 18px); }
     /* Text that introduces the screen(s) right after it — close to its screens (proximity),
        with a clear gap above it to separate from the previous group */
-    .case[data-case="tracker"] .concept-note { max-width: 64ch; margin-top: clamp(40px, 5vw, 64px); }
+    .case[data-case="tracker"] .concept-note { max-width: 64ch; margin-top: 0; }
+    /* A note after a screen opens a new group, so it needs air above it */
+    .case[data-case="tracker"] .concept-shot + .concept-note { margin-top: clamp(24px, 3.5vw, 48px); }
     .case[data-case="tracker"] .concept-note p {
       font-size: clamp(15px, 1.1vw, 18px); line-height: 1.6; color: rgba(10,10,12,0.74); margin: 0 0 12px;
     }
@@ -210,19 +203,6 @@
     }
     .case[data-case="tracker"] .case-outcome > p:last-child { margin-bottom: 0; }
 
-    /* Jump-links at the end of the case (back to Improvements / New concept) */
-    .case[data-case="tracker"] .case-jumplinks {
-      max-width: var(--maxw); margin: 0 auto;
-      padding: clamp(48px, 7vh, 88px) 0 clamp(16px, 3vh, 36px);
-      display: flex; flex-direction: column; gap: 16px; align-items: flex-start;
-    }
-    .case[data-case="tracker"] .case-jumplink {
-      font-size: clamp(14px, 1.05vw, 16px); font-weight: 600;
-      color: #4b4bf5; text-decoration: none;
-      border-bottom: 1px solid rgba(75,75,245,0.35); padding-bottom: 2px;
-      transition: border-color 0.15s ease;
-    }
-    .case[data-case="tracker"] .case-jumplink:hover { border-bottom-color: #4b4bf5; }
     @media (max-width: 760px) {
       .case[data-case="tracker"] .discovery__hypos { grid-template-columns: 1fr; }
     }
@@ -254,7 +234,7 @@
     }
     /* Role labels — same overline style as the brief's "Audience / User mission / Goal" */
     .case[data-case="tracker"] .role-overline {
-      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
       color: rgba(10,10,12,0.5); font-weight: 400; margin: 0 0 12px;
     }
 
@@ -263,22 +243,12 @@
     .case[data-case="tracker"] .case-section-head .kicker,
     .case[data-case="tracker"] .case-section-head h2 { margin-left: 0; margin-right: 0; }
 
-    /* Fix #3 — stacked before/after (different aspect ratios) */
-    .case[data-case="tracker"] .fix__shots--stack { flex-direction: column; }
-    .case[data-case="tracker"] .fix__shots--stack figure { margin: 0; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 12px; }
-    .case[data-case="tracker"] .fix__shots--stack figcaption {
-      order: -1; align-self: flex-start;
-      font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600;
-      color: #fff; background: rgba(10,10,12,0.62); padding: 5px 10px; border-radius: 999px;
-    }
-    .case[data-case="tracker"] .fix__shots--stack img { max-width: 100%; max-height: 78vh; }
-
-    /* Before → after for screens of very different sizes (side by side, with an arrow) */
+    /* Before → after: two screens side by side with an arrow — the comparison
+       has to read in one glance */
     .case[data-case="tracker"] .fix__beforeafter {
       display: grid; grid-template-columns: 1fr auto 1fr; align-items: start;
-      gap: clamp(12px, 2vw, 28px);
-      background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.08);
-      border-radius: var(--radius); padding: clamp(18px, 3vw, 40px);
+      gap: clamp(16px, 2.6vw, 36px);
+      background: none; border: 0; padding: 0;
     }
     .case[data-case="tracker"] .fix__ba-item {
       margin: 0; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 12px;
@@ -289,7 +259,7 @@
     }
     .case[data-case="tracker"] .fix__ba-item img {
       max-width: 100%; max-height: 70vh; width: auto; height: auto; object-fit: contain;
-      align-self: center; border-radius: 10px; cursor: zoom-in;
+      align-self: center; filter: drop-shadow(0 12px 26px rgba(20,18,40,0.15)); cursor: zoom-in;
     }
     .case[data-case="tracker"] .fix__ba-arrow {
       align-self: center; font-size: clamp(22px, 3vw, 34px); line-height: 1; color: rgba(10,10,12,0.4);
@@ -298,14 +268,13 @@
       .case[data-case="tracker"] .fix__beforeafter { grid-template-columns: 1fr; justify-items: stretch; }
       .case[data-case="tracker"] .fix__beforeafter > .fix__ba-arrow { justify-self: center; transform: rotate(90deg); }
     }
-    /* Vertical variant — one "before" flowing down into stacked solutions */
+    /* Vertical variant — one "before" with two solutions stacked under it */
     .case[data-case="tracker"] .fix__beforeafter--vert {
       display: flex; flex-direction: column; align-items: stretch; gap: clamp(16px, 2.5vw, 28px);
     }
     .case[data-case="tracker"] .fix__beforeafter--vert .fix__ba-arrow { align-self: center; transform: rotate(90deg); margin: 2px 0; }
-    /* Match the slider sections' screen width (~940px), centred — all three equal */
     .case[data-case="tracker"] .fix__beforeafter--vert .fix__ba-item {
-      align-self: center; width: 940px; max-width: 100%;
+      align-self: center; width: var(--shot-w); max-width: 100%;
     }
     .case[data-case="tracker"] .fix__beforeafter--vert .fix__ba-item img {
       width: 100%; max-width: 100%; max-height: none;
@@ -347,20 +316,20 @@
     .case[data-case="tracker"] .fix__col--solution .fix__list li::before { background: #4b4bf5; }
     .case[data-case="tracker"] .fix__shots {
       display: flex; justify-content: center; align-items: center; flex-wrap: wrap;
-      gap: clamp(12px, 2vw, 24px);
-      background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.08);
-      border-radius: var(--radius); padding: clamp(18px, 3vw, 40px);
+      gap: clamp(16px, 2.6vw, 32px);
+      background: none; border: 0; padding: 0;
     }
     .case[data-case="tracker"] .fix__shots img {
-      max-width: 100%; max-height: 62vh; width: auto; height: auto; object-fit: contain;
-      border-radius: 10px; cursor: zoom-in;
+      width: var(--shot-w); max-width: 100%; height: auto;
+      filter: drop-shadow(0 12px 26px rgba(20,18,40,0.15));
+      cursor: zoom-in;
     }
-    .case[data-case="tracker"] .fix__shots--pair img { max-width: 48%; }
+    .case[data-case="tracker"] .fix__shots--pair img { width: auto; max-width: 48%; }
 
     /* Before / after comparison slider */
     .case[data-case="tracker"] .fix__compare {
       position: relative; --pos: 50%;
-      width: 100%; max-width: 940px; margin: 0 auto;
+      width: 100%; max-width: var(--shot-w); margin: 0 auto;
       border-radius: var(--radius); overflow: hidden;
       border: 1px solid rgba(0,0,0,0.08); background: rgba(0,0,0,0.04);
       touch-action: none; user-select: none; cursor: ew-resize;
@@ -395,6 +364,60 @@
       .case[data-case="tracker"] .discovery__roles { grid-template-columns: 1fr; gap: 24px; }
       .case[data-case="tracker"] .fix__grid { grid-template-columns: 1fr; gap: 24px; }
       .case[data-case="tracker"] .fix__shots--pair img { max-width: 100%; max-height: 52vh; }
+    }
+
+    /* ── Toggle: hypotheses and JTBD tables ── */
+    .case[data-case="tracker"] .research-toggle > summary {
+      display: inline-flex; align-items: center; gap: 9px;
+      cursor: pointer; list-style: none; user-select: none;
+      font-size: 15px; line-height: 1.45; color: #4b4bf5;
+      padding: 2px 0 8px;
+    }
+    .case[data-case="tracker"] .research-toggle > summary::-webkit-details-marker { display: none; }
+    .case[data-case="tracker"] .research-toggle > summary::before {
+      content: ""; width: 7px; height: 7px; flex: 0 0 auto;
+      border-right: 1.6px solid currentColor; border-bottom: 1.6px solid currentColor;
+      transform: rotate(-45deg); transition: transform .18s ease;
+    }
+    .case[data-case="tracker"] .research-toggle[open] > summary::before { transform: rotate(45deg); }
+    .case[data-case="tracker"] .research-toggle > summary:hover { text-decoration: underline; }
+    .case[data-case="tracker"] .research-toggle > summary:focus-visible {
+      outline: 2px solid #4b4bf5; outline-offset: 3px; border-radius: 4px;
+    }
+    .case[data-case="tracker"] .research-toggle .fix__shots { margin-top: 12px; }
+
+    /* ── "Worked iteratively": two steps between "My role" and Discovery ── */
+    .case[data-case="tracker"] .case-approach {
+      max-width: var(--maxw); margin: 0 auto;
+      padding-top: clamp(40px, 7vh, 80px);
+    }
+    .case[data-case="tracker"] .case-approach .kicker { margin: 0 0 18px; }
+    .case[data-case="tracker"] .case-approach__steps {
+      list-style: none; margin: 0; padding: 0;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: clamp(28px, 5vw, 72px);
+    }
+    .case[data-case="tracker"] .case-approach__steps > li { padding-top: 0; }
+    .case[data-case="tracker"] .case-approach__num {
+      display: block; font-size: 12px; font-weight: 600;
+      letter-spacing: 0.12em; color: #5b5bff; margin-bottom: 10px;
+    }
+    .case[data-case="tracker"] .case-approach__title {
+      font-size: clamp(17px, 1.25vw, 20px); line-height: 1.35;
+      font-weight: 600; margin: 0 0 10px; color: #0a0a0c;
+    }
+    .case[data-case="tracker"] .case-approach__title a {
+      color: inherit; text-decoration: none;
+      border-bottom: 1px solid rgba(91,91,255,0.35);
+      transition: border-color 0.15s ease;
+    }
+    .case[data-case="tracker"] .case-approach__title a:hover { border-bottom-color: #5b5bff; }
+    .case[data-case="tracker"] .case-approach__steps p {
+      margin: 0; font-size: clamp(15px, 1.05vw, 17px);
+      line-height: 1.55; color: rgba(10,10,12,0.74);
+    }
+    @media (max-width: 760px) {
+      .case[data-case="tracker"] .case-approach__steps { grid-template-columns: 1fr; gap: 26px; }
     }
   </style>
 
@@ -475,7 +498,7 @@
 <section class="case case--light" data-case="tracker">
     <div class="case__hero">
       <div class="case__meta">
-        <span class="chip"><span data-lang="en">Web · Product design</span><span data-lang="ru">Веб · Продуктовый дизайн</span></span>
+        <span class="chip"><span data-lang="en">Desktop · Product design</span><span data-lang="ru">Десктоп · Продуктовый дизайн</span></span>
         <span class="case__num">03</span>
       </div>
       <h2 class="case__title"><span data-lang="en">Corporate task-tracker</span><span data-lang="ru">Корпоративный таск-трекер</span></h2>
@@ -516,21 +539,42 @@
         <li><span data-lang="en">Ran 4 in-depth interviews and analysed the results</span><span data-lang="ru">Провела 4 глубинных интервью и&nbsp;проанализировала результаты</span></li>
         <li><span data-lang="en">Did a UX audit and benchmarking</span><span data-lang="ru">Выполнила UX-аудит и&nbsp;бенчмаркинг</span></li>
         <li><span data-lang="en">Formulated hypotheses and JTBD</span><span data-lang="ru">Сформулировала гипотезы, JTBD</span></li>
-        <li><a class="case-link" href="#improvements"><span data-lang="en">Proposed improvements to the current tracker</span><span data-lang="ru">Предложила улучшения для&nbsp;текущего трекера</span></a></li>
-        <li><a class="case-link" href="#concept"><span data-lang="en">Developed a new concept</span><span data-lang="ru">Разработала новую концепцию</span></a></li>
+        <li><span data-lang="en">Proposed improvements to the current tracker</span><span data-lang="ru">Предложила улучшения для&nbsp;текущего трекера</span></li>
+        <li><span data-lang="en">Developed a new concept</span><span data-lang="ru">Разработала новую концепцию</span></li>
         <li><span data-lang="en">Presented the solution to the company's team</span><span data-lang="ru">Презентовала решение сотрудникам компании</span></li>
       </ul>
     </div>
 
+    <div class="case-approach">
+      <p class="kicker"><span data-lang="en">Working iteratively</span><span data-lang="ru">Работала итерационно</span></p>
+      <ol class="case-approach__steps">
+        <li>
+          <span class="case-approach__num">01</span>
+          <h3 class="case-approach__title"><a href="#improvements"><span data-lang="en">Improving the current tracker</span><span data-lang="ru">Улучшение текущего трекера</span></a></h3>
+          <p><span data-lang="en">The research surfaced seven concrete problems. For each one I made targeted changes inside the existing interface, so that the problem scenarios would get simpler in the current version of the tracker — without waiting for a new concept and a separate development cycle.</span><span data-lang="ru">Исследование выявило семь конкретных проблем. Для&nbsp;каждой я&nbsp;внесла точечные изменения в&nbsp;существующий интерфейс, чтобы&nbsp;уже в&nbsp;текущей версии трекера упростить проблемные сценарии, не&nbsp;дожидаясь новой концепции и&nbsp;отдельного цикла разработки.</span></p>
+        </li>
+        <li>
+          <span class="case-approach__num">02</span>
+          <h3 class="case-approach__title"><a href="#concept"><span data-lang="en">Working out the target solution</span><span data-lang="ru">Проработка целевого решения</span></a></h3>
+          <p><span data-lang="en">Some problems came down to the structure of the product and could not be closed with targeted fixes. For those I developed a concept with new navigation, a different approach to working with time, and a new visual language.</span><span data-lang="ru">Часть проблем упиралась в&nbsp;структуру продукта и&nbsp;точечными правками не&nbsp;закрывалась. Для&nbsp;них я&nbsp;разработала концепцию с&nbsp;новой навигацией, другим подходом к&nbsp;работе со&nbsp;временем и&nbsp;новым визуальным языком.</span></p>
+        </li>
+      </ol>
+    </div>
+
     <div class="case-flow">
-      <div class="discovery discovery--teaser">
+      <div class="discovery discovery--full" id="research">
         <div class="discovery__head">
           <p class="kicker"><span data-lang="en">Discovery &amp; design research</span><span data-lang="ru">Discovery &amp; design research</span></p>
           <h2><span data-lang="en">In-depth interviews, PURE, a UX audit</span><span data-lang="ru">Глубинные интервью, PURE, UX-аудит</span></h2>
-          <p><span data-lang="en">Together with a colleague, we identified the key scenarios for working with the tracker and the problems inside each one — across two roles.</span><span data-lang="ru">Вместе с&nbsp;коллегой мы выявили ключевые сценарии при&nbsp;взаимодействии с&nbsp;трекером и&nbsp;проблемы в&nbsp;них — в&nbsp;разрезе двух ролей.</span></p>
+          <p><span data-lang="en"><b class="semi">Goal</b> — to understand how the employees' work process is built, identify which tasks they solve with the tracker, and what difficulties they face when working with the current version.</span><span data-lang="ru"><b class="semi">Цель</b> — узнать как&nbsp;построен процесс работы сотрудников, определить какие задачи они решают с&nbsp;помощью трекера, и&nbsp;с какими трудностями они сталкиваются при&nbsp;взаимодействии с&nbsp;текущей версией.</span></p>
         </div>
 
-        <div class="discovery__block discovery__block--wide">
+        <div class="discovery__block">
+          <p class="case-flow__label"><span data-lang="en">In-depth interviews</span><span data-lang="ru">Глубинные интервью</span></p>
+          <p><span data-lang="en">Together with a colleague who had the same task, we ran 8 in-depth interviews. We identified the key scenarios for working with the tracker and the problems within them.</span><span data-lang="ru">Вместе с&nbsp;коллегой, у&nbsp;которого было такое же задание, мы провели 8 глубинок. Выявили ключевые сценарии при&nbsp;взаимодействии с&nbsp;трекером и&nbsp;проблемы в&nbsp;них.</span></p>
+        </div>
+
+        <div class="discovery__block discovery__block--wide discovery__attached">
           <p class="discovery__sublabel"><span data-lang="en">Interview insights</span><span data-lang="ru">Инсайты интервью</span></p>
           <div class="discovery__roles">
             <div>
@@ -553,7 +597,44 @@
           </div>
         </div>
 
-        <p class="discovery__more"><a href="#research"><span data-lang="en">Read the full research →</span><span data-lang="ru">Подробнее об&nbsp;исследовании →</span></a></p>
+        <div class="discovery__block">
+          <p class="case-flow__label"><span data-lang="en">PURE &amp; UX audit</span><span data-lang="ru">PURE и&nbsp;UX-аудит</span></p>
+          <p><span data-lang="en">We realised that for interviews this is a small sample, so after analysing the respondents' answers we ran them through the PURE method (together with my colleague) and did a UX audit (individually).</span><span data-lang="ru">Мы поняли, что&nbsp;для интервью это маленькая выборка, поэтому после&nbsp;анализа ответов респондентов мы прогнали их через&nbsp;метод PURE (вместе с&nbsp;коллегой) и&nbsp;провели UX-аудит (индивидуально).</span></p>
+          <p class="discovery__def"><span data-lang="en">PURE is a quantitative usability method for assessing how hard a scenario is to complete, scored from 1 to 3 (from easy to hard).</span><span data-lang="ru">PURE — это количественный юзабилити-метод для&nbsp;оценки сложности прохождения сценария и&nbsp;оценивается от&nbsp;1 до&nbsp;3 (от&nbsp;легко до&nbsp;сложно).</span></p>
+        </div>
+
+        <div class="discovery__block discovery__attached">
+          <p class="discovery__sublabel"><span data-lang="en">Conclusions</span><span data-lang="ru">Выводы</span></p>
+          <p><span data-lang="en">PURE and the UX audit helped confirm the pains we found during the interviews, and look at them from different angles through different research methods. That let me prioritise the pains and take the most serious ones into work.</span><span data-lang="ru">PURE и&nbsp;UX-аудит помогли подтвердить боли, которые мы выявили на&nbsp;этапе глубинок, а&nbsp;так же посмотреть на&nbsp;них с&nbsp;разных сторон, через&nbsp;разные методы исследования. Это позволило мне приоритизировать боли и&nbsp;взять в&nbsp;работу самые серьёзные.</span></p>
+        </div>
+
+        <div class="discovery__block">
+          <p class="case-flow__label"><span data-lang="en">Hypotheses</span><span data-lang="ru">Гипотезы</span></p>
+          <p><span data-lang="en">After the interviews, PURE, the UX audit and benchmarking, I formulated hypotheses. First I wrote the ones shared across the employee and manager roles.</span><span data-lang="ru">После&nbsp;проведения глубинок, PURE, UX-аудита и&nbsp;бенчмаркинга, я&nbsp;сформулировала гипотезы. Сначала я&nbsp;прописала общие для&nbsp;роли сотрудника и&nbsp;менеджера.</span></p>
+        </div>
+
+        <div class="discovery__hypos discovery__attached">
+          <div class="discovery__block discovery__hypo">
+            <p class="role-overline"><span data-lang="en">The employee's role</span><span data-lang="ru">Роль сотрудника</span></p>
+            <p><span data-lang="en">We believe that if we improve the time-tracking process for employees who track time, with a way to quickly log worked hours, it will help increase company revenue. To test this, we'll run hallway testing. The hypothesis holds true if 75% of respondents log a task without difficulty.</span><span data-lang="ru">Мы верим, что&nbsp;если улучшим процесс трекинга времени для&nbsp;тех сотрудников, кто трекается, с&nbsp;возможностью быстрого внесения отработанного времени, то&nbsp;это поможет увеличить доход компании. Для&nbsp;того, чтобы&nbsp;это проверить, мы проведём коридорное тестирование. Гипотеза окажется верной, если 75% респондентов затрекают задачу без&nbsp;трудностей.</span></p>
+          </div>
+
+          <div class="discovery__block discovery__hypo">
+            <p class="role-overline"><span data-lang="en">The manager's role</span><span data-lang="ru">Роль менеджера</span></p>
+            <p><span data-lang="en">We believe that if we improve project management for managers, with convenient access to information about the project, the people and the workload, it will help increase company revenue, make it easier to get analytics for the client, and track problem spots on a project. To test this, we'll run hallway testing. The hypothesis holds true if 75% of respondents can create a project and find all its details.</span><span data-lang="ru">Мы верим, что&nbsp;если улучшим ведение проектов для&nbsp;менеджеров с&nbsp;возможностью удобного получения информации о&nbsp;проекте, о&nbsp;сотрудниках, загрузке, то&nbsp;это поможет увеличить доход компании, облегчить получение аналитики для&nbsp;клиента и&nbsp;отслеживать проблемные точки на&nbsp;проекте. Для&nbsp;того, чтобы&nbsp;это проверить, мы проведём коридорное тестирование. Гипотеза окажется верной, если 75% респондентов смогут создать проект и&nbsp;найти все детали по&nbsp;нему.</span></p>
+          </div>
+        </div>
+
+        <div class="discovery__block">
+          <p><span data-lang="en">After that, I formulated specific hypotheses and JTBD for every problem found in the key scenarios.</span><span data-lang="ru">После&nbsp;этого, я&nbsp;сформулировала частные гипотезы и&nbsp;JTBD для&nbsp;всех выявленных проблем в&nbsp;ключевых сценариях.</span></p>
+        </div>
+        <details class="research-toggle discovery__attached">
+          <summary><span data-lang="en">Hypotheses and JTBD tables</span><span data-lang="ru">Таблицы гипотез и&nbsp;JTBD</span></summary>
+          <div class="fix__shots fix__shots--pair">
+            <img src="assets/role-employee.png" alt="Research artefact mapping employee scenarios, hypotheses and JTBD" loading="lazy" />
+            <img src="assets/role-manager.png" alt="Research artefact mapping manager scenarios, hypotheses and JTBD" loading="lazy" />
+          </div>
+        </details>
       </div>
 
       <p class="discovery__note"><span data-lang="en">Seven concrete problems came out of this — and I worked through each one in the current tracker.</span><span data-lang="ru">Из&nbsp;этого вышло семь конкретных проблем — и&nbsp;каждую я&nbsp;разобрала в&nbsp;текущем трекере.</span></p>
@@ -873,84 +954,7 @@
       </div>
     </div>
 
-    <div class="case-flow research-flow">
-      <div class="discovery discovery--full" id="research">
-        <div class="discovery__head">
-          <p class="kicker"><span data-lang="en">Discovery &amp; design research</span><span data-lang="ru">Discovery &amp; design research</span></p>
-          <h2><span data-lang="en">In-depth interviews, PURE, a UX audit</span><span data-lang="ru">Глубинные интервью, PURE, UX-аудит</span></h2>
-          <p><span data-lang="en"><b class="semi">Goal</b> — to understand how the employees' work process is built, identify which tasks they solve with the tracker, and what difficulties they face when working with the current version.</span><span data-lang="ru"><b class="semi">Цель</b> — узнать как&nbsp;построен процесс работы сотрудников, определить какие задачи они решают с&nbsp;помощью трекера, и&nbsp;с какими трудностями они сталкиваются при&nbsp;взаимодействии с&nbsp;текущей версией.</span></p>
-        </div>
 
-        <div class="discovery__block">
-          <p class="case-flow__label"><span data-lang="en">In-depth interviews</span><span data-lang="ru">Глубинные интервью</span></p>
-          <p><span data-lang="en">Together with a colleague who had the same task, we ran 8 in-depth interviews. We identified the key scenarios for working with the tracker and the problems within them.</span><span data-lang="ru">Вместе с&nbsp;коллегой, у&nbsp;которого было такое же задание, мы провели 8 глубинок. Выявили ключевые сценарии при&nbsp;взаимодействии с&nbsp;трекером и&nbsp;проблемы в&nbsp;них.</span></p>
-        </div>
-
-        <div class="discovery__block discovery__block--wide">
-          <p class="discovery__sublabel"><span data-lang="en">Interview insights</span><span data-lang="ru">Инсайты интервью</span></p>
-          <div class="discovery__roles">
-            <div>
-              <p class="role-overline"><span data-lang="en">The employee's role</span><span data-lang="ru">Роль сотрудника</span></p>
-              <ul class="case-flow__list">
-                <li><span data-lang="en">Trouble working with the project and task list</span><span data-lang="ru">Трудности в&nbsp;работе со&nbsp;списком проектов и&nbsp;задач</span></li>
-                <li><span data-lang="en">Difficulty logging time</span><span data-lang="ru">Сложности при&nbsp;внесении времени</span></li>
-              </ul>
-            </div>
-            <div>
-              <p class="role-overline"><span data-lang="en">The manager's role</span><span data-lang="ru">Роль менеджера</span></p>
-              <ul class="case-flow__list">
-                <li><span data-lang="en">Creating a project is cumbersome</span><span data-lang="ru">Процесс создания проекта затруднён</span></li>
-                <li><span data-lang="en">The project table isn't interactive</span><span data-lang="ru">Таблица проектов не&nbsp;интерактивная</span></li>
-                <li><span data-lang="en">The project page is thin on information</span><span data-lang="ru">Страница проекта малоинформативна</span></li>
-                <li><span data-lang="en">Too little detail when creating a task</span><span data-lang="ru">Мало информации для&nbsp;создания задачи</span></li>
-                <li><span data-lang="en">Monitoring employees' work is hard</span><span data-lang="ru">Мониторинг работы сотрудников затруднён</span></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="discovery__block">
-          <p class="case-flow__label"><span data-lang="en">PURE &amp; UX audit</span><span data-lang="ru">PURE и&nbsp;UX-аудит</span></p>
-          <p><span data-lang="en">We realised that for interviews this is a small sample, so after analysing the respondents' answers we ran them through the PURE method (together with my colleague) and did a UX audit (individually).</span><span data-lang="ru">Мы поняли, что&nbsp;для интервью это маленькая выборка, поэтому после&nbsp;анализа ответов респондентов мы прогнали их через&nbsp;метод PURE (вместе с&nbsp;коллегой) и&nbsp;провели UX-аудит (индивидуально).</span></p>
-          <p class="discovery__def"><span data-lang="en">PURE is a quantitative usability method for assessing how hard a scenario is to complete, scored from 1 to 3 (from easy to hard).</span><span data-lang="ru">PURE — это количественный юзабилити-метод для&nbsp;оценки сложности прохождения сценария и&nbsp;оценивается от&nbsp;1 до&nbsp;3 (от&nbsp;легко до&nbsp;сложно).</span></p>
-        </div>
-
-        <div class="discovery__block discovery__attached">
-          <p class="discovery__sublabel"><span data-lang="en">Conclusions</span><span data-lang="ru">Выводы</span></p>
-          <p><span data-lang="en">PURE and the UX audit helped confirm the pains we found during the interviews, and look at them from different angles through different research methods. That let me prioritise the pains and take the most serious ones into work.</span><span data-lang="ru">PURE и&nbsp;UX-аудит помогли подтвердить боли, которые мы выявили на&nbsp;этапе глубинок, а&nbsp;так же посмотреть на&nbsp;них с&nbsp;разных сторон, через&nbsp;разные методы исследования. Это позволило мне приоритизировать боли и&nbsp;взять в&nbsp;работу самые серьёзные.</span></p>
-        </div>
-
-        <div class="discovery__block">
-          <p class="case-flow__label"><span data-lang="en">Hypotheses</span><span data-lang="ru">Гипотезы</span></p>
-          <p><span data-lang="en">After the interviews, PURE, the UX audit and benchmarking, I formulated hypotheses. First I wrote the ones shared across the employee and manager roles.</span><span data-lang="ru">После&nbsp;проведения глубинок, PURE, UX-аудита и&nbsp;бенчмаркинга, я&nbsp;сформулировала гипотезы. Сначала я&nbsp;прописала общие для&nbsp;роли сотрудника и&nbsp;менеджера.</span></p>
-        </div>
-
-        <div class="discovery__hypos discovery__attached">
-          <div class="discovery__block discovery__hypo">
-            <p class="role-overline"><span data-lang="en">The employee's role</span><span data-lang="ru">Роль сотрудника</span></p>
-            <p><span data-lang="en">We believe that if we improve the time-tracking process for employees who track time, with a way to quickly log worked hours, it will help increase company revenue. To test this, we'll run hallway testing. The hypothesis holds true if 75% of respondents log a task without difficulty.</span><span data-lang="ru">Мы верим, что&nbsp;если улучшим процесс трекинга времени для&nbsp;тех сотрудников, кто трекается, с&nbsp;возможностью быстрого внесения отработанного времени, то&nbsp;это поможет увеличить доход компании. Для&nbsp;того, чтобы&nbsp;это проверить, мы проведём коридорное тестирование. Гипотеза окажется верной, если 75% респондентов затрекают задачу без&nbsp;трудностей.</span></p>
-          </div>
-
-          <div class="discovery__block discovery__hypo">
-            <p class="role-overline"><span data-lang="en">The manager's role</span><span data-lang="ru">Роль менеджера</span></p>
-            <p><span data-lang="en">We believe that if we improve project management for managers, with convenient access to information about the project, the people and the workload, it will help increase company revenue, make it easier to get analytics for the client, and track problem spots on a project. To test this, we'll run hallway testing. The hypothesis holds true if 75% of respondents can create a project and find all its details.</span><span data-lang="ru">Мы верим, что&nbsp;если улучшим ведение проектов для&nbsp;менеджеров с&nbsp;возможностью удобного получения информации о&nbsp;проекте, о&nbsp;сотрудниках, загрузке, то&nbsp;это поможет увеличить доход компании, облегчить получение аналитики для&nbsp;клиента и&nbsp;отслеживать проблемные точки на&nbsp;проекте. Для&nbsp;того, чтобы&nbsp;это проверить, мы проведём коридорное тестирование. Гипотеза окажется верной, если 75% респондентов смогут создать проект и&nbsp;найти все детали по&nbsp;нему.</span></p>
-          </div>
-        </div>
-
-        <div class="discovery__block">
-          <p><span data-lang="en">After that, I formulated specific hypotheses and JTBD for every problem found in the key scenarios.</span><span data-lang="ru">После&nbsp;этого, я&nbsp;сформулировала частные гипотезы и&nbsp;JTBD для&nbsp;всех выявленных проблем в&nbsp;ключевых сценариях.</span></p>
-        </div>
-        <div class="fix__shots fix__shots--pair discovery__attached">
-          <img src="assets/role-employee.png" alt="Research artefact mapping employee scenarios, hypotheses and JTBD" loading="lazy" />
-          <img src="assets/role-manager.png" alt="Research artefact mapping manager scenarios, hypotheses and JTBD" loading="lazy" />
-        </div>
-      </div>
-    </div>
-
-    <div class="case-jumplinks">
-      <a class="case-jumplink" href="#improvements"><span data-lang="en">Improving the current tracker</span><span data-lang="ru">Улучшение текущего трекера</span></a>
-      <a class="case-jumplink" href="#concept"><span data-lang="en">New tracker concept</span><span data-lang="ru">Новая концепция трекера</span></a>
-    </div>
   </section>
 
   <nav class="case-nav">

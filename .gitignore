@@ -14,3 +14,6 @@ cases/*/artifacts/
 
 # Local Claude Code settings (machine-specific)
 .claude/
+
+# Working notes — not part of the site
+Claude outputs/
