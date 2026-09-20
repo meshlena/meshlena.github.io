@@ -60,6 +60,7 @@ Every page carries: `<title>`, `description`, `author`, `theme-color`, `canonica
 - `robots.txt` allows everything and points to `sitemap.xml`; `sitemap.xml` lists all 7 routes.
 - To regenerate the OG card: `sips --resampleWidth 1200 <src>.png --out w.png && sips --cropToHeightWidth 630 1200 w.png --out c.png && sips -s format jpeg -s formatOptions 82 c.png --out assets/og-cover.jpg`.
 - **When adding/renaming a route**, update `sitemap.xml` and the canonical/OG `og:url` of the new page.
+- **Analytics: Yandex.Metrica, counter `110365541`, on purpose.** The snippet plus its `<noscript>` pixel sits before `</body>` on all seven routes, `404.html` included. Keep it when editing a page and copy it into any new one — it is not leftover debris.
 
 ## URL / path conventions
 
@@ -96,7 +97,11 @@ Fonts: Inter + Instrument Serif via Google Fonts. Dinogarten additionally loads 
 ```
 
 - **Left** (`.nav__left`): `EM` circle mark linking to `index.html`. On `portfolio.html` and every case page, a **Back pill is rendered inline next to the logo**. On the portfolio page it reads `Back`; on case pages, `Back to portfolio`.
-- **Right** (`.nav__links`): plain text links `Portfolio`, `About`, `Contact`, then a `.nav__social-group` divider with three circular SVG social icons.
+- **Right** (`.nav__links`): a `.nav__cv` link, then plain text links `Portfolio`, `About`, `Contact`, then a `.nav__social-group` divider with three circular SVG social icons.
+- **CV link** (`.nav__cv`, first child of `.nav__links` on all six pages with a nav; `404.html` has none): two separate `<a>` elements, not one link with translated label — the English CV and the Russian one are different Google Drive files, so each carries its own `href` plus `data-lang`, and the language toggle swaps the whole link:
+  - `data-lang="en"` → `CV` → `https://drive.google.com/file/d/1iWhB5NkARNtXlqjZVco4DpEjUGkYMEO7/view?usp=drive_link`
+  - `data-lang="ru"` → `Резюме` → `https://drive.google.com/file/d/1iu5xtXtdieiB0TxhFbYPIKvzkqkYX77Z/view?usp=drive_link`
+  Both open in a new tab (`target="_blank" rel="noopener"`). When the files are replaced, update the href in all six pages.
 - **Social URLs** (live, hardcoded in every page):
   - LinkedIn → `https://www.linkedin.com/in/elena-meshnina-862780237/`
   - GitHub  → `https://github.com/meshlena`
@@ -215,6 +220,12 @@ The site is bilingual via a **dual-inline + CSS-toggle** pattern — no build st
 - `loading="lazy" decoding="async"` on images. Convention: the **case cover stays eager** (LCP) where a `.case__cover img` exists; everything else is lazy.
 - Filenames inside `assets/` are ASCII only.
 - New raster: `sips -Z 1800` for PNGs; `sips -s format jpeg -s formatOptions 80 -Z 1400` for screenshots without transparency.
+- **UI screenshots: export at 2× the width the image is actually rendered at — not to a fixed cap.** A case screen is laid out at whatever width its container gives it, and on a Retina display the browser needs twice that many pixels. A smaller file gets upscaled and the text goes visibly soft; `-Z 1800` above is for photos and non-UI raster, not for interface shots. Measure per case rather than guessing — in the browser console on the case page:
+  ```js
+  [...document.images].map(i => ({ file: i.currentSrc.split('/').pop(), css: Math.round(i.getBoundingClientRect().width), px: i.naturalWidth }))
+  ```
+  Measured targets: **atlas** screens render at 1210 CSS px → export **2560** wide; **tracker** `concept-*` / `table-*` / `list-*` / `modal-*` render at ~1000 CSS px → **2000** wide; tracker `cover` renders at 1306 → **2560**; tracker `monitoring-*`, `role-*`, `project-*`, `task-*` sit in narrow columns (300–600 CSS px) and need far less. Re-measure when a case's layout changes.
+- Compress after resizing: `pngquant --quality 70-95 --speed 1` cuts a 2560-wide UI screenshot to roughly 100–150 KB with no visible banding (verified against the unquantized file: <1.5% of pixels differ by more than 4 levels).
 - Dinogarten assets under `cases/dinogarten/assets/{board,screens/new}/` aren't recompressed.
 
 ## Hard requirements (don't undo)
@@ -251,8 +262,6 @@ Adding a new case = new folder under `cases/<slug>/` with its own `index.html` +
 ## Open / deferred items
 
 - A dedicated, branded 1200×630 OG card (text + work montage) would beat the current cropped tracker cover.
-- Could add a downloadable CV PDF link in the contact section (PDF must come from Elena).
-- No analytics. Add a privacy-friendly analytics snippet only if Elena wants it.
 - Dinogarten case copy was authored by Elena directly (no translated Notion source).
 
 ## User context

@@ -28,7 +28,8 @@
   <link rel="stylesheet" href="../../styles.css" />
 
   <style>
-    .case[data-case="atlas"] .atlas { max-width: var(--maxw); margin: 0 auto; display: flex; flex-direction: column; gap: clamp(44px, 8vh, 96px); }
+    /* bottom space before the case-nav divider, same value as the tracker case */
+    .case[data-case="atlas"] .atlas { max-width: var(--maxw); margin: 0 auto; display: flex; flex-direction: column; gap: clamp(44px, 8vh, 96px); padding-bottom: clamp(60px, 10vh, 120px); }
     .case[data-case="atlas"] .atlas-block { display: flex; flex-direction: column; gap: 16px; }
     .case[data-case="atlas"] .atlas-block > h2 {
       font-size: clamp(28px, 4vw, 50px); letter-spacing: -0.025em; line-height: 1.04; margin: 0; max-width: 22ch;
@@ -146,9 +147,6 @@
     .case[data-case="atlas"] .fix__compare__bar { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 2px; background: #fff; transform: translateX(-1px); box-shadow: 0 0 0 1px rgba(0,0,0,0.3); pointer-events: none; }
     .case[data-case="atlas"] .fix__compare__knob { position: absolute; top: 50%; left: var(--pos); width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%; background: #fff; color: #0a0a0c; border: none; box-shadow: 0 4px 16px rgba(0,0,0,0.45); display: flex; align-items: center; justify-content: center; cursor: ew-resize; touch-action: none; }
     .case[data-case="atlas"] .fix__compare__knob:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-    .case[data-case="atlas"] .fix__compare__tag { position: absolute; top: 14px; z-index: 2; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600; padding: 5px 10px; border-radius: 999px; color: #fff; background: rgba(10,10,12,0.6); pointer-events: none; }
-    .case[data-case="atlas"] .fix__compare__tag--before { left: 14px; }
-    .case[data-case="atlas"] .fix__compare__tag--after { right: 14px; }
 
     /* two-col intro grid */
     .case[data-case="atlas"] .atlas-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(28px, 5vw, 72px); align-items: start; }
@@ -159,8 +157,71 @@
       font-size: 15px; line-height: 1.5; margin: 0; color: var(--fg-dim);
     }
 
+    /* section overlines: same size and tracking as the tracker case, and always
+       the same distance from whatever follows them */
+    .case[data-case="atlas"] .kicker {
+      font-size: clamp(16px, 1.3vw, 20px); letter-spacing: 0.04em; font-weight: 600;
+    }
+    .case[data-case="atlas"] .atlas-block > .kicker { margin-bottom: 2px; }
+    .case[data-case="atlas"] .atlas-block h3 { margin-top: 0; }
+    .case[data-case="atlas"] .atlas-block > .kicker + h4 { margin-top: 0; }
+
+    /* project brief — same two-column pattern as the tracker case, dark palette */
+    .case[data-case="atlas"] .semi { font-weight: 600; color: #fff; }
+    .case[data-case="atlas"] .case-brief {
+      max-width: var(--maxw); margin: clamp(44px, 8vh, 96px) auto;
+      display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(32px, 6vw, 88px);
+      align-items: start;
+      padding-bottom: clamp(40px, 7vh, 80px); border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .case[data-case="atlas"] .case-brief__lead .kicker { margin-bottom: 18px; }
+    .case[data-case="atlas"] .case-brief__lead p:not(.kicker) {
+      font-size: 16px; line-height: 1.65; color: rgba(255,255,255,0.78); max-width: 48ch; margin: 0 0 16px;
+    }
+    .case[data-case="atlas"] .case-brief__def { color: rgba(255,255,255,0.55); margin-bottom: 0 !important; }
+    .case[data-case="atlas"] .case-brief__facts { display: grid; gap: 22px; margin: 0; }
+    .case[data-case="atlas"] .case-brief__facts > div { border-top: 1px solid rgba(255,255,255,0.14); padding-top: 14px; }
+    .case[data-case="atlas"] .case-brief__facts dt {
+      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 8px;
+    }
+    .case[data-case="atlas"] .case-brief__facts dd { margin: 0; font-size: 16px; line-height: 1.6; color: rgba(255,255,255,0.82); }
+
+    /* diary-study row: three stickers, not four */
+    .case[data-case="atlas"] .atlas-stickers--3 { grid-template-columns: repeat(3,1fr); }
+
+    /* which methods an insight rests on */
+    .case[data-case="atlas"] .atlas-insight p.atlas-insight__src {
+      margin-top: auto; padding-top: 4px; font-size: 13px; line-height: 1.4; color: rgba(255,255,255,0.45);
+    }
+
+    /* job stories: two primary ones large, the deferred five small */
+    .case[data-case="atlas"] .atlas-jobs--primary { grid-template-columns: repeat(2,1fr); gap: 18px; }
+    .case[data-case="atlas"] .atlas-jobs--primary .atlas-sticky { min-height: 176px; padding: 22px 24px 26px; gap: 10px; }
+    .case[data-case="atlas"] .atlas-jobs--primary .atlas-sticky:nth-child(2) { transform: rotate(1deg); }
+    .case[data-case="atlas"] .atlas-jobs--primary h5 { font-size: 16px; }
+    .case[data-case="atlas"] .atlas-jobs--primary p { font-size: 15px; line-height: 1.45; }
+    .case[data-case="atlas"] .atlas-jobs--next { grid-template-columns: repeat(auto-fit, minmax(168px,1fr)); gap: 12px; }
+    .case[data-case="atlas"] .atlas-sticky--pale { background: #FFD7E3; transform: rotate(-0.7deg); }
+    .case[data-case="atlas"] .atlas-jobs--next .atlas-sticky {
+      min-height: auto; padding: 13px 14px 15px; gap: 5px; box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+    }
+    .case[data-case="atlas"] .atlas-jobs--next .atlas-sticky:nth-child(even) { transform: rotate(0.9deg); }
+    .case[data-case="atlas"] .atlas-jobs--next h5 { font-size: 12px; }
+    .case[data-case="atlas"] .atlas-jobs--next p { font-size: 12px; line-height: 1.35; }
+
+    /* the solution, inside its hypothesis */
+    .case[data-case="atlas"] .atlas-hyp__sol {
+      display: block; margin-top: 14px; padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      font-size: 15px; line-height: 1.55; color: rgba(255,255,255,0.6);
+    }
+    .case[data-case="atlas"] .atlas-hyp__sol b { color: rgba(255,255,255,0.82); font-weight: 600; }
+
     @media (max-width: 760px) {
       .case[data-case="atlas"] .atlas-grid { grid-template-columns: 1fr; gap: 24px; }
+      .case[data-case="atlas"] .case-brief { grid-template-columns: 1fr; gap: 28px; }
+      .case[data-case="atlas"] .atlas-stickers--3 { grid-template-columns: 1fr 1fr; }
+      .case[data-case="atlas"] .atlas-jobs--primary { grid-template-columns: 1fr; }
       .case[data-case="atlas"] .atlas-pair { grid-template-columns: 1fr; }
       .case[data-case="atlas"] .atlas-stickers { grid-template-columns: 1fr 1fr; }
       .case[data-case="atlas"] .atlas-insights { grid-template-columns: 1fr; }
@@ -257,6 +318,28 @@
     </div>
   </div>
 
+  <div class="case-brief">
+    <div class="case-brief__lead">
+      <p class="kicker"><span data-lang="en">About the project</span><span data-lang="ru">О&nbsp;проекте</span></p>
+      <p><span data-lang="en">A bank runs financial monitoring: the system flags suspicious transactions, and every one of them has to be worked through — who the subject is, where the money came from, whether there are grounds for a report to the regulator. That work sits with the AML compliance team</span><span data-lang="ru">Банк ведёт финансовый мониторинг: система помечает подозрительные операции, и&nbsp;каждую нужно разобрать — понять, что&nbsp;за субъект, откуда деньги, есть&nbsp;ли основания для&nbsp;отчёта регулятору. Этим занимается отдел AML-комплаенса</span></p>
+      <p class="case-brief__def"><span data-lang="en"><b class="semi">Atlas</b> is a single case workspace: the queue, the subject dossier, money flows and the decision history in one place</span><span data-lang="ru"><b class="semi">Atlas</b> — единое пространство кейса: очередь, досье субъекта, денежные потоки и&nbsp;история решений в&nbsp;одном месте</span></p>
+    </div>
+    <dl class="case-brief__facts">
+      <div>
+        <dt><span data-lang="en">Audience</span><span data-lang="ru">Аудитория продукта</span></dt>
+        <dd><span data-lang="en">The bank&#39;s AML analysts, from junior to senior</span><span data-lang="ru">AML-аналитики банка, от&nbsp;джуниоров до&nbsp;сеньоров</span></dd>
+      </div>
+      <div>
+        <dt><span data-lang="en">How it was</span><span data-lang="ru">Как было</span></dt>
+        <dd><span data-lang="en">Under NDA I can&#39;t show the previous interface. The investigation ran in a table of long rows and a dozen columns, which served more as a work log than as a real space to investigate in. Context had to be gathered from adjacent systems, and priority checked with the team lead</span><span data-lang="ru">Под&nbsp;NDA я&nbsp;не могу показать прежний интерфейс. Расследование велось в&nbsp;таблице с&nbsp;длинными строками и&nbsp;десятком колонок, которая служила скорее журналом работы, чем&nbsp;полноценным пространством для&nbsp;расследования. Контекст приходилось собирать из&nbsp;смежных систем, а&nbsp;приоритет уточнять у&nbsp;руководителя</span></dd>
+      </div>
+      <div>
+        <dt><span data-lang="en">Goal</span><span data-lang="ru">Цель</span></dt>
+        <dd><span data-lang="en">Bring the investigation together in one place and make a case&#39;s priority visible, so the analyst spends time on the decision rather than on the search</span><span data-lang="ru">Собрать расследование в&nbsp;одном месте и&nbsp;сделать приоритет кейса видимым, чтобы&nbsp;аналитик тратил время на&nbsp;решение, а&nbsp;не на&nbsp;поиск информации</span></dd>
+      </div>
+    </dl>
+  </div>
+
   <div class="atlas">
 
     <!-- My role -->
@@ -268,22 +351,34 @@
     <!-- Context and problem -->
     <div class="atlas-block">
       <p class="kicker"><span data-lang="en">Context &amp; problem</span><span data-lang="ru">Контекст и&nbsp;проблема</span></p>
-      <p><span data-lang="en">Financial-monitoring specialists work through hundreds of cases every day. To make a decision, they have to gather context from several systems and screens. Instead of investigating, a large part of their time goes to searching for and matching up information</span><span data-lang="ru">Специалисты по&nbsp;финансовому мониторингу ежедневно разбирают сотни кейсов. Чтобы&nbsp;принять решение, им&nbsp;приходится собирать контекст из&nbsp;нескольких систем и&nbsp;экранов. Вместо расследования значительная часть времени уходит на&nbsp;поиск и&nbsp;сопоставление информации</span></p>
+      <p><span data-lang="en">Financial-monitoring specialists work through hundreds of cases every day. Every decision needs context: who the subject is, where the money came from, what has already happened on the case</span><span data-lang="ru">Специалисты по&nbsp;финансовому мониторингу ежедневно разбирают сотни кейсов. Для&nbsp;решения по&nbsp;каждому нужен контекст: что&nbsp;за субъект, откуда деньги, что&nbsp;уже происходило по&nbsp;кейсу</span></p>
       <div class="atlas-quote">
-        <p><span data-lang="en">"I've been looking at this queue for six months. I still don't know which case to take first. I look at the table and try to decide."</span><span data-lang="ru">«Я&nbsp;смотрю на&nbsp;эту очередь полгода. До&nbsp;сих пор не&nbsp;знаю, какой кейс брать первым. Смотрю на&nbsp;таблицу и&nbsp;пытаюсь решить.»</span></p>
+        <p><span data-lang="en">"I open the queue and I can&#39;t tell which case to take first. I have to work it out myself"</span><span data-lang="ru">«Я&nbsp;открываю очередь и&nbsp;не понимаю, какой кейс брать первым. Приходится самому разбираться»</span></p>
         <cite><span data-lang="en">Senior AML analyst</span><span data-lang="ru">Senior AML-аналитик</span></cite>
       </div>
     </div>
 
-    <!-- Research -->
+    <!-- Research: interviews -->
     <div class="atlas-block">
       <p class="kicker"><span data-lang="en">Research</span><span data-lang="ru">Исследование</span></p>
-      <h3><span data-lang="en">12 interviews and a diary study</span><span data-lang="ru">12 интервью и&nbsp;дневниковое исследование</span></h3>
+      <h3><span data-lang="en">Interviews</span><span data-lang="ru">Интервью</span></h3>
+      <p><span data-lang="en">I ran 12 interviews with AML analysts, from junior to senior. What came out of them:</span><span data-lang="ru">Я&nbsp;провела 12 интервью с&nbsp;AML-аналитиками — от&nbsp;джуниоров до&nbsp;сеньоров. Что&nbsp;выяснилось:</span></p>
       <div class="atlas-stickers">
-        <div class="atlas-sticky atlas-sticky--y"><span class="atlas-sticky__n">01</span><p><span data-lang="en">No fast way to tell which case is the priority</span><span data-lang="ru">Невозможно быстро определить приоритет</span></p></div>
+        <div class="atlas-sticky atlas-sticky--y"><span class="atlas-sticky__n">01</span><p><span data-lang="en">Priority doesn&#39;t show in the queue: analysts take the top row, the largest amount, or go and ask the team lead</span><span data-lang="ru">В&nbsp;очереди не&nbsp;виден приоритет: берут первый сверху, крупную сумму или&nbsp;идут уточнять к&nbsp;руководителю</span></p></div>
         <div class="atlas-sticky atlas-sticky--p"><span class="atlas-sticky__n">02</span><p><span data-lang="en">No dedicated space for the investigation</span><span data-lang="ru">Нет отдельного пространства для&nbsp;расследования</span></p></div>
-        <div class="atlas-sticky atlas-sticky--c"><span class="atlas-sticky__n">03</span><p><span data-lang="en">Investigation context is scattered across systems and screens</span><span data-lang="ru">Контекст расследования разбросан между&nbsp;системами и&nbsp;экранами</span></p></div>
-        <div class="atlas-sticky atlas-sticky--g"><span class="atlas-sticky__n">04</span><p><span data-lang="en">Knowledge is handed between analysts manually</span><span data-lang="ru">Передача знаний между&nbsp;аналитиками происходит вручную</span></p></div>
+        <div class="atlas-sticky atlas-sticky--c"><span class="atlas-sticky__n">03</span><p><span data-lang="en">Knowledge is handed between analysts manually</span><span data-lang="ru">Передача знаний между&nbsp;аналитиками происходит вручную</span></p></div>
+        <div class="atlas-sticky atlas-sticky--g"><span class="atlas-sticky__n">04</span><p><span data-lang="en">A decision can&#39;t be defended once time has passed</span><span data-lang="ru">Решение невозможно защитить спустя время</span></p></div>
+      </div>
+    </div>
+
+    <!-- Research: diary study -->
+    <div class="atlas-block">
+      <h3><span data-lang="en">Diary study</span><span data-lang="ru">Дневниковое исследование</span></h3>
+      <p><span data-lang="en">The same 12 analysts spent two weeks logging how many cases they worked through, which systems they used, and where their time went. What the logs showed:</span><span data-lang="ru">Те&nbsp;же 12 аналитиков две недели фиксировали, сколько кейсов разобрали, какими системами пользовались и&nbsp;на что тратили время. Что&nbsp;показали записи:</span></p>
+      <div class="atlas-stickers atlas-stickers--3">
+        <div class="atlas-sticky atlas-sticky--y"><span class="atlas-sticky__n">01</span><p><span data-lang="en">5–6 tools per case</span><span data-lang="ru">5–6 инструментов на&nbsp;кейс</span></p></div>
+        <div class="atlas-sticky atlas-sticky--p"><span class="atlas-sticky__n">02</span><p><span data-lang="en">~40% of the time goes to routine</span><span data-lang="ru">~40% времени — рутина</span></p></div>
+        <div class="atlas-sticky atlas-sticky--c"><span class="atlas-sticky__n">03</span><p><span data-lang="en">of that, ~25% is reassembling context between systems</span><span data-lang="ru">из&nbsp;них ~25% — пересборка контекста между&nbsp;системами</span></p></div>
       </div>
     </div>
 
@@ -300,16 +395,19 @@
       <h3><span data-lang="en">Key insights</span><span data-lang="ru">Ключевые инсайты</span></h3>
       <div class="atlas-insights">
         <div class="atlas-insight">
-          <h4><span data-lang="en">Interviews</span><span data-lang="ru">Интервью</span></h4>
-          <p><span data-lang="en">New hires have nowhere to start — the queue has no clear entry point. Seniors fear not the wrong call, but being unable to defend it when an auditor asks six months later</span><span data-lang="ru">Новичкам негде начать — в&nbsp;очереди нет ясной точки старта. Сеньоры боятся не&nbsp;неверного решения, а&nbsp;того, что&nbsp;не смогут защитить его перед&nbsp;аудитором через&nbsp;полгода</span></p>
+          <h4>01</h4>
+          <p><span data-lang="en">Priority reads neither to a new hire nor to an experienced analyst: the queue holds no data to lean on</span><span data-lang="ru">Приоритет не&nbsp;считывается ни&nbsp;новичком, ни&nbsp;опытным аналитиком: в&nbsp;очереди нет данных, на&nbsp;которые можно опереться</span></p>
+          <p class="atlas-insight__src"><span data-lang="en">Interviews + diary study</span><span data-lang="ru">Интервью + дневниковое исследование</span></p>
         </div>
         <div class="atlas-insight">
-          <h4><span data-lang="en">Diary study</span><span data-lang="ru">Дневниковое исследование</span></h4>
-          <p><span data-lang="en">5–6 tools per case, ~40% of time on routine, ~25% on reassembling context between systems</span><span data-lang="ru">5–6 инструментов на&nbsp;кейс, ~40% времени — рутина, ~25% — пересборка контекста между&nbsp;системами</span></p>
+          <h4>02</h4>
+          <p><span data-lang="en">There is no workplace for the investigation: it all happens in a table, and the analyst gathers the context by hand, from several systems, every time</span><span data-lang="ru">Рабочего места для&nbsp;расследования не&nbsp;существует: вся работа идёт в&nbsp;таблице, а&nbsp;контекст аналитик каждый раз собирает по&nbsp;нескольким системам вручную</span></p>
+          <p class="atlas-insight__src"><span data-lang="en">Diary study + competitive analysis</span><span data-lang="ru">Дневник + анализ конкурентов</span></p>
         </div>
         <div class="atlas-insight">
-          <h4><span data-lang="en">Competitive analysis</span><span data-lang="ru">Анализ конкурентов</span></h4>
-          <p><span data-lang="en">No product makes the case a true workspace: the case stores information rather than hosting the investigation</span><span data-lang="ru">Ни&nbsp;один продукт не&nbsp;делает кейс полноценным рабочим пространством: кейс служит хранилищем, а&nbsp;не местом расследования</span></p>
+          <h4>03</h4>
+          <p><span data-lang="en">The course of an investigation doesn&#39;t stay in the system: to reconstruct the logic of a decision you have to find the case in the table, take its number, and go searching through reports and adjacent services</span><span data-lang="ru">Ход расследования не&nbsp;остаётся в&nbsp;системе: чтобы&nbsp;восстановить логику решения, нужно найти кейс в&nbsp;таблице, взять его номер и&nbsp;идти искать по&nbsp;отчётам и&nbsp;смежным сервисам</span></p>
+          <p class="atlas-insight__src"><span data-lang="en">Interviews + competitive analysis</span><span data-lang="ru">Интервью + анализ конкурентов</span></p>
         </div>
       </div>
     </div>
@@ -330,23 +428,24 @@
     <div class="atlas-block">
       <p class="kicker"><span data-lang="en">Strategy</span><span data-lang="ru">Стратегия</span></p>
       <h3>Jobs to Be Done</h3>
-      <h4><span data-lang="en">Core job</span><span data-lang="ru">База</span></h4>
-      <div class="atlas-quote">
-        <p><span data-lang="en">When I get a new case, I want to understand all the risks and have the full picture, so I can close the case quickly and leave no questions an auditor might ask later.</span><span data-lang="ru">Когда я&nbsp;получаю новый кейс, я&nbsp;хочу понять все риски и&nbsp;получить полную информацию по&nbsp;нему, чтобы&nbsp;закрыть кейс быстро и&nbsp;не оставить вопросов, которые аудитор может задать потом.</span></p>
-      </div>
+      <p><span data-lang="en">The research pointed to one shared job: understand every risk on a case and close it so that the decision can be justified in a later review. The seven job stories are ways of doing that</span><span data-lang="ru">Из&nbsp;исследования сложилась одна общая задача: понять все риски по&nbsp;кейсу и&nbsp;закрыть его так, чтобы&nbsp;решение можно было обосновать при&nbsp;последующей проверке. Семь job stories — способы её&nbsp;решить</span></p>
     </div>
 
     <div class="atlas-block">
-      <div class="atlas-jobs">
-        <div class="atlas-sticky atlas-sticky--y"><h5>JS1 · <span data-lang="en">Triage</span><span data-lang="ru">Приоритизация</span></h5><p><span data-lang="en">See which cases need attention first and take on the highest-priority work</span><span data-lang="ru">Видеть, какие кейсы требуют внимания в&nbsp;первую очередь, и&nbsp;браться за&nbsp;самое приоритетное</span></p></div>
-        <div class="atlas-sticky atlas-sticky--p"><h5>JS2 · <span data-lang="en">Investigate</span><span data-lang="ru">Расследование</span></h5><p><span data-lang="en">See the subject, accounts, money flows, evidence and prior decisions in one place</span><span data-lang="ru">Видеть субъект, счета, потоки, доказательства и&nbsp;прошлые решения в&nbsp;одном месте</span></p></div>
-        <div class="atlas-sticky atlas-sticky--c"><h5>JS3 · <span data-lang="en">Escalate</span><span data-lang="ru">Эскалация</span></h5><p><span data-lang="en">Escalate with full context attached, so a senior decides fast</span><span data-lang="ru">Эскалировать с&nbsp;полным контекстом, чтобы&nbsp;сеньор решил быстро</span></p></div>
-        <div class="atlas-sticky atlas-sticky--g"><h5>JS4 · <span data-lang="en">Close</span><span data-lang="ru">Закрытие</span></h5><p><span data-lang="en">Record what was found and decided, so the next reviewer can follow the logic</span><span data-lang="ru">Зафиксировать, что&nbsp;нашёл и&nbsp;решил, чтобы&nbsp;следующий мог понять логику</span></p></div>
-        <div class="atlas-sticky atlas-sticky--y"><h5>JS5 · <span data-lang="en">Onboard</span><span data-lang="ru">Онбординг</span></h5><p><span data-lang="en">Let the interface guide the steps, so a new hire becomes independent faster</span><span data-lang="ru">Чтобы&nbsp;интерфейс подсказывал порядок действий и&nbsp;новичок быстрее стал самостоятельным</span></p></div>
-        <div class="atlas-sticky atlas-sticky--p"><h5>JS6 · <span data-lang="en">Defend</span><span data-lang="ru">Защита</span></h5><p><span data-lang="en">Show a regulator the full investigation history without rebuilding it</span><span data-lang="ru">Показать регулятору полную историю расследования без&nbsp;восстановления по&nbsp;кусочкам</span></p></div>
-        <div class="atlas-sticky atlas-sticky--c"><h5>JS7 · <span data-lang="en">Coordinate</span><span data-lang="ru">Координация</span></h5><p><span data-lang="en">Hand a case off so a colleague continues from where I left off</span><span data-lang="ru">Передать кейс так, чтобы&nbsp;коллега продолжил с&nbsp;того места, где&nbsp;я остановился</span></p></div>
+      <h4><span data-lang="en">In the first iteration</span><span data-lang="ru">В&nbsp;первой итерации</span></h4>
+      <div class="atlas-jobs atlas-jobs--primary">
+        <div class="atlas-sticky atlas-sticky--y"><h5>JS1 · <span data-lang="en">Triage</span><span data-lang="ru">Приоритизация</span></h5><p><span data-lang="en">When I open the queue, I want to see which cases need attention first, so I can take on the highest-priority work</span><span data-lang="ru">Когда я&nbsp;открываю очередь, я&nbsp;хочу видеть, какие кейсы требуют внимания в&nbsp;первую очередь, чтобы&nbsp;взяться за&nbsp;самое приоритетное</span></p></div>
+        <div class="atlas-sticky atlas-sticky--y"><h5>JS2 · <span data-lang="en">Investigate</span><span data-lang="ru">Расследование</span></h5><p><span data-lang="en">When I start working through a case, I want to see the subject, accounts, money flows, evidence and prior decisions in one place, so I don&#39;t have to gather context across several systems</span><span data-lang="ru">Когда я&nbsp;начинаю разбирать кейс, я&nbsp;хочу видеть субъект, счета, потоки, доказательства и&nbsp;прошлые решения в&nbsp;одном месте, чтобы&nbsp;не собирать контекст по&nbsp;нескольким системам</span></p></div>
       </div>
-      <p><span data-lang="en">Five primary job stories define the system's key effectiveness criteria. Two more — Escalation and Coordination — fall outside the core investigation process but come up regularly in practice and need product support</span><span data-lang="ru">Пять основных job stories определяют ключевые критерии эффективности системы. Еще две — Эскалация и&nbsp;Координация — не&nbsp;относятся к&nbsp;основному процессу расследования, но&nbsp;регулярно возникают на&nbsp;практике и&nbsp;требуют поддержки со&nbsp;стороны продукта</span></p>
+      <h4><span data-lang="en">Next iteration</span><span data-lang="ru">Следующая итерация</span></h4>
+      <div class="atlas-jobs atlas-jobs--next">
+        <div class="atlas-sticky atlas-sticky--pale"><h5>JS3 · <span data-lang="en">Escalate</span><span data-lang="ru">Эскалация</span></h5><p><span data-lang="en">Escalate with the full context attached</span><span data-lang="ru">Эскалировать с&nbsp;полным контекстом</span></p></div>
+        <div class="atlas-sticky atlas-sticky--pale"><h5>JS4 · <span data-lang="en">Close</span><span data-lang="ru">Закрытие</span></h5><p><span data-lang="en">Record what was found and decided</span><span data-lang="ru">Зафиксировать, что&nbsp;нашёл и&nbsp;решил</span></p></div>
+        <div class="atlas-sticky atlas-sticky--pale"><h5>JS5 · <span data-lang="en">Onboard</span><span data-lang="ru">Онбординг</span></h5><p><span data-lang="en">The interface prompts the order of steps</span><span data-lang="ru">Интерфейс подсказывает порядок действий</span></p></div>
+        <div class="atlas-sticky atlas-sticky--pale"><h5>JS6 · <span data-lang="en">Defend</span><span data-lang="ru">Защита</span></h5><p><span data-lang="en">Show a regulator the full history</span><span data-lang="ru">Показать регулятору полную историю</span></p></div>
+        <div class="atlas-sticky atlas-sticky--pale"><h5>JS7 · <span data-lang="en">Coordinate</span><span data-lang="ru">Координация</span></h5><p><span data-lang="en">Hand a case off without losing context</span><span data-lang="ru">Передать кейс без&nbsp;потери контекста</span></p></div>
+      </div>
+      <p><span data-lang="en">Triage and Investigation are the base of the analyst&#39;s work: before you can close, escalate or hand off a case, you first have to assess and investigate it. The other five scenarios build on a process that already exists. I checked the order with RICE</span><span data-lang="ru">Приоритизация и&nbsp;Расследование — база работы аналитика: прежде чем&nbsp;закрыть, эскалировать или&nbsp;передать кейс, его нужно оценить и&nbsp;расследовать. Остальные пять сценариев развивают уже построенный процесс. Порядок я&nbsp;проверила через&nbsp;RICE</span></p>
     </div>
 
     <div class="atlas-block">
@@ -361,58 +460,35 @@
         <div class="atlas-rice__row"><span class="atlas-rice__name"><strong>JS7</strong> · <span data-lang="en">Coordinate</span><span data-lang="ru">Координация</span></span><span class="atlas-rice__bar"><span class="atlas-rice__fill" style="width:22%"></span></span><span class="atlas-rice__score">13.5</span></div>
         <div class="atlas-rice__row"><span class="atlas-rice__name"><strong>JS5</strong> · <span data-lang="en">Onboard</span><span data-lang="ru">Онбординг</span></span><span class="atlas-rice__bar"><span class="atlas-rice__fill" style="width:19%"></span></span><span class="atlas-rice__score">12.0</span></div>
       </div>
-      <p><span data-lang="en"><strong>JS1 (Triage)</strong> and <strong>JS2 (Investigate)</strong> went into the first iteration. These flows happen in every case and form the base of the analyst's work: before you can close, escalate, or hand off a case, you first have to assess and investigate it.</span><span data-lang="ru">В&nbsp;первую итерацию вошли <strong>JS1 (Приоритизация)</strong> и&nbsp;<strong>JS2 (Расследование)</strong>. Эти сценарии выполняются в&nbsp;каждом кейсе и&nbsp;образуют базу работы аналитика: прежде чем закрыть, эскалировать или&nbsp;передать кейс, его нужно оценить и&nbsp;расследовать.</span></p>
-      <p><span data-lang="en">JS3 (Escalate), JS4 (Close), JS6 (Defend), and JS7 (Coordinate) are deferred to the next iteration, where they build on the process already in place.</span><span data-lang="ru">JS3 (Эскалация), JS4 (Закрытие), JS6 (Защита) и&nbsp;JS7 (Координация) вынесены в&nbsp;следующую итерацию, где&nbsp;они развивают уже построенный процесс.</span></p>
+      <p><span data-lang="en">The top two rows — <strong>JS1 (Triage)</strong> and <strong>JS2 (Investigate)</strong> — went into the first iteration. The remaining five scenarios are deferred to the next one</span><span data-lang="ru">Две верхние строки — <strong>JS1 (Приоритизация)</strong> и&nbsp;<strong>JS2 (Расследование)</strong> — вошли в&nbsp;первую итерацию. Остальные пять сценариев вынесены в&nbsp;следующую</span></p>
     </div>
 
     <!-- Hypotheses -->
     <div class="atlas-block">
       <p class="kicker"><span data-lang="en">Hypotheses</span><span data-lang="ru">Гипотезы</span></p>
-      <h3><span data-lang="en">Four primary hypotheses</span><span data-lang="ru">Четыре основных гипотезы</span></h3>
+      <h4><span data-lang="en">Primary — tested in this iteration</span><span data-lang="ru">Основные — проверяются в&nbsp;этой итерации</span></h4>
       <div class="atlas-hyp">
-        <p><span data-lang="en"><strong>H1 · Onboarding → JS5.</strong> We expect that making the case structure and the next investigative step obvious will help new analysts learn the system faster and start closing cases independently sooner. Success will mean a 25–35% drop in the median time to a first independently closed case (from 13 to about 9 working days) within four months of launch.</span><span data-lang="ru"><strong>H1 · Онбординг → JS5.</strong> Мы предполагаем, что&nbsp;если сделать структуру кейса и&nbsp;следующий шаг в&nbsp;расследовании очевидными, новые аналитики быстрее освоят систему и&nbsp;раньше начнут самостоятельно закрывать кейсы. Успехом будем считать сокращение медианного времени до&nbsp;первого самостоятельно закрытого кейса на&nbsp;25–35% (с&nbsp;13 до&nbsp;примерно 9 рабочих дней) в&nbsp;течение четырёх месяцев после&nbsp;запуска.</span></p>
-        <p><span data-lang="en"><strong>H2 · Throughput → JS2 + JS4.</strong> We expect that reducing routine work during an investigation — through automatic evidence collection, anomaly scoring, and investigation-history capture — will let analysts spend more time on decisions and close more cases. Success will mean a 15–25% rise in cases closed per analyst per week (from 13.2 to about 15.6) within four months of launch.</span><span data-lang="ru"><strong>H2 · Пропускная способность → JS2 + JS4.</strong> Мы предполагаем, что&nbsp;если сократить объём рутинной работы при&nbsp;расследовании за&nbsp;счёт автоматического сбора доказательств, оценки аномалий и&nbsp;ведения истории расследования, аналитики смогут уделять больше времени принятию решений и&nbsp;закрывать больше кейсов. Успехом будем считать рост количества закрытых кейсов на&nbsp;одного аналитика на&nbsp;15–25% в&nbsp;неделю (с&nbsp;13,2 до&nbsp;примерно 15,6) в&nbsp;течение четырёх месяцев после&nbsp;запуска.</span></p>
-        <p><span data-lang="en"><strong>H3 · Time per case → JS2 + JS1.</strong> We expect that with all the information needed for an investigation available in one place, analysts will spend less time searching for data and switching between tools, and more on the investigation itself. Success will mean a 20–30% drop in the median investigation time per case (from 4.2 to about 3.2 working days).</span><span data-lang="ru"><strong>H3 · Время на&nbsp;кейс → JS2 + JS1.</strong> Мы предполагаем, что&nbsp;если вся информация, необходимая для&nbsp;расследования, будет доступна в&nbsp;одном месте, аналитики будут тратить меньше времени на&nbsp;поиск данных и&nbsp;переключение между&nbsp;инструментами, а&nbsp;больше — на&nbsp;само расследование. Успехом будем считать сокращение медианного времени расследования одного кейса на&nbsp;20–30% (с&nbsp;4,2 до&nbsp;примерно 3,2 рабочих дней).</span></p>
-        <p><span data-lang="en"><strong>H4 · Audit-trail completeness → JS4 + JS6.</strong> We expect that if the system automatically saves the investigation history and every significant action, analysts will close cases with no extra documentation effort, and the organisation will be better prepared for internal and external reviews. Success will mean an increase in the share of cases passing all seven internal-audit criteria, from 62% to at least 85%, on a quarterly sample of 90 cases.</span><span data-lang="ru"><strong>H4 · Полнота audit trail → JS4 + JS6.</strong> Мы предполагаем, что&nbsp;если система будет автоматически сохранять историю расследования и&nbsp;всех значимых действий, аналитики смогут закрывать кейсы без&nbsp;дополнительных усилий по&nbsp;документированию, а&nbsp;организация будет лучше подготовлена к&nbsp;внутренним и&nbsp;внешним проверкам. Успехом будем считать увеличение доли кейсов, успешно проходящих все семь критериев внутреннего аудита, с&nbsp;62% до&nbsp;не менее 85% по&nbsp;результатам квартальной выборки из&nbsp;90 кейсов.</span></p>
+        <p><span data-lang="en"><strong>H1 · Triage → JS1.</strong> We expect that if a case&#39;s priority reads directly in the queue, analysts will take cases in order of risk instead of relying on their own heuristics, such as the transaction amount or the age of the case. Success will mean a drop in the share of cases taken out of priority order, from about 40% to 23–25%, within four months of launch<span class="atlas-hyp__sol"><b>Solution:</b> colour-coded severity in the queue, filters and saved views, a side panel with the key risk signals and one highlighted primary action</span></span><span data-lang="ru"><strong>H1 · Приоритизация → JS1.</strong> Мы предполагаем, что&nbsp;если приоритет кейса будет считываться прямо в&nbsp;очереди, аналитики будут брать кейсы в&nbsp;порядке риска, а&nbsp;не ориентироваться на&nbsp;собственные эвристики, например, сумму операции или&nbsp;возраст кейса. Успехом будем считать снижение доли кейсов, взятых в&nbsp;обход приоритета, с&nbsp;примерно 40% до&nbsp;23–25% в&nbsp;течение четырёх месяцев после&nbsp;запуска<span class="atlas-hyp__sol"><b>Решение:</b> цветовая индикация критичности в&nbsp;очереди, фильтры и&nbsp;сохранённые представления, боковая панель с&nbsp;ключевыми сигналами риска и&nbsp;выделенным главным действием</span></span></p>
+        <p><span data-lang="en"><strong>H2 · Investigation and risks → JS2.</strong> We expect that if subjects, accounts, money flows, evidence and the decision history are gathered in a single workspace, an analyst will spend less time reassembling context between systems and will be able to close a case with the full risk picture in view. Success will mean a 20–30% drop in the median investigation time per case — from 4.2 to about 3.2 working days — within four months of launch<span class="atlas-hyp__sol"><b>Solution:</b> a single case workspace with five dossier sections; automatic evidence capture, with actions and notes recorded as they happen, forming the investigation history</span></span><span data-lang="ru"><strong>H2 · Расследование и&nbsp;риски → JS2.</strong> Мы предполагаем, что&nbsp;если субъекты, счета, денежные потоки, доказательства и&nbsp;история решений собраны в&nbsp;одном рабочем пространстве, аналитик будет тратить меньше времени на&nbsp;пересборку контекста между&nbsp;системами и&nbsp;сможет закрывать кейс с&nbsp;полной картиной рисков. Успехом будем считать сокращение медианного времени расследования одного кейса на&nbsp;20–30% — с&nbsp;4,2 до&nbsp;примерно 3,2 рабочих дней — в&nbsp;течение четырёх месяцев после&nbsp;запуска<span class="atlas-hyp__sol"><b>Решение:</b> единое рабочее пространство кейса с&nbsp;пятью разделами досье; автоматический сбор доказательств, фиксация действий и&nbsp;заметок, формирующая историю расследования</span></span></p>
       </div>
     </div>
 
     <div class="atlas-block">
-      <h3><span data-lang="en">Two supporting hypotheses</span><span data-lang="ru">Две сопутствующих гипотезы</span></h3>
+      <h4><span data-lang="en">Next iteration</span><span data-lang="ru">Следующая итерация</span></h4>
       <div class="atlas-hyp">
-        <p><span data-lang="en"><strong>H5 · Escalation cycle → JS3.</strong> We expect that if a colleague receives the full investigation context at the moment of escalation, decision time will drop and analysts won't have to explain the situation again. Success will mean a 40–50% drop in the median time from escalation to a senior's decision (from about 24 to 12 hours).</span><span data-lang="ru"><strong>H5 · Цикл эскалации → JS3.</strong> Мы предполагаем, что&nbsp;если при&nbsp;эскалации коллега сразу получит весь контекст расследования, время на&nbsp;принятие решения сократится, а&nbsp;аналитикам не&nbsp;придётся дополнительно объяснять ситуацию. Успехом будем считать сокращение медианного времени от&nbsp;эскалации до&nbsp;решения сеньора на&nbsp;40–50% (с&nbsp;примерно 24 до&nbsp;12 часов).</span></p>
-        <p><span data-lang="en"><strong>H6 · Handoff continuity → JS7.</strong> We expect that if the system keeps the full investigation context and action history, analysts can hand off cases without losing information or adding explanations. Success will mean at least 70% of handoffs completed without a synchronous context handover.</span><span data-lang="ru"><strong>H6 · Непрерывность передачи → JS7.</strong> Мы предполагаем, что&nbsp;если система будет сохранять полный контекст расследования и&nbsp;историю действий, аналитики смогут передавать кейсы без&nbsp;потери информации и&nbsp;дополнительных объяснений. Успехом будем считать долю передач кейсов, завершённых без&nbsp;синхронной передачи контекста, не&nbsp;менее 70%.</span></p>
-      </div>
-    </div>
-
-    <div class="atlas-block">
-      <h3><span data-lang="en">Solutions</span><span data-lang="ru">Решения</span></h3>
-      <div class="atlas-tablewrap">
-        <table class="atlas-table">
-          <thead>
-            <tr>
-              <th><span data-lang="en">Hypothesis</span><span data-lang="ru">Гипотеза</span></th>
-              <th><span data-lang="en">Solution</span><span data-lang="ru">Решение</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td><strong>H1</strong> · <span data-lang="en">Onboarding</span><span data-lang="ru">Онбординг</span></td><td><span data-lang="en">Clear statuses and priorities, plus a predictable action rail</span><span data-lang="ru">Наглядные статусы, приоритеты и&nbsp;предсказуемая панель действий</span></td></tr>
-            <tr><td><strong>H2</strong> · <span data-lang="en">Throughput</span><span data-lang="ru">Пропускная способность</span></td><td><span data-lang="en">Fast filtering and automatic evidence capture</span><span data-lang="ru">Быстрая фильтрация и&nbsp;автосбор доказательств</span></td></tr>
-            <tr><td><strong>H3</strong> · <span data-lang="en">Time per case</span><span data-lang="ru">Время на&nbsp;кейс</span></td><td><span data-lang="en">A single case workspace with all the information</span><span data-lang="ru">Единое рабочее пространство кейса со&nbsp;всей информацией</span></td></tr>
-            <tr><td><strong>H4</strong> · Audit trail</td><td><span data-lang="en">Automatic capture of the investigation history and notes</span><span data-lang="ru">Автоматическая фиксация истории расследования и&nbsp;заметок</span></td></tr>
-            <tr><td><strong>H5</strong> · <span data-lang="en">Escalation</span><span data-lang="ru">Эскалация</span></td><td><span data-lang="en">Escalation with full case context</span><span data-lang="ru">Эскалация с&nbsp;полным контекстом кейса</span></td></tr>
-            <tr><td><strong>H6</strong> · <span data-lang="en">Handoff</span><span data-lang="ru">Передача</span></td><td><span data-lang="en">A shared investigation history for everyone involved</span><span data-lang="ru">Общая история расследования для&nbsp;всех участников</span></td></tr>
-          </tbody>
-        </table>
+        <p><span data-lang="en"><strong>H3 · Closing → JS4.</strong> We expect that if the investigation history and notes are captured as the work happens, closing a case won&#39;t require a separate documentation step, and analysts will be able to close more cases. Success will mean a 15–25% rise in cases closed per analyst per week — from 13.2 to about 15.6<span class="atlas-hyp__sol"><b>Solution:</b> closing a case with its conclusions and the reasoning behind the decision recorded</span></span><span data-lang="ru"><strong>H3 · Закрытие → JS4.</strong> Мы предполагаем, что&nbsp;если история расследования и&nbsp;заметки фиксируются по&nbsp;ходу работы, закрытие кейса не&nbsp;потребует отдельного этапа документирования, и&nbsp;аналитики смогут закрывать больше кейсов. Успехом будем считать рост количества закрытых кейсов на&nbsp;одного аналитика в&nbsp;неделю на&nbsp;15–25% — с&nbsp;13,2 до&nbsp;примерно 15,6<span class="atlas-hyp__sol"><b>Решение:</b> закрытие кейса с&nbsp;фиксацией выводов и&nbsp;обоснования решения</span></span></p>
+        <p><span data-lang="en"><strong>H4 · Audit-trail completeness → JS6.</strong> We expect that if the investigation history can be read without its author present, the organisation will be better prepared for internal and external reviews. Success will mean a rise in the share of cases passing internal audit with no findings, from 62% to at least 85%, on a quarterly sample of 90 cases<span class="atlas-hyp__sol"><b>Solution:</b> an investigation history with the reasoning behind decisions, ready to hand to a regulator without being reassembled</span></span><span data-lang="ru"><strong>H4 · Полнота audit trail → JS6.</strong> Мы предполагаем, что&nbsp;если история расследования пригодна для&nbsp;чтения без&nbsp;участия автора, организация будет лучше подготовлена к&nbsp;внутренним и&nbsp;внешним проверкам. Успехом будем считать рост доли кейсов, проходящих внутренний аудит без&nbsp;замечаний, с&nbsp;62% до&nbsp;не менее 85% по&nbsp;квартальной выборке из&nbsp;90 кейсов<span class="atlas-hyp__sol"><b>Решение:</b> история расследования с&nbsp;обоснованием решений, готовая к&nbsp;передаче регулятору без&nbsp;дополнительной пересборки</span></span></p>
+        <p><span data-lang="en"><strong>H5 · Escalation → JS3.</strong> We expect that if a colleague receives the full investigation context at the moment of escalation, the decision will come faster and analysts won&#39;t have to explain the situation again. Success will mean a 40–50% drop in the median time from escalation to a senior&#39;s decision — from about 24 to 12 hours<span class="atlas-hyp__sol"><b>Solution:</b> escalation with the full case context attached</span></span><span data-lang="ru"><strong>H5 · Эскалация → JS3.</strong> Мы предполагаем, что&nbsp;если при&nbsp;эскалации коллега сразу получает полный контекст расследования, решение будет приниматься быстрее, а&nbsp;аналитикам не&nbsp;придётся повторно объяснять ситуацию. Успехом будем считать сокращение медианного времени от&nbsp;эскалации до&nbsp;решения сеньора на&nbsp;40–50% — с&nbsp;примерно 24 до&nbsp;12 часов<span class="atlas-hyp__sol"><b>Решение:</b> эскалация с&nbsp;полным контекстом кейса</span></span></p>
+        <p><span data-lang="en"><strong>H6 · Handoff → JS7.</strong> We expect that if a colleague can see what has already been checked and where the investigation stands, analysts will be able to hand cases over without losing information or adding explanations. Success will mean at least 70% of handoffs completed without a synchronous context handover<span class="atlas-hyp__sol"><b>Solution:</b> the state of the investigation visible to everyone involved in the case</span></span><span data-lang="ru"><strong>H6 · Передача → JS7.</strong> Мы предполагаем, что&nbsp;если коллега видит, что&nbsp;уже проверено и&nbsp;на каком этапе находится расследование, аналитики смогут передавать кейсы без&nbsp;потери информации и&nbsp;дополнительных объяснений. Успехом будем считать долю передач, завершённых без&nbsp;синхронной передачи контекста, не&nbsp;менее 70%<span class="atlas-hyp__sol"><b>Решение:</b> видимое состояние расследования для&nbsp;всех участников кейса</span></span></p>
+        <p><span data-lang="en"><strong>H7 · Onboarding → JS5.</strong> We expect that if the structure of a case and the next investigative step are obvious, new analysts will learn the system faster and start closing cases on their own sooner. Success will mean a 25–35% drop in the median time to a first independently closed case — from 13 to about 9 working days<span class="atlas-hyp__sol"><b>Solution:</b> next-step prompts and a predictable action rail</span></span><span data-lang="ru"><strong>H7 · Онбординг → JS5.</strong> Мы предполагаем, что&nbsp;если структура кейса и&nbsp;следующий шаг расследования очевидны, новые аналитики быстрее освоят систему и&nbsp;раньше начнут самостоятельно закрывать кейсы. Успехом будем считать сокращение медианного времени до&nbsp;первого самостоятельно закрытого кейса на&nbsp;25–35% — с&nbsp;13 до&nbsp;примерно 9 рабочих дней<span class="atlas-hyp__sol"><b>Решение:</b> подсказки следующего шага и&nbsp;предсказуемая панель действий</span></span></p>
       </div>
     </div>
 
     <!-- Scope -->
     <div class="atlas-block">
-      <p class="kicker"><span data-lang="en">Scope</span><span data-lang="ru">Объём</span></p>
-      <h3><span data-lang="en">Scope of this iteration</span><span data-lang="ru">Объём этой итерации</span></h3>
+      <p class="kicker"><span data-lang="en">Scope of this iteration</span><span data-lang="ru">Объём этой итерации</span></p>
       <p><span data-lang="en">The first iteration covered the product's core: the case queue, the prioritisation panel, and the case workspace. They close the analyst's two key tasks — triage and investigation.</span><span data-lang="ru">В&nbsp;первую итерацию вошло ядро продукта: очередь кейсов, панель приоритизации и&nbsp;рабочее пространство кейса. Они закрывают две ключевые задачи аналитика — приоритизацию и&nbsp;расследование.</span></p>
-      <p><span data-lang="en">The closing, escalation, and handoff flows are left for the next iteration, so the key hypotheses can be tested first on the analyst's core loop.</span><span data-lang="ru">Сценарии закрытия, эскалации и&nbsp;передачи кейса оставлены для&nbsp;следующей итерации, чтобы&nbsp;сначала проверить ключевые гипотезы на&nbsp;основном рабочем цикле аналитика.</span></p>
+      <p><span data-lang="en">I left the closing, escalation, and handoff flows for the next iteration, so the key hypotheses could be tested first on the analyst's core loop.</span><span data-lang="ru">Сценарии закрытия, эскалации и&nbsp;передачи кейса я&nbsp;оставила для&nbsp;следующей итерации, чтобы&nbsp;сначала проверить ключевые гипотезы на&nbsp;основном рабочем цикле аналитика.</span></p>
     </div>
 
     <!-- Design / screens -->
@@ -423,8 +499,6 @@
       <div class="fix__compare" data-compare>
         <img class="fix__compare__base" src="assets/01-queue-default.png" alt="Atlas case queue — dark theme" loading="lazy" decoding="async" />
         <div class="fix__compare__after"><img src="assets/01-queue-default-light.png" alt="Atlas case queue — light theme" loading="lazy" decoding="async" /></div>
-        <span class="fix__compare__tag fix__compare__tag--before"><span data-lang="en">Dark</span><span data-lang="ru">Тёмная</span></span>
-        <span class="fix__compare__tag fix__compare__tag--after"><span data-lang="en">Light</span><span data-lang="ru">Светлая</span></span>
         <div class="fix__compare__bar" aria-hidden="true"></div>
         <button class="fix__compare__knob" type="button" aria-label="Drag to compare dark and light"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6 4 12l5 6M15 6l5 6-5 6"/></svg></button>
       </div>
@@ -436,8 +510,6 @@
       <div class="fix__compare" data-compare>
         <img class="fix__compare__base" src="assets/01-queue-triage.png" alt="Atlas triage side panel — dark theme" loading="lazy" decoding="async" />
         <div class="fix__compare__after"><img src="assets/01-queue-triage-light.png" alt="Atlas triage side panel — light theme" loading="lazy" decoding="async" /></div>
-        <span class="fix__compare__tag fix__compare__tag--before"><span data-lang="en">Dark</span><span data-lang="ru">Тёмная</span></span>
-        <span class="fix__compare__tag fix__compare__tag--after"><span data-lang="en">Light</span><span data-lang="ru">Светлая</span></span>
         <div class="fix__compare__bar" aria-hidden="true"></div>
         <button class="fix__compare__knob" type="button" aria-label="Drag to compare dark and light"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6 4 12l5 6M15 6l5 6-5 6"/></svg></button>
       </div>
@@ -445,12 +517,10 @@
 
     <div class="atlas-block">
       <h3><span data-lang="en">03 · Case workspace</span><span data-lang="ru">03 · Рабочее пространство кейса</span></h3>
-      <p><span data-lang="en">All investigation material is gathered in one workspace: details on the subject, accounts, money flows, evidence, and the investigation history. Analyst actions and notes are saved automatically, building a complete investigation history.</span><span data-lang="ru">Все материалы расследования собраны в&nbsp;одном рабочем пространстве: сведения о&nbsp;субъекте, счетах, денежных потоках, доказательствах и&nbsp;истории расследования. Действия аналитика и&nbsp;заметки автоматически сохраняются, формируя полную историю расследования.</span></p>
+      <p><span data-lang="en">All investigation material is gathered in one workspace. The core information about the subject sits in the Subject tab, and the rest of the data is spread across four more: Accounts, Money flow, Evidence and Activity. Analyst actions and notes are saved automatically, building the investigation history.</span><span data-lang="ru">Все материалы расследования собраны в&nbsp;одном рабочем пространстве. Основная информация о&nbsp;субъекте находится в&nbsp;табе «Субъект», остальные данные распределены по&nbsp;четырём табам: «Счета», «Денежные потоки», «Доказательства» и&nbsp;«Активность». Действия аналитика и&nbsp;заметки автоматически сохраняются, формируя историю расследования.</span></p>
       <div class="fix__compare" data-compare>
         <img class="fix__compare__base" src="assets/02-dossier.png" alt="Atlas case dossier — dark theme" loading="lazy" decoding="async" />
         <div class="fix__compare__after"><img src="assets/02-dossier-light.png" alt="Atlas case dossier — light theme" loading="lazy" decoding="async" /></div>
-        <span class="fix__compare__tag fix__compare__tag--before"><span data-lang="en">Dark</span><span data-lang="ru">Тёмная</span></span>
-        <span class="fix__compare__tag fix__compare__tag--after"><span data-lang="en">Light</span><span data-lang="ru">Светлая</span></span>
         <div class="fix__compare__bar" aria-hidden="true"></div>
         <button class="fix__compare__knob" type="button" aria-label="Drag to compare dark and light"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6 4 12l5 6M15 6l5 6-5 6"/></svg></button>
       </div>
