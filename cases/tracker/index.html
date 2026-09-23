@@ -77,7 +77,7 @@
       padding-top: 14px;
     }
     .case[data-case="tracker"] .case-brief__facts dt {
-      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+      font-size: 11px; letter-spacing: 0.13em; text-transform: uppercase;
       color: rgba(10,10,12,0.5); margin-bottom: 8px;
     }
     .case[data-case="tracker"] .case-brief__facts dd {
@@ -212,11 +212,16 @@
 
     /* Discovery — research narrative blocks */
     .case[data-case="tracker"] .discovery__block { max-width: 64ch; }
-    .case[data-case="tracker"] .discovery__block p:not(.discovery__sublabel):not(.role-overline) {
+    .case[data-case="tracker"] .discovery__block p:not(.discovery__sublabel):not(.role-overline):not(.case-flow__label) {
       font-size: clamp(15px, 1.1vw, 18px); line-height: 1.6; color: rgba(10,10,12,0.74); margin: 0 0 12px;
     }
     .case[data-case="tracker"] .discovery__block p:last-child { margin-bottom: 0; }
-    .case[data-case="tracker"] .discovery__block .case-flow__label { margin: 0 0 10px; font-size: 13px; }
+    /* "In-depth interviews", "PURE & UX audit", "Hypotheses" are the section's real
+       subheads now that the combined one above is gone — they carry its type. */
+    .case[data-case="tracker"] .discovery__block .case-flow__label {
+      font-size: clamp(19px, 2vw, 25px); font-weight: 600; letter-spacing: -0.01em;
+      line-height: 1.15; margin: 0 0 14px;
+    }
     .case[data-case="tracker"] .discovery__def {
       color: rgba(10,10,12,0.55) !important; font-style: italic;
     }
@@ -226,8 +231,8 @@
     /* Insight / hypothesis sub-sections */
     .case[data-case="tracker"] .discovery__block--wide { max-width: none; }
     .case[data-case="tracker"] .discovery__block--wide .discovery__roles { margin-top: 4px; }
-    /* Sub-block labels (Insights, Conclusions) — same small style as
-       the "In-depth interviews / PURE & UX audit / Hypotheses" labels */
+    /* Sub-block labels (Insights, Conclusions) — one level below the subheads above,
+       so they stay small */
     .case[data-case="tracker"] .discovery__sublabel {
       font-size: 13px; letter-spacing: 0.04em; font-weight: 600;
       color: #0a0a0c; margin: 0 0 10px;
@@ -254,7 +259,7 @@
       margin: 0; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 12px;
     }
     .case[data-case="tracker"] .fix__ba-item figcaption {
-      font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600;
+      font-size: 10px; letter-spacing: 0.11em; text-transform: uppercase; font-weight: 600;
       color: #fff; background: rgba(10,10,12,0.62); padding: 5px 10px; border-radius: 999px;
     }
     .case[data-case="tracker"] .fix__ba-item img {
@@ -352,7 +357,7 @@
     .case[data-case="tracker"] .fix__compare__knob:focus-visible { outline: 2px solid #4b4bf5; outline-offset: 3px; }
     .case[data-case="tracker"] .fix__compare__tag {
       position: absolute; top: 14px; z-index: 2;
-      font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600;
+      font-size: 10px; letter-spacing: 0.11em; text-transform: uppercase; font-weight: 600;
       padding: 5px 10px; border-radius: 999px; color: #fff; background: rgba(10,10,12,0.62); pointer-events: none;
     }
     .case[data-case="tracker"] .fix__compare__tag--before { left: 14px; }
@@ -473,7 +478,7 @@
     <a class="nav__cv" href="https://drive.google.com/file/d/1iWhB5NkARNtXlqjZVco4DpEjUGkYMEO7/view?usp=drive_link" target="_blank" rel="noopener" data-lang="en">CV</a>
     <a class="nav__cv" href="https://drive.google.com/file/d/1iu5xtXtdieiB0TxhFbYPIKvzkqkYX77Z/view?usp=drive_link" target="_blank" rel="noopener" data-lang="ru">Резюме</a>
     <a href="../../portfolio.html"><span data-lang="en">Portfolio</span><span data-lang="ru">Портфолио</span></a>
-    <a href="../../index.html#about"><span data-lang="en">About</span><span data-lang="ru">Обо мне</span></a>
+    <a href="../../index.html#about"><span data-lang="en">About</span><span data-lang="ru">Обо&nbsp;мне</span></a>
     <a href="../../index.html#contact"><span data-lang="en">Contact</span><span data-lang="ru">Контакты</span></a>
     <span class="nav__social-group">
       <a class="nav__social" href="https://www.linkedin.com/in/elena-meshnina-862780237/" aria-label="LinkedIn" target="_blank" rel="noopener">
@@ -498,7 +503,7 @@
 <section class="case case--light" data-case="tracker">
     <div class="case__hero">
       <div class="case__meta">
-        <span class="chip"><span data-lang="en">Desktop · Product design</span><span data-lang="ru">Десктоп · Продуктовый дизайн</span></span>
+        <span class="chip"><span data-lang="en">Web · B2B · Red Collar</span><span data-lang="ru">Веб · B2B · Red Collar</span></span>
         <span class="case__num">03</span>
       </div>
       <h2 class="case__title"><span data-lang="en">Corporate task-tracker</span><span data-lang="ru">Корпоративный таск-трекер</span></h2>
@@ -565,8 +570,7 @@
       <div class="discovery discovery--full" id="research">
         <div class="discovery__head">
           <p class="kicker"><span data-lang="en">Discovery &amp; design research</span><span data-lang="ru">Discovery &amp; design research</span></p>
-          <h2><span data-lang="en">In-depth interviews, PURE, a UX audit</span><span data-lang="ru">Глубинные интервью, PURE, UX-аудит</span></h2>
-          <p><span data-lang="en"><b class="semi">Goal</b> — to understand how the employees' work process is built, identify which tasks they solve with the tracker, and what difficulties they face when working with the current version.</span><span data-lang="ru"><b class="semi">Цель</b> — узнать как&nbsp;построен процесс работы сотрудников, определить какие задачи они решают с&nbsp;помощью трекера, и&nbsp;с какими трудностями они сталкиваются при&nbsp;взаимодействии с&nbsp;текущей версией.</span></p>
+          <p><span data-lang="en"><b class="semi">Goal</b> — to understand how the employees' work process is built, identify which tasks they solve with the tracker, and what difficulties they face when working with the current version.</span><span data-lang="ru"><b class="semi">Цель</b> — узнать как&nbsp;построен процесс работы сотрудников, определить какие задачи они решают с&nbsp;помощью трекера, и&nbsp;с&nbsp;какими трудностями они сталкиваются при&nbsp;взаимодействии с&nbsp;текущей версией.</span></p>
         </div>
 
         <div class="discovery__block">
@@ -599,7 +603,7 @@
 
         <div class="discovery__block">
           <p class="case-flow__label"><span data-lang="en">PURE &amp; UX audit</span><span data-lang="ru">PURE и&nbsp;UX-аудит</span></p>
-          <p><span data-lang="en">We realised that for interviews this is a small sample, so after analysing the respondents' answers we ran them through the PURE method (together with my colleague) and did a UX audit (individually).</span><span data-lang="ru">Мы поняли, что&nbsp;для интервью это маленькая выборка, поэтому после&nbsp;анализа ответов респондентов мы прогнали их через&nbsp;метод PURE (вместе с&nbsp;коллегой) и&nbsp;провели UX-аудит (индивидуально).</span></p>
+          <p><span data-lang="en">We realised that for interviews this is a small sample, so after analysing the respondents' answers we ran them through the PURE method (together with my colleague) and did a UX audit (individually).</span><span data-lang="ru">Мы поняли, что&nbsp;для&nbsp;интервью это маленькая выборка, поэтому после&nbsp;анализа ответов респондентов мы прогнали их через&nbsp;метод PURE (вместе с&nbsp;коллегой) и&nbsp;провели UX-аудит (индивидуально).</span></p>
           <p class="discovery__def"><span data-lang="en">PURE is a quantitative usability method for assessing how hard a scenario is to complete, scored from 1 to 3 (from easy to hard).</span><span data-lang="ru">PURE — это количественный юзабилити-метод для&nbsp;оценки сложности прохождения сценария и&nbsp;оценивается от&nbsp;1 до&nbsp;3 (от&nbsp;легко до&nbsp;сложно).</span></p>
         </div>
 
@@ -690,7 +694,7 @@
           <div class="fix__col fix__col--problem">
             <p class="fix__label"><span data-lang="en">Problem</span><span data-lang="ru">Проблема</span></p>
             <ul class="fix__list">
-              <li><span data-lang="en">The hours-and-minutes placeholder is misleading, because the company only logs whole hours. It causes confusion and slows the tracking process down.</span><span data-lang="ru">Плейсхолдер с&nbsp;часами и&nbsp;минутами вводит в&nbsp;заблуждение, так как&nbsp;в компании принято указывать только часы. Это создаёт путаницу и&nbsp;замедляет процесс трекинга.</span></li>
+              <li><span data-lang="en">The hours-and-minutes placeholder is misleading, because the company only logs whole hours. It causes confusion and slows the tracking process down.</span><span data-lang="ru">Плейсхолдер с&nbsp;часами и&nbsp;минутами вводит в&nbsp;заблуждение, так как&nbsp;в&nbsp;компании принято указывать только часы. Это создаёт путаницу и&nbsp;замедляет процесс трекинга.</span></li>
             </ul>
           </div>
           <div class="fix__col fix__col--solution">
@@ -759,7 +763,7 @@
           <div class="fix__col fix__col--problem">
             <p class="fix__label"><span data-lang="en">Problem</span><span data-lang="ru">Проблема</span></p>
             <ul class="fix__list">
-              <li><span data-lang="en">The table has many attributes, but you can't interact with them — you can only open the project's info. → You can't look at one detail or make a change in the moment; you have to open the full info page or a drawer, like in project creation. This takes a lot of time.</span><span data-lang="ru">В&nbsp;таблице есть много атрибутов, но&nbsp;взаимодействовать с&nbsp;ними нельзя, можно только открыть информацию о&nbsp;проекте. → Нельзя в&nbsp;моменте что-то точечно посмотреть детально или&nbsp;внести изменения. Нужно открывать страницу со&nbsp;всей информацией или&nbsp;дровер как&nbsp;при создании проекта. Это занимает много времени.</span></li>
+              <li><span data-lang="en">The table has many attributes, but you can't interact with them — you can only open the project's info. → You can't look at one detail or make a change in the moment; you have to open the full info page or a drawer, like in project creation. This takes a lot of time.</span><span data-lang="ru">В&nbsp;таблице есть много атрибутов, но&nbsp;взаимодействовать с&nbsp;ними нельзя, можно только открыть информацию о&nbsp;проекте. → Нельзя в&nbsp;моменте что-то точечно посмотреть детально или&nbsp;внести изменения. Нужно открывать страницу со&nbsp;всей информацией или&nbsp;дровер как&nbsp;при&nbsp;создании проекта. Это занимает много времени.</span></li>
             </ul>
           </div>
           <div class="fix__col fix__col--solution">
@@ -806,7 +810,7 @@
               <li><span data-lang="en">Placed hours, budget, deadlines and staff information in the project header.</span><span data-lang="ru">Разместила информацию о&nbsp;количестве часов, бюджете, сроках и&nbsp;сотрудниках в&nbsp;шапке проекта.</span></li>
               <li><span data-lang="en">Added phases and the number of tracked hours to task settings.</span><span data-lang="ru">Внесла фазы и&nbsp;количество затреканных часов в&nbsp;настройки задачи.</span></li>
               <li><span data-lang="en">Added a filter and search to find tasks quickly. → This lets the manager review information and make decisions fast.</span><span data-lang="ru">Добавила фильтр и&nbsp;поиск для&nbsp;быстрого поиска задач. → Это позволит менеджеру быстро ознакомиться с&nbsp;информацией и&nbsp;принять решения.</span></li>
-              <li><span data-lang="en">Introduced archiving tasks, so they don't show in the general list and confuse the manager. It also lets employees see only the tasks that are relevant right now.</span><span data-lang="ru">Внедрила возможность архивировать задачи, чтобы&nbsp;они не&nbsp;отображались в&nbsp;общем списке и&nbsp;не сбивали менеджера с&nbsp;толку. Также это позволяет сотрудникам видеть в&nbsp;трекинге только те задачи, которые актуальны на&nbsp;данный момент.</span></li>
+              <li><span data-lang="en">Introduced archiving tasks, so they don't show in the general list and confuse the manager. It also lets employees see only the tasks that are relevant right now.</span><span data-lang="ru">Внедрила возможность архивировать задачи, чтобы&nbsp;они не&nbsp;отображались в&nbsp;общем списке и&nbsp;не&nbsp;сбивали менеджера с&nbsp;толку. Также это позволяет сотрудникам видеть в&nbsp;трекинге только те задачи, которые актуальны на&nbsp;данный момент.</span></li>
             </ul>
           </div>
         </div>
@@ -866,7 +870,7 @@
           <div class="fix__col fix__col--problem">
             <p class="fix__label"><span data-lang="en">Problem</span><span data-lang="ru">Проблема</span></p>
             <ul class="fix__list">
-              <li><span data-lang="en">To check employees' tracking, the manager has to type the project name on the tracking screen and then look through everyone's tracking. But that gives no clarity on why someone didn't track time, or tracked only partially. After that the manager has to search for the right employee and find the matching entry in a long task list. → The process takes a lot of time and many steps.</span><span data-lang="ru">Чтобы&nbsp;менеджер мог проверить трек сотрудников, ему нужно вручную ввести название проекта на&nbsp;экране трекинга, затем просмотреть трек сотрудников. Однако, это не&nbsp;даёт ясности, почему сотрудник не&nbsp;затрекал время или&nbsp;сделал это частично. После&nbsp;этого менеджеру нужно искать нужного сотрудника в&nbsp;поиске и&nbsp;в длинном списке задач находить соответствующую запись. → Процесс занимает много времени и&nbsp;требует множества действий.</span></li>
+              <li><span data-lang="en">To check employees' tracking, the manager has to type the project name on the tracking screen and then look through everyone's tracking. But that gives no clarity on why someone didn't track time, or tracked only partially. After that the manager has to search for the right employee and find the matching entry in a long task list. → The process takes a lot of time and many steps.</span><span data-lang="ru">Чтобы&nbsp;менеджер мог проверить трек сотрудников, ему нужно вручную ввести название проекта на&nbsp;экране трекинга, затем просмотреть трек сотрудников. Однако, это не&nbsp;даёт ясности, почему сотрудник не&nbsp;затрекал время или&nbsp;сделал это частично. После&nbsp;этого менеджеру нужно искать нужного сотрудника в&nbsp;поиске и&nbsp;в&nbsp;длинном списке задач находить соответствующую запись. → Процесс занимает много времени и&nbsp;требует множества действий.</span></li>
             </ul>
           </div>
           <div class="fix__col fix__col--solution">
@@ -974,7 +978,7 @@
 
 <footer class="footer">
   <span><span data-lang="en">© Elena Meshnina</span><span data-lang="ru">© Елена Мешнина</span></span>
-  <span><span data-lang="en">UI / UX & Product Designer</span><span data-lang="ru">UI / UX и&nbsp;продуктовый дизайнер</span></span>
+  <span><span data-lang="en">UI / UX & Product Designer</span><span data-lang="ru">Продуктовый дизайнер</span></span>
 </footer>
 
 <script src="../../script.js"></script>

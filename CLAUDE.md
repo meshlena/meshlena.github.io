@@ -37,7 +37,7 @@ meshlena.github.io/
 **Four cases total, in this order** (matches the portfolio list, hero carousel, and case-num):
 
 1. Atlas — AML triage workspace
-2. Dinogarten — kindergarten daily-report web app
+2. Dinogarten — kindergarten daily-report mobile app
 3. Corporate task-tracker (Red Collar)
 4. UI concepts (Vika Breusova course)
 

@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Dinogarten — Elena Meshnina, Product Designer</title>
-<meta name="description" content="Dinogarten — a kindergarten daily-report web app. Product design case study by Elena Meshnina." />
+<meta name="description" content="Dinogarten — a kindergarten daily-report mobile app. Product design case study by Elena Meshnina." />
 <meta name="author" content="Elena Meshnina" />
 <meta name="theme-color" content="#FBF1D5" />
 <link rel="canonical" href="https://meshlena.github.io/cases/dinogarten/index.html" />
@@ -14,12 +14,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:site_name" content="Elena Meshnina" />
 <meta property="og:title" content="Dinogarten — Elena Meshnina, Product Designer" />
-<meta property="og:description" content="A kindergarten daily-report web app. Product design case study." />
+<meta property="og:description" content="A kindergarten daily-report mobile app. Product design case study." />
 <meta property="og:url" content="https://meshlena.github.io/cases/dinogarten/index.html" />
 <meta property="og:image" content="https://meshlena.github.io/cases/dinogarten/assets/screens/new/messages-main.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Dinogarten — Elena Meshnina, Product Designer" />
-<meta name="twitter:description" content="A kindergarten daily-report web app. Product design case study." />
+<meta name="twitter:description" content="A kindergarten daily-report mobile app. Product design case study." />
 <meta name="twitter:image" content="https://meshlena.github.io/cases/dinogarten/assets/screens/new/messages-main.png" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -40,11 +40,25 @@
   /* Global styles.css sets `p { color: var(--fg); }` (cream) — force dinogarten text back to dark ink */
   main#top, main#top p, main#top li, main#top h1, main#top h2, main#top h3, main#top h4, main#top h5, main#top summary { color: #1D1D1F; }
   main#top .lede { color: #5E5E62; }
-  /* Tighter vertical rhythm between top-level blocks */
-  main#top section { padding: 32px 0; }
-  main#top section:first-of-type { padding-top: 8px; padding-bottom: 4px; }
-  main#top #overview { padding-top: 32px; }
+  /* Vertical rhythm — same clamp as the Atlas case (.atlas gap) */
+  main#top section { padding: clamp(26px, 4vh, 48px) 0; border-top: none; }
+  /* Воздух между оглавлением и первым разделом: тот же шаг, что и у под-блоков
+     внутри раздела (clamp(34px, 5.6vh, 64px)), иначе раздел 01 прижат к навигации
+     заметно плотнее, чем все следующие разделы прижаты друг к другу */
+  main#top section:first-of-type { padding-top: 8px; padding-bottom: clamp(34px, 5.6vh, 64px); }
+  /* One divider in the whole case, under the brief — exactly as in Atlas and the tracker */
+  main#top #overview {
+    padding-top: clamp(26px, 4vh, 48px);
+    padding-bottom: clamp(40px, 7vh, 80px);
+    border-bottom: 1px solid var(--line-2);
+  }
   main#top #overview h2 { margin-top: 2px; }
+  /* A second h2 inside a section starts a new block — same gap as between sections
+     (Atlas: .atlas gap clamp(44px, 8vh, 96px)) */
+  main#top section h2 ~ h2 { margin-top: clamp(44px, 8vh, 96px); }
+  /* Sub-blocks inside a section — an intermediate step, because the display h2 here
+     is heavier than Atlas's and needs to stay clearly above its sub-blocks */
+  main#top section > h3 { margin-top: clamp(34px, 5.6vh, 64px); }
   /* Footer + case-nav blend with the cream theme */
   .footer { background: rgba(29,29,31,0.04); color: #5E5E62; border-top: 1px solid rgba(29,29,31,0.08); }
   .footer a { color: inherit; }
@@ -192,6 +206,10 @@
   .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gap); }
   .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
   .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap); }
+  /* Four references read better as two rows: the columns are wide enough for whole
+     phrases, and rows align so an uneven card no longer towers over its neighbours */
+  .bench-grid { align-items: stretch; }
+  .bench-grid .comp-card { display: flex; flex-direction: column; }
   @media (max-width: 860px) {
     .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
   }
@@ -239,6 +257,12 @@
     display: inline-flex; align-items: center; justify-content: center;
     font-weight: 700; font-size: 16px;
   }
+  .hyp-link { margin: 12px 0 0; font-size: 12.5px; }
+  .hyp-link a { color: var(--purple); text-decoration: none; border-bottom: 1px solid rgba(106,79,191,0.35); }
+  .hyp-link a:hover { border-bottom-color: var(--purple); }
+  .hyp-ref { margin: 0 0 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+  .hyp-ref a { color: var(--purple); text-decoration: none; }
+  .hyp-ref a:hover { text-decoration: underline; }
   .jtbd {
     font-style: italic;
     border-left: 3px solid var(--purple);
@@ -276,58 +300,6 @@
   }
   @media (max-width: 720px) {
     .flow-arrow { transform: rotate(90deg); }
-  }
-
-  /* ---------- Mood-tap demo (inline interaction, no extra screen) ---------- */
-  .mood-demo {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    gap: 28px;
-    align-items: center;
-    background: var(--bg-elev);
-    border: 1px solid var(--line);
-    border-radius: var(--r-lg);
-    padding: 22px 24px;
-    margin: 18px 0 4px;
-    max-width: 720px;
-  }
-  .mood-demo .col { text-align: center; }
-  .mood-demo .col-label {
-    font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--ink-3);
-    margin-bottom: 12px;
-  }
-  .mood-demo .moods {
-    display: inline-flex; gap: 10px;
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: var(--r-pill);
-    padding: 6px;
-  }
-  .mood-demo .mood {
-    width: 40px; height: 40px;
-    border-radius: 50%;
-    display: inline-flex; align-items: center; justify-content: center;
-    background: #ECECEE;
-    color: #9A9AA0;
-    transition: transform 120ms ease;
-  }
-  .mood-demo .mood svg { width: 24px; height: 24px; display: block; }
-  .mood-demo .mood.picked {
-    transform: scale(1.08);
-    box-shadow: 0 6px 14px rgba(0,0,0,0.12);
-  }
-  .mood-demo .mood.picked.good { background: #C9EBD3; color: #1F9D4A; }
-  .mood-demo .mood.picked.mid  { background: #FBE4A4; color: #C58A1F; }
-  .mood-demo .mood.picked.bad  { background: #F5C7C3; color: #D14848; }
-  .mood-demo .tap {
-    display: inline-flex; align-items: center; gap: 8px;
-    color: var(--blue); font-weight: 700; font-size: 14px;
-  }
-  .mood-demo .tap .finger { font-size: 22px; }
-  @media (max-width: 720px) {
-    .mood-demo { grid-template-columns: 1fr; }
-    .mood-demo .tap { transform: rotate(90deg); }
   }
 
   /* ---------- New design PNG screens ---------- */
@@ -378,16 +350,17 @@
   .hero-art .hero-pair {
     display: flex;
     align-items: flex-start;
-    gap: 14px;
+    gap: clamp(12px, 1.6vw, 22px);
     width: 100%;
     justify-content: center;
   }
   .hero-art .hero-pair img {
-    width: 150px;
+    flex: 1 1 0;
+    min-width: 0;
+    width: auto;
     height: auto;
     border-radius: 22px;
-    filter: drop-shadow(0 16px 32px rgba(0,0,0,0.18));
-    background: var(--bg);
+    filter: drop-shadow(0 18px 38px rgba(29,29,31,0.18));
   }
   @media (max-width: 720px) {
     .hero-art .hero-pair img { width: 46%; }
@@ -564,6 +537,38 @@
     color: var(--purple); font-weight: 700; margin-bottom: 8px;
   }
 
+  /* ---------- Project brief — the two-column pattern from Atlas / tracker ---------- */
+  .brief {
+    display: grid; grid-template-columns: 1.05fr 0.95fr;
+    gap: clamp(32px, 6vw, 88px); align-items: start; margin-top: 4px;
+  }
+  .brief__lead p { font-size: 16px; line-height: 1.65; color: var(--ink); max-width: 48ch; margin: 0 0 16px; }
+  .brief__def { color: var(--ink-2) !important; margin-bottom: 0 !important; }
+  .brief__def b { color: var(--ink); font-weight: 700; }
+  .brief__facts { display: grid; gap: 22px; margin: 0; }
+  .brief__facts > div { border-top: 1px solid var(--line-2); padding-top: 14px; }
+  .brief__facts dt {
+    font-size: 11px; letter-spacing: 0.13em; text-transform: uppercase;
+    color: var(--ink-2); margin-bottom: 8px;
+  }
+  .brief__facts dd { margin: 0; font-size: 16px; line-height: 1.6; color: var(--ink); max-width: none; }
+  @media (max-width: 760px) { .brief { grid-template-columns: 1fr; gap: 28px; } }
+
+  /* Standalone conclusion — label plus paragraph, no plaque (Atlas has none) */
+  main#top .insight-lbl {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--purple); font-weight: 700; margin: 26px 0 8px;
+  }
+
+  main#top .src-note {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    margin: 14px 0 0;
+  }
+  .src-note a { color: var(--ink-2); text-decoration: underline; text-underline-offset: 2px; }
+  .src-note a:hover { color: var(--accent); }
+
   /* ---------- Hypothesis / metric ---------- */
   .hyp {
     background: var(--bg-elev);
@@ -624,7 +629,7 @@
   .toc > summary {
     padding: 16px 22px;
     font-size: 13px;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.10em;
     text-transform: uppercase;
     color: var(--ink-2);
     font-weight: 700;
@@ -680,30 +685,28 @@
   /* ---------- Hero composition ---------- */
   .hero {
     display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 40px;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(32px, 4vw, 56px);
     align-items: start;
     padding: 24px 0 0;
+    /* styles.css sets .hero { min-height: 100vh } for the landing page — inside a case
+       that stretched the hero to a full screen and left a dead gap under the mockups */
+    min-height: 0;
+    overflow: visible;
   }
   .hero-art {
-    background: linear-gradient(180deg, #F8E489, #F2D266);
-    border-radius: var(--r-xl);
-    padding: 24px;
+    /* No backing panel: the screens carry themselves, and the gradient was
+       competing with the yellow inside the mockups */
+    background: none;
+    padding: 0;
     display: flex; justify-content: center; align-items: flex-end;
     min-height: 0;
-    position: relative;
     align-self: start;
-    overflow: hidden;
   }
   .hero-art img {
-    width: 240px;
-    filter: drop-shadow(0 16px 32px rgba(0,0,0,0.18));
+    width: 100%;
+    filter: drop-shadow(0 18px 38px rgba(29,29,31,0.18));
     border-radius: 22px;
-  }
-  .hero-art::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: radial-gradient(circle at 30% 110%, rgba(255,255,255,0.5), transparent 60%);
   }
   @media (max-width: 860px) {
     .hero { grid-template-columns: 1fr; }
@@ -728,7 +731,7 @@
 
   .key-numbers {
     display: flex; flex-wrap: wrap; gap: 36px;
-    margin: 22px 0 4px;
+    margin: 20px 0 30px;
     justify-content: flex-start;
     text-align: center;
   }
@@ -742,9 +745,16 @@
     display: block; font-size: 30px; line-height: 1; font-weight: 800;
     color: var(--ink); margin-bottom: 4px;
   }
-  .key-numbers .num span {
+  .key-numbers .num > span {
     font-size: 12px; color: var(--ink-2);
   }
+  .key-numbers .num b span { font-size: inherit; color: inherit; font-weight: inherit; }
+  /* Long labels need an even column rhythm, not flex spacing */
+  .key-numbers--grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 760px) { .key-numbers--grid { grid-template-columns: repeat(2, 1fr); gap: 22px 18px; } }
 
   /* download links for source artifacts */
   .links a {
@@ -1493,7 +1503,7 @@
   <!-- i18n: pick language before paint (saved choice -> browser -> English) -->
   <script>
     window.__i18n = {
-      en: { title: "Dinogarten — Elena Meshnina, Product Designer", desc: "Dinogarten — a kindergarten daily-report web app. Product design case study by Elena Meshnina." },
+      en: { title: "Dinogarten — Elena Meshnina, Product Designer", desc: "Dinogarten — a kindergarten daily-report mobile app. Product design case study by Elena Meshnina." },
       ru: { title: "Диносадик — Елена Мешнина, продуктовый дизайнер", desc: "Диносадик — цифровой дневник для воспитателей детского сада. Кейс по продуктовому дизайну, Елена Мешнина." }
     };
     (function () {
@@ -1569,13 +1579,14 @@
   <section style="padding-top: 8px; border: none;">
     <div class="meta">
       <span class="pill"><span data-lang="en">Product Design</span><span data-lang="ru">Продуктовый дизайн</span></span>
-      <span class="pill"><span data-lang="en">Web App</span><span data-lang="ru">Веб-приложение</span></span>
+      <span class="pill"><span data-lang="en">EdTech</span><span data-lang="ru">EdTech</span></span>
+      <span class="pill"><span data-lang="en">Mobile app</span><span data-lang="ru">Мобильное приложение</span></span>
       </div>
     <div class="hero">
       <div>
         <h1><span data-lang="en"><em>Dinogarten</em> — a kind daily report tool</span><span data-lang="ru"><em>Диносадик</em></span></h1>
         <p class="lede">
-          <span data-lang="en">A web app for a kindergarten where every child is a little dinosaur —
+          <span data-lang="en">A mobile app for a kindergarten where every child is a little dinosaur —
           daily mood, homework, and parent chats in one calm place.</span><span data-lang="ru">Цифровой дневник для воспитателей детского сада: управление группами, оценка успеваемости и поведения детей, а также коммуникация с родителями</span>
         </p>
         <div class="key-numbers">
@@ -1590,7 +1601,7 @@
             <li><a href="#overview"><span class="num">01</span><span data-lang="en">Project overview</span><span data-lang="ru">Обзор проекта</span></a></li>
             <li><a href="#role"><span class="num">02</span><span data-lang="en">Role</span><span data-lang="ru">Роль</span></a></li>
             <li><a href="#discovery"><span class="num">03</span><span data-lang="en">Discovery &amp; research</span><span data-lang="ru">Дискавери и исследование</span></a></li>
-            <li><a href="#hypotheses"><span class="num">04</span><span data-lang="en">Hypotheses &amp; JTBD</span><span data-lang="ru">Гипотезы и JTBD</span></a></li>
+            <li><a href="#hypotheses"><span class="num">04</span><span data-lang="en">Hypotheses &amp; JTBD</span><span data-lang="ru">Гипотезы и JTBD</span></a></li>
             <li><a href="#scenarios"><span class="num">05</span><span data-lang="en">Scenarios &amp; solutions</span><span data-lang="ru">Сценарии и решения</span></a></li>
             <li><a href="#concept"><span class="num">06</span><span data-lang="en">The new concept</span><span data-lang="ru">Новая концепция</span></a></li>
             <li><a href="#summary"><span class="num">07</span><span data-lang="en">Summary</span><span data-lang="ru">Итоги</span></a></li>
@@ -1612,32 +1623,33 @@
   <section id="overview">
     <span class="section-num"><span class="check">✓</span> 01 · <span data-lang="en">Project overview</span><span data-lang="ru">Обзор проекта</span></span>
     <h2><span data-lang="en">What is <em>Dinogarten</em>?</span><span data-lang="ru">Что такое <em>Диносадик</em>?</span></h2>
-    <p>
-      <span data-lang="en">Dinogarten is a web app that turns the daily reality of a preschool group
-      into something legible at a glance. Educators manage attendance, mood,
-      homework, and parent communication for several mixed-age groups. The
-      product reframes the paperwork of childcare as a warm, picture-led
-      interface rather than a grading sheet.</span><span data-lang="ru">Диносадик — веб-приложение для детского сада, где каждый воспитанник
-      представлен в образе маленького динозаврика. Воспитатели ведут цифровой
-      дневник успеваемости и поведения, работают с группами и общаются с родителями через единый интерфейс</span>
-    </p>
-    <p>
-      <span data-lang="en"><b>Target audience:</b> kindergarten educators, predominantly women aged
-      25–54.
-      <br />
-      <b>User mission:</b> capture what happened with each child today, without
-      losing five minutes of attention from the room.
-      <br />
-      <b>Business goal:</b> reduce daily admin time, increase parent engagement,
-      and give administrators a real-time view of group well-being.</span><span data-lang="ru"><b>Целевая аудитория:</b> воспитатели детских садов, преимущественно женщины
-      25–54 лет.
-      <br />
-      <b>Задача пользователя:</b> зафиксировать, что сегодня произошло с каждым
-      ребёнком, не теряя ни пяти минут внимания к группе.
-      <br />
-      <b>Бизнес-цель:</b> сделать процесс ведения дневника успеваемости и поведения
-      удобнее для воспитателей и обеспечить простую коммуникацию с родителями в одном приложении.</span>
-    </p>
+    <div class="brief">
+      <div class="brief__lead">
+        <p><span data-lang="en">An educator keeps a daily record for every child — mood, behaviour, homework —
+        and answers parents alongside it. All of it happens during the day, without stepping away
+        from the room</span><span data-lang="ru">Воспитатель ведёт по каждому ребёнку дневник — настроение, поведение,
+        домашние задания — и параллельно отвечает родителям. Всё это происходит в течение дня,
+        не отходя от группы</span></p>
+        <p class="brief__def"><span data-lang="en"><b>Dinogarten</b> is an app for a kindergarten where every child is
+        a little dinosaur: the daily diary, the groups and the parent chat in one place</span><span data-lang="ru"><b>Диносадик</b> — приложение
+        для детского сада, где каждый воспитанник представлен в образе маленького динозаврика:
+        дневник, группы и переписка с родителями в одном месте</span></p>
+      </div>
+      <dl class="brief__facts">
+        <div>
+          <dt><span data-lang="en">Audience</span><span data-lang="ru">Аудитория продукта</span></dt>
+          <dd><span data-lang="en">Kindergarten educators, predominantly women aged 25–54</span><span data-lang="ru">Воспитатели детских садов, преимущественно женщины 25–54 лет</span></dd>
+        </div>
+        <div>
+          <dt><span data-lang="en">User mission</span><span data-lang="ru">Задача пользователя</span></dt>
+          <dd><span data-lang="en">Capture what happened with each child today, without losing five minutes of attention from the room</span><span data-lang="ru">Зафиксировать, что сегодня произошло с каждым ребёнком, не теряя ни пяти минут внимания к группе</span></dd>
+        </div>
+        <div>
+          <dt><span data-lang="en">Business goal</span><span data-lang="ru">Бизнес-цель</span></dt>
+          <dd><span data-lang="en">Reduce daily admin time, increase parent engagement, and give administrators a real-time view of group well-being</span><span data-lang="ru">Сделать ведение дневника группы удобнее для&nbsp;воспитателей, упростить коммуникацию с&nbsp;родителями и&nbsp;собрать ежедневные задачи в&nbsp;одном приложении</span></dd>
+        </div>
+      </dl>
+    </div>
   </section>
 
   <!-- ============ 2. ROLE ============ -->
@@ -1657,36 +1669,107 @@
   <!-- ============ 3. DISCOVERY ============ -->
   <section id="discovery">
     <span class="section-num"><span class="check">✓</span> 03 · <span data-lang="en">Discovery &amp; research</span><span data-lang="ru">Дискавери и исследование</span></span>
-    <h2><span data-lang="en">Benchmarking</span><span data-lang="ru">Бенчмаркинг</span></h2>
+    <h2><span data-lang="en">Desk research</span><span data-lang="ru">Кабинетное исследование</span></h2>
     <p>
-      <span data-lang="en">Rather than inventing from zero, I audited four established products that
-      address adjacent problems and asked: <i>what pattern, if I adopted it,
-      would make an educator's day quietly easier?</i></span><span data-lang="ru">На этапе исследования я проанализировала четыре продукта со схожими задачами.
-      Это помогло определить удачные UX-паттерны, избежать типичных ошибок и принять
-      обоснованные решения при проектировании интерфейса.</span>
+      <span data-lang="en">Before benchmarking I gathered published research on two questions: how much of
+      an educator's working day goes to things other than working with children, and what tools
+      educators reach for today.</span><span data-lang="ru">Перед бенчмаркингом я собрала опубликованные исследования по двум вопросам:
+      сколько рабочего времени воспитателя уходит не на работу с детьми и какими инструментами
+      воспитатели пользуются сегодня.</span>
     </p>
 
-    <div class="grid-4">
+    <h3><span data-lang="en">What the routine costs</span><span data-lang="ru">Сколько времени забирает рутина</span></h3>
+    <p>
+      <span data-lang="en">A time-use diary study of 321 educators across 304 centres — 10,155 records — and
+      a survey of 570 educators. What came out of them:</span><span data-lang="ru">Хронометраж 321 воспитателя в 304 садах — 10 155 записей
+      в дневниках времени — и опрос 570 педагогов. Что выяснилось:</span>
+    </p>
+    <div class="key-numbers key-numbers--grid">
+      <div class="num"><b><span data-lang="en">25.7%</span><span data-lang="ru">25,7%</span></b><span><span data-lang="en">of the day is not spent with children</span><span data-lang="ru">дня проходит не с детьми</span></span></div>
+      <div class="num"><b><span data-lang="en">6.5%</span><span data-lang="ru">6,5%</span></b><span><span data-lang="en">of it goes to administration</span><span data-lang="ru">из них — администрирование</span></span></div>
+      <div class="num"><b>30%</b><span><span data-lang="en">of paid hours undistracted</span><span data-lang="ru">оплаченных часов без отвлечений</span></span></div>
+      <div class="num"><b>73–80%</b><span><span data-lang="en">of educators work unpaid hours</span><span data-lang="ru">воспитателей перерабатывают</span></span></div>
+    </div>
+    <p>
+      <span data-lang="en">The rest of the day splits like this: planning and assessment 8.8%, administration
+      6.5%, family communication just 3.7%. Unpaid overtime averages nine hours
+      a week.</span><span data-lang="ru">Остальное расходится так: планирование и оценка — 8,8%, администрирование —
+      6,5%, общение с семьями — всего 3,7%. В среднем переработка составляет 9 часов
+      в неделю.</span>
+    </p>
+    <p class="src-note">
+      <span data-lang="en">Sources: </span><span data-lang="ru">Источники: </span><a href="https://journals.sagepub.com/doi/10.1177/18369391231219820" target="_blank" rel="noopener">Harrison et al., <i>Australasian Journal of Early Childhood</i>, 2024</a> · <a href="https://link.springer.com/article/10.1007/s13384-025-00847-z" target="_blank" rel="noopener"><i>The Australian Educational Researcher</i>, 2025</a>
+    </p>
+
+    <h3><span data-lang="en">How educators solve this today</span><span data-lang="ru">Как воспитатели решают это сейчас</span></h3>
+    <p>
+      <span data-lang="en">A survey of 273 educators on the channels they use to reach parents. What came out
+      of it:</span><span data-lang="ru">Опрос 273 педагогов о том, какими каналами связи с родителями они пользуются.
+      Что выяснилось:</span>
+    </p>
+    <div class="grid-3">
+      <div class="comp-card">
+        <div class="lbl"><span data-lang="en">Email</span><span data-lang="ru">Почта</span></div>
+        <h4><span data-lang="en">53.2%</span><span data-lang="ru">53,2%</span></h4>
+        <p><span data-lang="en">The most common channel to parents. Available to everyone, but it doesn't structure what is known about a child: the messages that matter stay in the thread and never gather in one place</span><span data-lang="ru">Самый частый канал связи с родителями. Доступен всем, но не структурирует информацию о ребёнке: важные сообщения остаются в переписке и не собираются в одном месте</span></p>
+      </div>
+      <div class="comp-card">
+        <div class="lbl"><span data-lang="en">School platform</span><span data-lang="ru">Школьная платформа</span></div>
+        <h4><span data-lang="en">51.6%</span><span data-lang="ru">51,6%</span></h4>
+        <p><span data-lang="en">Covers the reporting requirement, but gets filled in after the shift. It's a form, not a tool you use while the room is running</span><span data-lang="ru">Закрывает требования по отчётности, но заполняется после смены. Это форма, а не инструмент, которым пользуются посреди дня</span></p>
+      </div>
+      <div class="comp-card">
+        <div class="lbl"><span data-lang="en">Messengers</span><span data-lang="ru">Мессенджеры</span></div>
+        <h4><span data-lang="en">42.1%</span><span data-lang="ru">42,1%</span></h4>
+        <p><span data-lang="en">Fast and familiar, so part of the conversation leaks here — but what is known about a given child stays scattered across chats</span><span data-lang="ru">Быстро и привычно, поэтому часть общения утекает сюда — но информация о конкретном ребёнке остаётся разбросанной по чатам</span></p>
+      </div>
+    </div>
+
+    <p class="insight-lbl"><span data-lang="en">Insight</span><span data-lang="ru">Вывод</span></p>
+    <p>
+      <span data-lang="en">Dedicated school-to-parent apps are the least used channel of all: 88.7% of educators
+      barely touch them, and 62.3% name them the least suitable tool. The problem isn't that such
+      products don't exist — it's that nobody reaches for them. So the concept rests on an app that
+      feels lighter than a messenger, not heavier than a platform.</span><span data-lang="ru">Специализированные приложения для связи сада с родителями — самый редкий
+      канал: 88,7% педагогов почти к ним не обращаются, а 62,3% называют их наименее подходящим
+      инструментом. Проблема не в том, что таких продуктов нет, — а в том, что к ним не тянутся.
+      Поэтому в основе концепции — приложение, которое ощущается легче мессенджера, а не тяжелее платформы.</span>
+    </p>
+    <p class="src-note">
+      <span data-lang="en">Source: </span><span data-lang="ru">Источник: </span><a href="https://link.springer.com/article/10.1007/s13158-025-00419-3" target="_blank" rel="noopener"><i>International Journal of Early Childhood</i>, Springer, 2025</a>
+    </p>
+
+    <h2><span data-lang="en">Benchmarking</span><span data-lang="ru">Бенчмаркинг</span></h2>
+    <p>
+      <span data-lang="en">Rather than inventing from zero, I audited four established products that address
+      adjacent problems, looking for patterns that would make an educator's day quietly easier.
+      What came out of it:</span><span data-lang="ru">Вместо того чтобы придумывать с нуля, я проанализировала четыре продукта
+      со схожими задачами — искала паттерны, которые незаметно облегчают день воспитателя.
+      Что выяснилось:</span>
+    </p>
+
+    <div class="grid-2 bench-grid">
       <div class="comp-card">
         <div class="lbl"><span data-lang="en">Reference 1</span><span data-lang="ru">Референс 1</span></div>
         <h4>SmartSchoolPro</h4>
-        <p><span data-lang="en">Information is split across tabs — each one a separate cognitive bucket. Makes a dense data screen feel light.</span><span data-lang="ru">Смысловое разделение информации по вкладкам снижает когнитивную нагрузку.</span></p>
+        <p><span data-lang="en">Information is split across tabs — each one a separate cognitive bucket. Makes a dense data screen feel light</span><span data-lang="ru">Смысловое разделение информации по вкладкам снижает когнитивную нагрузку</span></p>
+        <p><span data-lang="en">Information about children and groups lives in one place and reports are built from it, so the educator never enters the same thing twice</span><span data-lang="ru">Информация о детях и группах хранится в одном месте, а отчётность формируется на её основе: воспитателю не нужно вносить одну и ту же информацию дважды</span></p>
       </div>
       <div class="comp-card">
         <div class="lbl"><span data-lang="en">Reference 2</span><span data-lang="ru">Референс 2</span></div>
         <h4>ClassDojo</h4>
-        <p><span data-lang="en">Parent announcements live in a chat thread. A pattern parents already understand from messaging apps.</span><span data-lang="ru">Объявления встроены в чат с родителями, поэтому пользователям не нужно осваивать новый способ взаимодействия — сценарий знаком по привычным мессенджерам.</span></p>
-        <p><span data-lang="en"><b>Picture grades instead of letters</b> — kindergarten doesn't need a 1–5 score; smiles do better work.</span><span data-lang="ru">Вместо числовых оценок используются визуальные обозначения, что делает информацию более понятной и дружелюбной для дошкольного контекста.</span></p>
+        <p><span data-lang="en">Parent announcements live in a chat thread. A pattern parents already understand from messaging apps</span><span data-lang="ru">Объявления встроены в чат с родителями, поэтому пользователям не нужно осваивать новый способ взаимодействия — сценарий знаком по привычным мессенджерам</span></p>
+        <p><span data-lang="en">Picture grades instead of letters — kindergarten doesn't need a 1–5 score; smiles do better work</span><span data-lang="ru">Вместо числовых оценок используются визуальные обозначения, что делает информацию более понятной и дружелюбной для дошкольного контекста</span></p>
       </div>
       <div class="comp-card">
         <div class="lbl"><span data-lang="en">Reference 3</span><span data-lang="ru">Референс 3</span></div>
         <h4>Procare</h4>
-        <p><span data-lang="en">Birthday reminders surface before they're missed. Calendar uses color-coding consistently across the product.</span><span data-lang="ru">Важные события отображаются заранее, чтобы их нельзя было пропустить. Единая система цветового кодирования помогает быстрее ориентироваться в календаре.</span></p>
+        <p><span data-lang="en">Birthday reminders surface before they're missed. Calendar uses color-coding consistently across the product</span><span data-lang="ru">Важные события отображаются заранее, чтобы их нельзя было пропустить. Единая система цветового кодирования помогает быстрее ориентироваться в календаре</span></p>
       </div>
       <div class="comp-card">
         <div class="lbl"><span data-lang="en">Reference 4</span><span data-lang="ru">Референс 4</span></div>
         <h4>Lillio</h4>
-        <p><span data-lang="en">Allergies are foregrounded in the child profile — not buried under notes. Critical safety info, treated as critical.</span><span data-lang="ru">Критически важная информация (например, аллергии) вынесена на первый план профиля ребёнка и не теряется среди остальных данных.</span></p>
+        <p><span data-lang="en">Allergies are foregrounded in the child profile — not buried under notes. Critical safety info, treated as critical</span><span data-lang="ru">Критически важная информация (например, аллергии) вынесена на первый план профиля ребёнка и не теряется среди остальных данных</span></p>
       </div>
     </div>
 
@@ -1694,13 +1777,13 @@
 
   <!-- ============ 4. HYPOTHESES ============ -->
   <section id="hypotheses">
-    <span class="section-num"><span class="check">✓</span> 04 · <span data-lang="en">Hypotheses &amp; JTBD</span><span data-lang="ru">Гипотезы и JTBD</span></span>
+    <span class="section-num"><span class="check">✓</span> 04 · <span data-lang="en">Hypotheses &amp; JTBD</span><span data-lang="ru">Гипотезы и JTBD</span></span>
     <h2><span data-lang="en">What we believe before we build</span><span data-lang="ru">Что я предположила</span></h2>
     <p>
       <span data-lang="en">Each insight from discovery becomes a testable proposition. Threshold for a
       hypothesis to "hold": <b>75% of educators</b> in a usability round confirm
       the behavior or preference. Threshold was chosen to flag patterns strong
-      enough to ship without leaving room for confirmation bias on small samples.</span><span data-lang="ru">Каждый инсайт из исследования был преобразован в JTBD-гипотезу с заранее
+      enough to ship without leaving room for confirmation bias on small samples.</span><span data-lang="ru">Каждый инсайт из исследования был преобразован в JTBD-гипотезу с заранее
       определённым критерием успешности. В качестве порога подтверждения я выбрала
       <b>75%</b> положительных ответов участников юзабилити-тестирования — этого
       достаточно, чтобы считать паттерн устойчивым и снизить влияние единичных
@@ -1710,39 +1793,45 @@
     <div class="grid-2" style="margin-top: 18px;">
       <div class="hyp">
         <span class="threshold">≥ 75%</span><span class="jtbd-tag">JTBD</span>
-        <h3 style="margin-top: 6px;"><span data-lang="en">H1 · Color-coded groups beat alphabetical lists</span><span data-lang="ru">H1 · Цвет помогает быстрее находить группы</span></h3>
-        <p><span data-lang="en">When an educator opens the home screen, color-themed group cards (one color per group) let them locate "their" group faster than a sortable list — because color is recognized pre-attentively.</span><span data-lang="ru">Когда воспитатель открывает главный экран, карточки групп в фирменных цветах (один цвет на группу) позволяют найти «свою» группу быстрее, чем сортируемый список — потому что цвет считывается предвнимательно.</span></p>
-        <p><span data-lang="en"><b>Job story:</b> When I work with several groups at the same time, I want to find the right group fast, so I can check the schedule without losing time.</span><span data-lang="ru"><b>Job story:</b> Когда я работаю одновременно с несколькими группами, я хочу быстро находить нужную группу, чтобы проверить расписание, не теряя времени.</span></p>
+        <h3 style="margin-top: 6px;"><span data-lang="en">H1 · A group's colour shortens the path to a child's card</span><span data-lang="ru">H1 · Цвет группы сокращает путь до карточки ребёнка</span></h3>
+        <p><span data-lang="en">Educators find the right child faster when groups on the home screen differ by colour and not only by name</span><span data-lang="ru">Воспитатели быстрее находят нужного ребёнка, когда группы на главном экране различаются цветом, а не только названием</span></p>
+        <p><span data-lang="en"><b>Job story:</b> When I need to note something about a child, I want to open their card quickly, so I can put it in right away instead of leaving it for later</span><span data-lang="ru"><b>Job story:</b> Когда мне нужно записать что-то про ребёнка, я хочу быстро открыть его карточку, чтобы внести всё сразу и не откладывать</span></p>
+        <p class="hyp-link"><a href="#s1"><span data-lang="en">Solution — scenario 1</span><span data-lang="ru">Решение — сценарий 1</span></a></p>
       </div>
       <div class="hyp">
         <span class="threshold">≥ 75%</span><span class="jtbd-tag">JTBD</span>
-        <h3 style="margin-top: 6px;"><span data-lang="en">H2 · Smiley mood avatars are richer than a 1–5 grade</span><span data-lang="ru">H2 · Смайлики понятнее оценок</span></h3>
-        <p><span data-lang="en">Educators capture a child's daily mood faster and with less ambivalence using a 3-state picture (happy / neutral / sad) than a numeric scale — and parents understand the result without translation.</span><span data-lang="ru">Воспитатели фиксируют дневное настроение ребёнка быстрее и без сомнений с помощью трёхпозиционной картинки (радость / нейтрально / грусть), чем по числовой шкале, — а родители понимают результат без перевода.</span></p>
-        <p><span data-lang="en"><b>Job story:</b> When I want to record a dinosaur's progress for the day, I want to find them quickly, so I can log it on time and not forget anything.</span><span data-lang="ru"><b>Job story:</b> Когда я хочу зафиксировать, как прошёл день у динозаврика, я хочу быстро его найти, чтобы внести всё вовремя и ничего не забыть.</span></p>
+        <h3 style="margin-top: 6px;"><span data-lang="en">H2 · Smiley mood avatars are clearer than a 1–5 grade</span><span data-lang="ru">H2 · Смайлики понятнее оценок</span></h3>
+        <p><span data-lang="en">Educators record a child's mood faster and more confidently with three states — happy, neutral, sad — than with a numeric scale</span><span data-lang="ru">Воспитатели быстрее и увереннее фиксируют настроение ребёнка тремя вариантами состояния — радость, нейтрально, грусть, — чем по числовой шкале</span></p>
+        <p><span data-lang="en"><b>Job story:</b> When a child's day is over and I record how it went, I want to pick a state with one tap, so I do not have to translate a mood into a number or second-guess the score</span><span data-lang="ru"><b>Job story:</b> Когда день у ребёнка закончился и я отмечаю, как он прошёл, я хочу выбрать состояние одним касанием, чтобы не переводить настроение в баллы и не сомневаться в оценке</span></p>
+        <p class="hyp-link"><a href="#s2"><span data-lang="en">Solution — scenario 2</span><span data-lang="ru">Решение — сценарий 2</span></a></p>
       </div>
       <div class="hyp">
         <span class="threshold">≥ 75%</span><span class="jtbd-tag">JTBD</span>
-        <h3 style="margin-top: 6px;"><span data-lang="en">H3 · Allergies belong at the top of the card</span><span data-lang="ru">H3 · Аллергии заметнее в верхней части карточки</span></h3>
-        <p><span data-lang="en">When a child's card is opened, foregrounded allergy callouts (red-highlighted, above the fold) prevent the moments where an educator scrolls past dietary info under stress.</span><span data-lang="ru">Когда открыта карточка ребёнка, вынесенные на первый план плашки об аллергии (красная подсветка, без прокрутки) исключают ситуации, когда воспитатель в спешке пролистывает информацию о питании.</span></p>
-        <p><span data-lang="en"><b>Job story:</b> When I need to add new information about a little dinosaur, I want to find their card quickly, so I can fill everything in on time and not forget anything.</span><span data-lang="ru"><b>Job story:</b> Когда мне нужно добавить новую информацию о маленьком динозаврике, я хочу быстро найти его карточку, чтобы всё заполнить вовремя и ничего не забыть.</span></p>
+        <h3 style="margin-top: 6px;"><span data-lang="en">H3 · A route from the chat to the card beats searching</span><span data-lang="ru">H3 · Переход из чата в карточку быстрее поиска</span></h3>
+        <p><span data-lang="en">Educators lose the thread less often when the chat with a parent leads straight into the card of the child it is about, than when they have to find that child in the general list after reading the message</span><span data-lang="ru">Воспитатели реже теряют нить, если из чата с родителем можно сразу попасть в карточку ребёнка, о котором идёт речь, чем когда после сообщения его приходится искать в общем списке</span></p>
+        <p><span data-lang="en"><b>Job story:</b> When a parent messages me that their child is sick and won't come in, I want to read the message, reply, and get to that child's card right away, so I don't forget and can keep working with the other children</span><span data-lang="ru"><b>Job story:</b> Когда родитель пишет мне, что его ребёнок заболел и не придёт, я хочу прочитать сообщение, ответить и сразу перейти в его карточку, чтобы не забыть и продолжить работать с остальными детьми</span></p>
+        <p class="hyp-link"><a href="#s3"><span data-lang="en">Solution — scenario 3</span><span data-lang="ru">Решение — сценарий 3</span></a></p>
       </div>
       <div class="hyp">
         <span class="threshold">≥ 75%</span><span class="jtbd-tag">JTBD</span>
         <h3 style="margin-top: 6px;"><span data-lang="en">H4 · One group-wide announcement beats N parent DMs</span><span data-lang="ru">H4 · Одно объявление удобнее личных сообщений</span></h3>
-        <p><span data-lang="en">Educators who need to inform every parent of the same thing (closure, outing, snack day) prefer a single broadcast composer to a chat list — and parents accept the format because it mirrors school-chat groups.</span><span data-lang="ru">Воспитатели, которым нужно сообщить всем родителям одно и то же (закрытие, выход, день перекуса), предпочитают единый редактор рассылки списку чатов — а родители принимают формат, потому что он повторяет школьные групповые чаты.</span></p>
-        <p><span data-lang="en"><b>Job story:</b> When I need to make an announcement for parents, I want to send it to every parent in the group at once, so I save time and don't have to repeat myself.</span><span data-lang="ru"><b>Job story:</b> Когда мне нужно сделать объявление для родителей, я хочу отправить его сразу всем родителям группы, чтобы сэкономить время и не повторять одно и то же.</span></p>
+        <p><span data-lang="en">Educators tell the whole group something important faster through a single announcement composer than through a list of separate chats</span><span data-lang="ru">Воспитатели быстрее сообщают всей группе важную информацию через единый редактор объявлений, чем через список отдельных чатов</span></p>
+        <p><span data-lang="en"><b>Job story:</b> When I need to tell every parent in the group the same thing, I want to write it once, so I do not repeat the message in every chat</span><span data-lang="ru"><b>Job story:</b> Когда мне нужно сообщить одно и то же всем родителям группы, я хочу написать это один раз, чтобы не повторять сообщение в каждом чате</span></p>
+        <p class="hyp-link"><a href="#s4"><span data-lang="en">Solution — scenario 4</span><span data-lang="ru">Решение — сценарий 4</span></a></p>
       </div>
       <div class="hyp">
         <span class="threshold">≥ 75%</span><span class="jtbd-tag">JTBD</span>
-        <h3 style="margin-top: 6px;"><span data-lang="en">H5 · Favorites + calendar handle multi-group educators</span><span data-lang="ru">H5 · Избранное и календарь ускоряют работу с несколькими группами</span></h3>
-        <p><span data-lang="en">For educators who teach across groups, a "favorites" filter plus a color-coded month calendar removes the navigation cost of swapping groups during a busy day.</span><span data-lang="ru">Для воспитателей, работающих сразу в нескольких группах, фильтр «избранное» плюс месячный календарь с цветовым кодированием убирают навигационные издержки на переключение групп в загруженный день.</span></p>
-        <p><span data-lang="en"><b>Job story:</b> When I need to set homework for the children, I want to assign it to the whole group at once, so I keep my workflow efficient.</span><span data-lang="ru"><b>Job story:</b> Когда мне нужно задать детям домашнее задание, я хочу назначить его сразу всей группе, чтобы сохранять эффективность работы.</span></p>
+        <h3 style="margin-top: 6px;"><span data-lang="en">H5 · Homework belongs on the group page</span><span data-lang="ru">H5 · Домашнее задание — на странице группы</span></h3>
+        <p><span data-lang="en">Educators send a task more often when they compose it right on the group page and address it to the whole group at once, than when it means going to a separate section and choosing recipients</span><span data-lang="ru">Воспитатели чаще отправляют задание, если создают его прямо на странице группы и сразу адресуют всей группе, чем когда для этого нужно переходить в отдельный раздел и выбирать получателей</span></p>
+        <p><span data-lang="en"><b>Job story:</b> When I set homework, I want to assign it to the whole group in one go, so I don't create it separately for each child</span><span data-lang="ru"><b>Job story:</b> Когда я задаю домашнее задание, я хочу назначить его всей группе за один раз, чтобы не создавать его отдельно для каждого ребёнка</span></p>
+        <p class="hyp-link"><a href="#s5"><span data-lang="en">Solution — scenario 5</span><span data-lang="ru">Решение — сценарий 5</span></a></p>
       </div>
       <div class="hyp">
         <span class="threshold">≥ 75%</span><span class="jtbd-tag">JTBD</span>
-        <h3 style="margin-top: 6px;"><span data-lang="en">H6 · A friendly mascot lowers data-entry resistance</span><span data-lang="ru">H6 · Дружелюбный маскот снижает сопротивление вводу данных</span></h3>
-        <p><span data-lang="en">Educators report higher willingness to log daily details in a product that feels playful (dinosaurs, soft colors, named children) than in a "professional" CRM-style form — without sacrificing perceived seriousness for admins.</span><span data-lang="ru">Воспитатели охотнее фиксируют ежедневные детали в продукте, который ощущается игровым (динозавры, мягкие цвета, дети по именам), чем в «профессиональной» форме в стиле CRM — при этом не теряя ощущения серьёзности для администраторов.</span></p>
-        <p><span data-lang="en"><b>Job story:</b> When a parent messages me that their dinosaur is sick and won't come in, I want to read the message, reply, and flag the absence right away, so I don't forget and can keep working with the other children.</span><span data-lang="ru"><b>Job story:</b> Когда родитель пишет мне, что его динозаврик заболел и не придёт, я хочу прочитать сообщение, ответить и сразу отметить отсутствие, чтобы не забыть и продолжить работать с остальными детьми.</span></p>
+        <h3 style="margin-top: 6px;"><span data-lang="en">H6 · Today's sessions come first</span><span data-lang="ru">H6 · Сегодняшние занятия — в приоритете</span></h3>
+        <p><span data-lang="en">Educators who run several groups find what they need faster when groups with a session today are shown at the top of the home screen and the day's events live in the calendar tab, rather than when every group is one flat list</span><span data-lang="ru">Воспитатели, которые ведут несколько групп, быстрее находят нужную информацию, если группы с занятиями сегодня показаны вверху главного экрана, а события дня — в разделе с календарём, а не когда все группы идут одним списком</span></p>
+        <p><span data-lang="en"><b>Job story:</b> When I run several groups, I want to see what I have today straight away, so I don't open each group and hunt for its schedule</span><span data-lang="ru"><b>Job story:</b> Когда я веду сразу несколько групп, я хочу сразу видеть, что у меня сегодня, чтобы не открывать каждую группу и не искать её расписание</span></p>
+        <p class="hyp-link"><a href="#s6"><span data-lang="en">Solution — scenario 6</span><span data-lang="ru">Решение — сценарий 6</span></a></p>
       </div>
     </div>
   </section>
@@ -1752,100 +1841,84 @@
     <span class="section-num"><span class="check">✓</span> 05 · <span data-lang="en">Scenarios &amp; solutions</span><span data-lang="ru">Сценарии и решения</span></span>
     <h2><span data-lang="en">Six scenarios, one warm system</span><span data-lang="ru">Шесть сценариев</span></h2>
     <p>
-      <span data-lang="en">Each scenario below is framed as a Job-To-Be-Done, walked through as a
-      flow, and resolved with the screen(s) that carry it.</span><span data-lang="ru">Каждый сценарий ниже описан в формате Job-To-Be-Done, затем переведён в
-      user flow и реализован в виде одного или нескольких экранов интерфейса.</span>
+      <span data-lang="en">Solutions grounded in the hypotheses and job stories</span><span data-lang="ru">Решения, основанные на гипотезах и job stories</span>
     </p>
 
-    <!-- ===== Scenario 1: Quick access to child through group ===== -->
+    <!-- ===== Scenario 1: Child card — fast to find, important first ===== -->
     <div class="scenario" id="s1">
       <div class="scenario-header">
         <div class="scenario-num">1</div>
         <div>
-          <h3 style="margin-top: 0;"><span data-lang="en">Quick access to a child's card through group</span><span data-lang="ru">Быстрый доступ к карточке ребёнка через группу</span></h3>
-          <p class="jtbd"><span data-lang="en">"When I need to add information about a dinosaur, I want to find their card fast so I can fill things in without losing the moment."</span><span data-lang="ru">«Когда мне нужно добавить информацию о динозаврике, я хочу быстро найти его карточку, чтобы всё внести, не упустив момент».</span></p>
+          <h3 style="margin-top: 0;"><span data-lang="en">The child's card: fast to find, important things first</span><span data-lang="ru">Карточка ребёнка: быстро найти и сразу увидеть главное</span></h3>
+          <p class="hyp-ref"><a href="#hypotheses"><span data-lang="en">H1 · A group's colour shortens the path to a child's card</span><span data-lang="ru">H1 · Цвет группы сокращает путь до карточки ребёнка</span></a></p>
+          <p class="jtbd"><span data-lang="en">"When I need to note something about a child, I want to open their card quickly, so I can put it in right away instead of leaving it for later"</span><span data-lang="ru">«Когда мне нужно записать что-то про ребёнка, я хочу быстро открыть его карточку, чтобы внести всё сразу и не откладывать»</span></p>
         </div>
       </div>
       <p>
         <span data-lang="en">The home screen is the educator's anchor. Open the app, pick the right
         group, scan every child in one scroll, tap to open their card — three
-        taps to the right dinosaur, no search detour, no nested menus.</span><span data-lang="ru">Главный экран спроектирован для быстрого доступа к основным сценариям.
+        taps to the right dinosaur, no search detour, no nested menus.
+        The child's card gathers everything that matters: allergies, birthday and the
+        educator's notes. A new note can be added right there.</span><span data-lang="ru">Главный экран спроектирован для быстрого доступа к основным сценариям.
         Воспитатель выбирает группу, видит список всех детей и открывает карточку
         нужного ребёнка за три касания, без использования поиска и вложенной
-        навигации.</span>
+        навигации. В карточке ребёнка собрана вся важная информация: аллергии, день рождения
+        и заметки воспитателя. Здесь же можно быстро добавить новую заметку.</span>
       </p>
 
       <div class="screens-row">
         <div class="screen-frame">
           <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/main-collapsed.png" alt="Main screen (375×812)">
-          <div class="screen-caption"><span data-lang="en"><b>Home.</b> Today's schedule plus every group, color-keyed.</span><span data-lang="ru"><b>Главная.</b> Расписание на сегодня и все группы с цветовым кодом.</span></div>
+          <div class="screen-caption"><span data-lang="en"><b>Home.</b> Today's schedule plus every group, color-keyed</span><span data-lang="ru"><b>Главная.</b> Расписание на сегодня и все группы с цветовым кодом</span></div>
         </div>
         <div class="flow-arrow" aria-hidden="true">→</div>
         <div class="screen-frame">
           <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/group-collapsed.png" alt="Group detail (375×812)">
-          <div class="screen-caption"><span data-lang="en"><b>Group.</b> Every child in one scroll.</span><span data-lang="ru"><b>Группа.</b> Все дети в один скролл.</span></div>
+          <div class="screen-caption"><span data-lang="en"><b>Group.</b> Schedule, the full list of children, and homework for the whole group</span><span data-lang="ru"><b>Группа.</b> Расписание, список всех детей и домашнее задание на всю группу</span></div>
         </div>
         <div class="flow-arrow" aria-hidden="true">→</div>
         <div class="screen-frame">
           <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/kid-card-collapsed.png" alt="Kid card (375×812)">
-          <div class="screen-caption"><span data-lang="en"><b>Kid card.</b> Allergy, mood, notes, one-tap message to parent.</span><span data-lang="ru"><b>Карточка ребёнка.</b> Аллергия, настроение, заметки, сообщение родителю в один тап.</span></div>
+          <div class="screen-caption"><span data-lang="en"><b>Kid card.</b> Allergy, mood, notes, one-tap message to parent</span><span data-lang="ru"><b>Карточка ребёнка.</b> Аллергия, настроение, заметки, сообщение родителю в один тап</span></div>
         </div>
       </div>
     </div>
 
-    <!-- ===== Scenario 2: Grading performance ===== -->
+    <!-- ===== Scenario 2: Recording how the day went ===== -->
     <div class="scenario" id="s2">
       <div class="scenario-header">
         <div class="scenario-num">2</div>
         <div>
           <h3 style="margin-top: 0;"><span data-lang="en">Recording how the day went</span><span data-lang="ru">Фиксация того, как прошёл день</span></h3>
-          <p class="jtbd"><span data-lang="en">"When I want to mark a dinosaur's day, I want to find them quickly and tap a feeling, not pick a number."</span><span data-lang="ru">«Когда я хочу отметить день динозаврика, я хочу быстро его найти и тапнуть по настроению, а не выбирать число».</span></p>
+          <p class="hyp-ref"><a href="#hypotheses"><span data-lang="en">H2 · Smiley mood avatars are clearer than a 1–5 grade</span><span data-lang="ru">H2 · Смайлики понятнее оценок</span></a></p>
+          <p class="jtbd"><span data-lang="en">"When a child's day is over and I record how it went, I want to pick a state with one tap, so I do not have to translate a mood into a number or second-guess the score"</span><span data-lang="ru">«Когда день у ребёнка закончился и я отмечаю, как он прошёл, я хочу выбрать состояние одним касанием, чтобы не переводить настроение в баллы и не сомневаться в оценке»</span></p>
         </div>
       </div>
       <p>
-        <span data-lang="en">On the group detail page, every child sits in a row with a one-tap mood
-        toggle — three custom icons for happy, neutral, and sad. Aggregating
-        these gives the group's rating without the educator ever entering a
-        digit.</span><span data-lang="ru">На странице группы оценка состояния встроена прямо в список детей. Для каждого ребёнка доступны три состояния, которые выбираются одним касанием.
-        Воспитателю не нужно вводить оценки вручную — интерфейс автоматически
-        агрегирует данные и формирует рейтинг группы.</span>
+        <span data-lang="en">On the group page, the day's outcome is built into the child list: three options per child, each one tap away. It can be marked on the group page and in the child's card.</span><span data-lang="ru">На странице группы итог дня встроен прямо в список детей: для каждого ребёнка доступны три варианта, которые можно выбрать одним касанием. Отметить можно на странице группы и в карточке ребёнка.</span>
       </p>
+
       <p>
-        <span data-lang="en">Schedule and homework live in the same screen, on purpose: the educator
-        records mood right after the activity that produced it.</span><span data-lang="ru">Расписание и оценка состояния объединены в одном экране. Это позволяет
-        фиксировать наблюдения в контексте конкретного занятия и не заставляет
-        пользователя переключаться между разными разделами приложения.</span>
+        <span data-lang="en">Schedule and the day's outcome share one screen, so the educator can record how the day went in the context of the activity itself. No separate section to open, no grades to type: the data is collected automatically and forms the group's rating.</span><span data-lang="ru">Расписание и итог дня объединены на одном экране, поэтому воспитатель может зафиксировать, как прошёл день, прямо в контексте занятия. Не нужно переходить в отдельный раздел или вводить оценки вручную: данные автоматически собираются и формируют рейтинг группы.</span>
       </p>
 
-      <div class="mood-demo" role="figure" aria-label="Mood tap interaction">
-        <div class="col">
-          <div class="col-label"><span data-lang="en">Before tap</span><span data-lang="ru">До тапа</span></div>
-          <div class="moods">
-            <span class="mood" aria-label="Sad"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 10v.5M16 10v.5M8 16c1.5-2 6.5-2 8 0"/></svg></span>
-            <span class="mood" aria-label="Neutral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 10v.5M16 10v.5M8 15h8"/></svg></span>
-            <span class="mood" aria-label="Happy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 10v.5M16 10v.5M8 14c1.5 2 6.5 2 8 0"/></svg></span>
-          </div>
-        </div>
-        <div class="tap" aria-hidden="true">
-          <span class="finger">👆</span>
-          <span><span data-lang="en">tap</span><span data-lang="ru">тап</span></span>
-        </div>
-        <div class="col">
-          <div class="col-label"><span data-lang="en">After tap</span><span data-lang="ru">После тапа</span></div>
-          <div class="moods">
-            <span class="mood" aria-label="Sad"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 10v.5M16 10v.5M8 16c1.5-2 6.5-2 8 0"/></svg></span>
-            <span class="mood" aria-label="Neutral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 10v.5M16 10v.5M8 15h8"/></svg></span>
-            <span class="mood picked good" aria-label="Happy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 10v.5M16 10v.5M8 14c1.5 2 6.5 2 8 0"/></svg></span>
-          </div>
-        </div>
-      </div>
-
-      <div class="screens-row">
+      <div class="screens-row one-row">
         <div class="screen-frame">
-          <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/group-collapsed.png" alt="Group detail — collapsed (375×812)">
-          <div class="screen-caption"><span data-lang="en"><b>Group detail.</b> Mood tap-target lives next to the child name — gray until tapped, color when set.</span><span data-lang="ru"><b>Детали группы.</b> Область тапа по настроению стоит рядом с именем ребёнка — серая до тапа, цветная после.</span></div>
+          <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/group-mood-not-set.png" alt="Dinos list — mood not set (375×812)">
+          <div class="screen-caption"><span data-lang="en"><b>Not set.</b> The smiley in the child’s row stays gray until the day is marked</span><span data-lang="ru"><b>Не проставлено.</b> Смайлик в строке ребёнка серый, пока день не отмечен</span></div>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">→</div>
+        <div class="screen-frame">
+          <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/group-mood-popup.png" alt="Dinos list — mood picker open (375×812)">
+          <div class="screen-caption"><span data-lang="en"><b>Tap.</b> Three options open above the row, anchored to the smiley itself</span><span data-lang="ru"><b>Тап.</b> Над строкой открываются три варианта, попап привязан к самому смайлику</span></div>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">→</div>
+        <div class="screen-frame">
+          <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/group-mood-set.png" alt="Dinos list — mood set (375×812)">
+          <div class="screen-caption"><span data-lang="en"><b>Set.</b> Picking one closes the popover at once — no confirm step</span><span data-lang="ru"><b>Проставлено.</b> Выбор сразу закрывает попап — без шага подтверждения</span></div>
         </div>
       </div>
+
     </div>
 
     <!-- ===== Scenario 3: Reading parent message ===== -->
@@ -1854,33 +1927,34 @@
         <div class="scenario-num">3</div>
         <div>
           <h3 style="margin-top: 0;"><span data-lang="en">Reading a message from a parent</span><span data-lang="ru">Чтение сообщения от родителя</span></h3>
-          <p class="jtbd"><span data-lang="en">"When a parent writes that their dinosaur is sick, I want to read, reply, and mark them absent — in under a minute."</span><span data-lang="ru">«Когда родитель пишет, что его динозаврик заболел, я хочу прочитать, ответить и отметить отсутствие — меньше чем за минуту».</span></p>
+          <p class="hyp-ref"><a href="#hypotheses"><span data-lang="en">H3 · A route from the chat to the card beats searching</span><span data-lang="ru">H3 · Переход из чата в карточку быстрее поиска</span></a></p>
+          <p class="jtbd"><span data-lang="en">"When a parent messages me that their child is sick and won't come in, I want to read the message, reply, and get to that child's card right away, so I don't forget and can keep working with the other children"</span><span data-lang="ru">«Когда родитель пишет мне, что его ребёнок заболел и не придёт, я хочу прочитать сообщение, ответить и сразу перейти в его карточку, чтобы не забыть и продолжить работать с остальными детьми»</span></p>
         </div>
       </div>
       <p>
-        <span data-lang="en">Messages live in their own tab, but every conversation is one tap from
-        the child it's about. The parent's avatar in the chat header is a
-        shortcut into the child's card — so the educator can mark absence
-        without backtracking to search.</span><span data-lang="ru">Чаты находятся в отдельной вкладке, чтобы не перегружать основной интерфейс,
-        но остаются тесно связаны с карточками детей. Аватар родителя в шапке
-        диалога служит быстрым переходом в профиль ребёнка, поэтому воспитателю не нужно заново искать его в списке, если во время переписки требуется обновить
-        данные.</span>
+        <span data-lang="en">Messages live in their own tab so they do not crowd the main interface. Even so,
+        a conversation leads straight to what is needed: the avatar in the chat header
+        opens the parent's card, where their children are listed, and from there the
+        right child's card.</span><span data-lang="ru">Чаты находятся в отдельной вкладке, чтобы не перегружать основной интерфейс.
+        При этом из переписки можно сразу перейти к нужной информации: аватар
+        в шапке диалога открывает карточку родителя, где перечислены его дети,
+        а оттуда — карточку нужного ребёнка.</span>
       </p>
 
       <div class="screens-row">
         <div class="screen-frame">
           <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/messages-main.png" alt="Messages inbox (375×812)">
-          <div class="screen-caption"><span data-lang="en"><b>Inbox.</b> Parent threads stacked by recency, unread first.</span><span data-lang="ru"><b>Входящие.</b> Чаты с родителями по свежести, непрочитанные сверху.</span></div>
+          <div class="screen-caption"><span data-lang="en"><b>Inbox.</b> Parent chats, unread on top</span><span data-lang="ru"><b>Входящие.</b> Чаты с родителями, непрочитанные сверху</span></div>
         </div>
         <div class="flow-arrow" aria-hidden="true">→</div>
         <div class="screen-frame">
           <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/message-chat.png" alt="Chat with parent (375×812)">
-          <div class="screen-caption"><span data-lang="en"><b>Chat with parent.</b> Header avatar opens the child card to mark absence in one tap.</span><span data-lang="ru"><b>Чат с родителем.</b> Аватар в шапке открывает карточку ребёнка, чтобы отметить отсутствие в один тап.</span></div>
+          <div class="screen-caption"><span data-lang="en"><b>Chat with parent.</b> The avatar opens their card</span><span data-lang="ru"><b>Чат с родителем.</b> Аватар открывает его карточку</span></div>
         </div>
         <div class="flow-arrow" aria-hidden="true">→</div>
         <div class="screen-frame">
           <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/parent-messenger-card.png" alt="Parent messenger card (375×812)">
-          <div class="screen-caption"><span data-lang="en"><b>Thread preview.</b> Latest exchange surfaced, with a shortcut into the child's card.</span><span data-lang="ru"><b>Превью переписки.</b> Последний обмен сообщениями на виду, с ярлыком в карточку ребёнка.</span></div>
+          <div class="screen-caption"><span data-lang="en"><b>Parent card:</b> contacts, notes and the list of children, each opening their own card</span><span data-lang="ru"><b>Карточка родителя:</b> контакты, заметки и список детей с переходом в карточку ребёнка</span></div>
         </div>
       </div>
     </div>
@@ -1891,25 +1965,29 @@
         <div class="scenario-num">4</div>
         <div>
           <h3 style="margin-top: 0;"><span data-lang="en">Announcement to every parent in the group</span><span data-lang="ru">Объявление всем родителям группы</span></h3>
-          <p class="jtbd"><span data-lang="en">"When I have one thing to tell every family, I want to say it once."</span><span data-lang="ru">«Когда мне нужно сказать одно и то же каждой семье, я хочу сказать это один раз».</span></p>
+          <p class="hyp-ref"><a href="#hypotheses"><span data-lang="en">H4 · One group-wide announcement beats N parent DMs</span><span data-lang="ru">H4 · Одно объявление удобнее личных сообщений</span></a></p>
+          <p class="jtbd"><span data-lang="en">"When I need to tell every parent in the group the same thing, I want to write it once, so I do not repeat the message in every chat"</span><span data-lang="ru">«Когда мне нужно сообщить одно и то же всем родителям группы, я хочу написать это один раз, чтобы не повторять сообщение в каждом чате»</span></p>
         </div>
       </div>
       <p>
         <span data-lang="en">From the group detail screen, the primary blue CTA ("Make announcement")
-        opens a single composer that broadcasts to every parent in that group.</span><span data-lang="ru">Создание объявлений начинается прямо со страницы группы. Вместо отправки
+        opens a single composer that broadcasts to every parent in that group. Parents
+        know the format from school group chats, so there is no new way of talking to
+        pick up.</span><span data-lang="ru">Создание объявлений начинается прямо со страницы группы. Вместо отправки
         отдельных сообщений воспитатель открывает единый редактор и одним действием
-        рассылает информацию всем родителям выбранной группы.</span>
+        рассылает информацию всем родителям выбранной группы. Формат знаком родителям
+        по школьным групповым чатам, поэтому им не нужно осваивать новый способ общения.</span>
       </p>
 
       <div class="screens-row">
         <div class="screen-frame">
           <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/group-collapsed.png" alt="Group detail with announcement CTA (375×812)">
-          <div class="screen-caption"><span data-lang="en"><b>Entry point.</b> The announcement CTA is the brightest object on the screen, on purpose.</span><span data-lang="ru"><b>Точка входа.</b> Кнопка объявления — самый яркий объект на экране, и это намеренно.</span></div>
+          <div class="screen-caption"><span data-lang="en"><b>Entry point.</b> The announcement CTA is the brightest object on the screen, on purpose</span><span data-lang="ru"><b>Точка входа.</b> Кнопка объявления — самый яркий объект на экране, и это намеренно</span></div>
         </div>
         <div class="flow-arrow" aria-hidden="true">→</div>
         <div class="screen-frame">
           <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/new-announcement.png" alt="New announcement composer (375×812)">
-          <div class="screen-caption"><span data-lang="en"><b>Announcement composer.</b> Recipient count is visible on the send button so nothing's sent blind.</span><span data-lang="ru"><b>Редактор объявления.</b> Число получателей видно на кнопке отправки, чтобы ничего не уходило вслепую.</span></div>
+          <div class="screen-caption"><span data-lang="en"><b>Announcement composer.</b> Pick a group and send the message to every parent</span><span data-lang="ru"><b>Редактор объявления.</b> Выбираем группу и отправляем сообщение всем родителям</span></div>
         </div>
       </div>
     </div>
@@ -1920,62 +1998,65 @@
         <div class="scenario-num">5</div>
         <div>
           <h3 style="margin-top: 0;"><span data-lang="en">Setting today's homework</span><span data-lang="ru">Назначение домашнего задания на сегодня</span></h3>
-          <p class="jtbd"><span data-lang="en">"When I assign homework, I want to send it to the whole group at once — but be able to add something individual if a dinosaur needs it."</span><span data-lang="ru">«Когда я задаю домашнее задание, я хочу отправить его сразу всей группе — но иметь возможность добавить что-то индивидуальное, если динозаврику это нужно».</span></p>
+          <p class="hyp-ref"><a href="#hypotheses"><span data-lang="en">H5 · Homework belongs on the group page</span><span data-lang="ru">H5 · Домашнее задание — на странице группы</span></a></p>
+          <p class="jtbd"><span data-lang="en">"When I set homework, I want to assign it to the whole group in one go, so I don't create it separately for each child"</span><span data-lang="ru">«Когда я задаю домашнее задание, я хочу назначить его всей группе за один раз, чтобы не создавать его отдельно для каждого ребёнка»</span></p>
         </div>
       </div>
       <p>
-        <span data-lang="en">Homework is a section on the group detail page — not a sub-menu — so it
-        is logged at the speed of thought. The educator types one line, picks
-        recipients (all or one), and saves. Individual variants are added by
-        jumping into a specific child's card.</span><span data-lang="ru">Домашние задания доступны прямо на странице группы, поэтому воспитателю не нужно переходить в отдельный раздел. Достаточно ввести текст, выбрать
-        получателей — всю группу или одного ребёнка — и сохранить запись.
-        Индивидуальные задания создаются из карточки ребёнка, где сосредоточены все
-        персональные действия.</span>
+        <span data-lang="en">Homework is a section on the group page, so the educator never leaves for a
+        separate area. Type a title and the task, attach a photo, a file or a voice
+        message if needed, set a due date — and send it to the whole group.</span><span data-lang="ru">Домашние задания доступны прямо на странице группы, поэтому воспитателю не нужно
+        переходить в отдельный раздел. Достаточно ввести заголовок и текст, при необходимости
+        приложить фото, файл или голосовое сообщение, указать срок — и отправить задание
+        всей группе.</span>
       </p>
 
       <div class="screens-row">
         <div class="screen-frame">
           <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/group-hw.png" alt="Group detail — homework section (375×812)">
-          <div class="screen-caption"><span data-lang="en"><b>Group detail.</b> Homework lives as a section on the group page — no sub-menu.</span><span data-lang="ru"><b>Детали группы.</b> Домашнее задание — раздел на странице группы, без подменю.</span></div>
+          <div class="screen-caption"><span data-lang="en"><b>Group detail.</b> Homework lives as a section on the group page — no sub-menu</span><span data-lang="ru"><b>Детали группы.</b> Домашнее задание — раздел на странице группы, без подменю</span></div>
         </div>
         <div class="flow-arrow" aria-hidden="true">→</div>
         <div class="screen-frame">
           <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/homework.png" alt="Homework composer (375×812)">
-          <div class="screen-caption"><span data-lang="en"><b>Homework composer.</b> Same recipient toggle as the announcement modal — pattern consistency.</span><span data-lang="ru"><b>Редактор домашнего задания.</b> Тот же переключатель получателей, что и в модалке объявления, — единообразие паттерна.</span></div>
+          <div class="screen-caption"><span data-lang="en"><b>Homework composer.</b> The task goes to the whole group at once</span><span data-lang="ru"><b>Редактор домашнего задания.</b> Задание отправляется всей группе сразу</span></div>
         </div>
       </div>
     </div>
 
-    <!-- ===== Scenario 6: Favorites + calendar ===== -->
+    <!-- ===== Scenario 6: Working across multiple groups ===== -->
     <div class="scenario" id="s6">
       <div class="scenario-header">
         <div class="scenario-num">6</div>
         <div>
           <h3 style="margin-top: 0;"><span data-lang="en">Working across multiple groups</span><span data-lang="ru">Работа сразу с несколькими группами</span></h3>
-          <p class="jtbd"><span data-lang="en">"When I run several groups, I want to keep them in front of me — and see whose day is when."</span><span data-lang="ru">«Когда я веду несколько групп, я хочу держать их перед глазами — и видеть, у кого когда день».</span></p>
+          <p class="hyp-ref"><a href="#hypotheses"><span data-lang="en">H6 · Today's sessions come first</span><span data-lang="ru">H6 · Сегодняшние занятия — в приоритете</span></a></p>
+          <p class="jtbd"><span data-lang="en">"When I run several groups, I want to see what I have today straight away, so I don't open each group and hunt for its schedule"</span><span data-lang="ru">«Когда я веду сразу несколько групп, я хочу сразу видеть, что у меня сегодня, чтобы не открывать каждую группу и не искать её расписание»</span></p>
         </div>
       </div>
       <p>
-        <span data-lang="en">A heart on every group card marks the educator's favorites; the home
-        screen has a "My" filter that hides everyone else. The calendar tab
-        renders the same color-coding as the group cards — so an educator can
-        spot "Yellow is in the morning, Blue is after lunch" without reading
-        text.</span><span data-lang="ru">Воспитатель может добавить часто используемые группы в избранное с помощью
-        сердечка на карточке. На главном экране для них предусмотрен отдельный
-        фильтр «Мои», который позволяет быстро переключиться к нужным группам и не отвлекаться на остальные. В календаре используется то же цветовое
-        кодирование, что и в карточках групп. Благодаря этому воспитатель узнаёт
-        группу по цвету и быстрее ориентируется в расписании, не считывая название
-        каждый раз.</span>
+        <span data-lang="en">Groups with a session today sit at the top of the home screen in a separate
+        Today block — with the time, and no searching. The calendar shows the month's
+        schedule: every group has its own colour, and the selected day's events appear
+        as a separate list. That way every group's schedule can be read in one place.</span><span data-lang="ru">Группы, у которых сегодня есть занятия, вынесены наверх главного экрана
+        в отдельный блок «Сегодня» — со временем занятия, без поиска. Календарь
+        показывает расписание на месяц: у каждой группы свой цвет, а события
+        выбранного дня отображаются отдельным списком. Так расписание всех групп
+        можно посмотреть в одном месте.</span>
+      </p>
+
+      <p>
+        <span data-lang="en">Frequently used groups are added to Favourites with the heart on the card, and the home screen can be switched between all groups and My.</span><span data-lang="ru">Частые группы воспитатель добавляет в избранное сердечком на карточке, а главный экран можно переключить между всеми группами и только моими.</span>
       </p>
 
       <div class="screens-row">
         <div class="screen-frame">
           <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/main-collapsed.png" alt="Main screen — My groups filter (375×812)">
-          <div class="screen-caption"><span data-lang="en"><b>"My" filter.</b> Same home, only favorited groups.</span><span data-lang="ru"><b>Фильтр «Мои».</b> Та же главная, только избранные группы.</span></div>
+          <div class="screen-caption"><span data-lang="en"><b>Home.</b> The Today block on top, all groups below, with a switch to My</span><span data-lang="ru"><b>Главная.</b> Блок «Сегодня» наверху, ниже — все группы с переключателем на мои</span></div>
         </div>
         <div class="screen-frame">
           <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/calendar.png" alt="Calendar tab (375×812)">
-          <div class="screen-caption"><span data-lang="en"><b>Calendar.</b> Same color-coding as the home screen, carried into the month view.</span><span data-lang="ru"><b>Календарь.</b> То же цветовое кодирование, что и на главной, перенесённое в вид месяца.</span></div>
+          <div class="screen-caption"><span data-lang="en"><b>Calendar.</b> Same color-coding, and the day's events as a separate list</span><span data-lang="ru"><b>Календарь.</b> То же цветовое кодирование и события отдельным списком</span></div>
         </div>
       </div>
     </div>
@@ -2006,19 +2087,19 @@
     <div class="screens-row one-row">
       <div class="screen-frame">
         <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/main-collapsed.png" alt="Main screen (375×812)">
-        <div class="screen-caption"><span data-lang="en"><b>Home.</b> Today's schedule plus every group, color-keyed.</span><span data-lang="ru"><b>Главная.</b> Расписание на сегодня и все группы с цветовым кодом.</span></div>
+        <div class="screen-caption"><span data-lang="en"><b>Home.</b> Today's schedule plus every group, color-keyed</span><span data-lang="ru"><b>Главная.</b> Расписание на сегодня и все группы с цветовым кодом</span></div>
       </div>
       <div class="screen-frame">
         <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/group-collapsed.png" alt="Group detail (375×812)">
-        <div class="screen-caption"><span data-lang="en"><b>Group detail.</b> Schedule, child list, mood, homework, announcement CTA.</span><span data-lang="ru"><b>Детали группы.</b> Расписание, список детей, настроение, домашние задания, кнопка объявления.</span></div>
+        <div class="screen-caption"><span data-lang="en"><b>Group detail.</b> Schedule, child list, mood, homework, announcement CTA</span><span data-lang="ru"><b>Детали группы.</b> Расписание, список детей, настроение, домашние задания, кнопка объявления</span></div>
       </div>
       <div class="screen-frame">
         <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/kid-card-collapsed.png" alt="Kid card (375×812)">
-        <div class="screen-caption"><span data-lang="en"><b>Kid card.</b> Allergy, today's mood, notes, message-parent CTA.</span><span data-lang="ru"><b>Карточка ребёнка.</b> Аллергия, сегодняшнее настроение, заметки, кнопка сообщения родителю.</span></div>
+        <div class="screen-caption"><span data-lang="en"><b>Kid card.</b> Allergy, today's mood, notes, message-parent CTA</span><span data-lang="ru"><b>Карточка ребёнка.</b> Аллергия, сегодняшнее настроение, заметки, кнопка сообщения родителю</span></div>
       </div>
       <div class="screen-frame">
         <img loading="lazy" decoding="async" class="new-screen" src="assets/screens/new/calendar.png" alt="Calendar tab (375×812)">
-        <div class="screen-caption"><span data-lang="en"><b>Calendar.</b> Same color-coding carried into the month view.</span><span data-lang="ru"><b>Календарь.</b> То же цветовое кодирование, перенесённое в вид месяца.</span></div>
+        <div class="screen-caption"><span data-lang="en"><b>Calendar.</b> Same color-coding</span><span data-lang="ru"><b>Календарь.</b> То же цветовое кодирование</span></div>
       </div>
     </div>
   </section>
@@ -2028,27 +2109,22 @@
     <span class="section-num"><span class="check">✓</span> 07 · <span data-lang="en">Summary</span><span data-lang="ru">Итоги</span></span>
     <h2><span data-lang="en">What landed</span><span data-lang="ru">Что получилось</span></h2>
 
+    <h3><span data-lang="en">Usability testing (n = 6)</span><span data-lang="ru">Юзабилити-тестирование (n = 6)</span></h3>
     <p>
-      <span data-lang="en">The concept was presented as an end-to-end walk-through: research
-      findings, user flows, hypotheses, and the visual language. The mascot and
-      the color-coded group system landed first — they reframe the product as
-      something a kindergarten <i>actually wants on its wall</i>, not a school
-      CRM. The mood-icon decision was the loudest conversation: choosing a
-      three-state picture over a number is a defendable simplification, but it
-      requires the educator and the parent to share a shorthand. That shared
-      shorthand is what the rest of the product is engineered to teach.</span><span data-lang="ru">Из 6 проверяемых гипотез большинство достигли заранее определённого порога
-      успешности (75%). Наиболее устойчивыми оказались гипотезы о цветовом
-      кодировании групп, навигации через карточки и связи между сообщениями и профилем ребёнка. Гипотеза о замене числовых оценок визуальными индикаторами
-      подтвердилась частично: участники понимали общий смысл состояний, однако их
-      интерпретация требовала дополнительных пояснений.</span>
+      <span data-lang="en">I tested six hypotheses together with kindergarten educators and schoolteachers. The threshold was set in advance — 75% of positive answers, which on a sample this size means five voices out of six.</span><span data-lang="ru">Я проверила шесть гипотез вместе с воспитателями детских садов и учителями. Порог подтверждения был задан заранее — 75 % положительных ответов; на такой выборке это пять голосов из шести.</span>
     </p>
+    <ul>
+      <li><span data-lang="en">Most of the hypotheses held.</span><span data-lang="ru">Большинство гипотез подтвердились.</span></li>
+      <li><span data-lang="en">The steadiest were colour-coded groups, reaching a child through their group, and the link between a message and a card.</span><span data-lang="ru">Устойчивее всего — цветовое кодирование групп, переход к ребёнку через группу и связь сообщения с карточкой.</span></li>
+      <li><span data-lang="en">Replacing numeric grades with smileys held only in part: participants understood the general sense of the three states, but reading them called for explanation.</span><span data-lang="ru">Замена числовых оценок смайликами подтвердилась частично: общий смысл трёх состояний участники понимали, но для их интерпретации требовались пояснения.</span></li>
+    </ul>
     <p>
       <span data-lang="en">Every surface — Home, Group detail, Kid card, parent chat, calendar,
-      announcement and homework composers — was carried through to a polished,
-      production-ready state in the same visual language. The case is
-      design-complete; validating it with real educators is the next step.</span><span data-lang="ru">Каждый экран — Главная, Детали группы, Карточка ребёнка, чат с родителем,
-      календарь, редакторы объявлений и домашних заданий — доведён до отполированного,
-      готового к продакшену состояния в едином визуальном языке. Кейс завершён по дизайну; следующий шаг — проверка на реальных воспитателях.</span>
+      announcement and homework composers — is built in one visual language and
+      finished to the point where the concept can be shown and discussed.</span><span data-lang="ru">Все экраны — Главная, Детали группы, Карточка ребёнка, чат с родителем,
+      календарь, редакторы объявлений и домашних заданий — собраны в едином визуальном
+      языке и доведены до состояния, в котором концепцию можно показывать и обсуждать.
+     </span>
     </p>
   </section>
 
@@ -2058,8 +2134,8 @@
     <h2><span data-lang="en">What I'd do with another week or two</span><span data-lang="ru">Что дальше</span></h2>
 
     <ul>
-      <li><span data-lang="en"><b>Finalize the invented surfaces</b> — push the child card, parent chat, announcement composer, homework form, and calendar tab from concept-mockup to production-ready.</span><span data-lang="ru"><b>Доработать оставшиеся сценарии</b> — завершить проектирование карточки ребёнка, чата с родителем, редактора объявлений, домашних заданий и календаря до уровня, достаточного для передачи в разработку.</span></li>
-      <li><span data-lang="en"><b>Parent-side companion</b> — a read-only mobile app for parents to see today's mood, homework, and chat — leveraging the same visual system so it feels like one product.</span><span data-lang="ru"><b>Приложение для родителей</b> — спроектировать отдельное мобильное приложение с доступом к дневнику ребёнка, домашним заданиям и сообщениям, сохранив единый визуальный язык.</span></li>
+      <li><span data-lang="en"><b>Take the screens to handoff</b> — error and empty states, behaviour on long content, and a spec for the child card, parent chat, announcement and homework composers, and the calendar tab.</span><span data-lang="ru"><b>Довести экраны до передачи в разработку</b> — состояния ошибок и пустые экраны, поведение на длинных данных и спецификация для карточки ребёнка, чата с родителем, редакторов объявлений и домашних заданий и календаря.</span></li>
+      <li><span data-lang="en"><b>Parent-side companion</b> — a read-only companion app for parents to see today's mood, homework, and chat, in the same visual system so it feels like one product. That is also where to check whether a parent reads the three mood states without any explanation.</span><span data-lang="ru"><b>Приложение для родителей</b> — спроектировать отдельное приложение для родителей с доступом к дневнику ребёнка, домашним заданиям и сообщениям, сохранив единый визуальный язык. Там же проверить, читает ли родитель три состояния настроения без пояснений.</span></li>
       <li><span data-lang="en"><b>Administrator role</b> — a kindergarten-director surface for cross-group well-being trends and birthday calendars across all groups.</span><span data-lang="ru"><b>Роль администратора</b> — разработать отдельный интерфейс для заведующей со сводной аналитикой по группам, рейтингами и календарём важных событий.</span></li>
       <li><span data-lang="en"><b>Lightweight Telegram-bot fallback</b> — for educators in kindergartens with patchy device access, surface the same daily mood capture as a bot conversation.</span><span data-lang="ru"><b>Telegram-бот</b> — проверить сценарий ежедневной работы воспитателя через Telegram-бота для детских садов с ограниченным доступом к устройствам.</span></li>
       <li><span data-lang="en"><b>Accessibility audit</b> — verify the color-coding works for color-blind users (add a small icon or pattern overlay per group so color isn't the only signal).</span><span data-lang="ru"><b>Доступность</b> — провести аудит доступности и дополнить цветовое кодирование дополнительными визуальными маркерами, чтобы цвет не был единственным способом различать группы.</span></li>
@@ -2079,8 +2155,8 @@
           six end-to-end flows: quick child lookup, day grading, reading a
           parent message, group announcement, homework, and favorites &amp;
           calendar. The nodes are color-coded by type so the path can be read
-          as start state, screen, decision, side scenario, and error path.</span><span data-lang="ru">Ниже — рабочая доска с user flow, которая легла в основу проектирования
-          ключевых сценариев приложения. Она охватывает поиск ребёнка, оценку дня,
+          as start state, screen, decision, side scenario, and error path.</span><span data-lang="ru">Ниже — рабочая доска с user flow, которая легла в основу проектирования
+          ключевых сценариев приложения. Она охватывает поиск ребёнка, итог дня,
           работу с сообщениями, объявлениями, домашними заданиями, избранным и календарём.</span>
         </p>
         <img loading="lazy" decoding="async" src="assets/board/user-flow.png" alt="Full user flow diagram" style="border-radius: var(--r-md); border: 1px solid var(--line); background: white;" />
@@ -2104,7 +2180,7 @@
 
 <footer class="footer">
   <span><span data-lang="en">© Elena Meshnina</span><span data-lang="ru">© Елена Мешнина</span></span>
-  <span><span data-lang="en">UI / UX &amp; Product Designer</span><span data-lang="ru">UI / UX и продуктовый дизайнер</span></span>
+  <span><span data-lang="en">UI / UX &amp; Product Designer</span><span data-lang="ru">Продуктовый дизайнер</span></span>
 </footer>
 
 <script src="../../script.js"></script>
