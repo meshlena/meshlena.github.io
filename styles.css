@@ -2126,3 +2126,74 @@ body.lightbox-open { overflow: hidden; }
   .works-item:focus-visible .works-item__title,
   .works-item.is-active .works-item__title { transform: none; }
 }
+
+/* Full-bleed screenshots (Atlas): inset from the card edges, like the
+   tracker cover which has its padding baked into the image */
+.work-card__media--inset,
+.works-preview__slide--inset {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.work-card__media--inset { padding: clamp(14px, 1.8vw, 24px); }
+.works-preview__slide--inset { padding: clamp(14px, 1.6vw, 22px); }
+.work-card__media--inset img,
+.works-preview__slide--inset > img,
+.works-item__media--inset img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 18px 40px rgba(0,0,0,0.35);
+}
+body.is-light .work-card__media--inset img,
+body.is-light .works-preview__slide--inset > img,
+body.is-light .works-item__media--inset img {
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.06), 0 16px 36px rgba(0,0,0,0.16);
+}
+@media (max-width: 960px) {
+  .works-item__media--inset {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px;
+  }
+  .works-item__media--inset img { border-radius: 8px; }
+}
+
+/* Hero carousel: platform and domain as separate chips */
+.work-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Case hero: one chip per tag, like Dinogarten */
+.case__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Portfolio preview: wider pane so landscape screens read larger */
+.works-index {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(32px, 4vw, 64px);
+}
+/* Tracker cover has wide transparent margins baked in — scale it up a bit */
+.works-preview__slide[data-slide="tracker"] > img { transform: scale(1.05); }
+.works-preview__hero-art {
+  align-items: center;
+  padding: clamp(16px, 1.8vw, 28px);
+  gap: clamp(12px, 1.6vw, 24px);
+}
+.works-preview__hero-art img {
+  max-width: 47%;
+  max-height: 100%;
+}
+@media (max-width: 960px) {
+  .works-index { grid-template-columns: 1fr; }
+}
